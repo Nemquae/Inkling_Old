@@ -4,6 +4,7 @@
 
 [Bb]uild/
 [Oo]bj/
+*.VC.db
 *.o
 [Dd]ebug*/
 [Rr]elease*/
