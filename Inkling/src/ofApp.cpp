@@ -22,7 +22,7 @@ void ofApp::setup(){
 
 	flowToolsLogoImage.load("inkling.png");
 	fluidSimulation.addObstacle(flowToolsLogoImage.getTexture());
-	showLogo = true;
+	showLogo = false;
 
 	velocityDots.setup(flowWidth / 4, flowHeight / 4);
 
@@ -273,7 +273,7 @@ void ofApp::draw() {
 
 
 	if (!toggleGuiDraw) {
-		ofHideCursor();
+		//ofHideCursor();
 		drawComposite();
 	}
 	else {
