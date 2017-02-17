@@ -95,17 +95,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;
-..\..\..\addons\ofxFlowTools\src;
-..\..\..\addons\ofxFlowTools\src\drawforces;
-..\..\..\addons\ofxFlowTools\src\filters;
-..\..\..\addons\ofxFlowTools\src\fluid;
-..\..\..\addons\ofxFlowTools\src\mask;
-..\..\..\addons\ofxFlowTools\src\opticalflow;
-..\..\..\addons\ofxFlowTools\src\particles;
-..\..\..\addons\ofxFlowTools\src\splitvelocity;
-..\..\..\addons\ofxFlowTools\src\tools;
-..\..\..\addons\ofxFlowTools\src\visualisation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxFlowTools\src;..\..\..\addons\ofxFlowTools\src\drawforces;..\..\..\addons\ofxFlowTools\src\filters;..\..\..\addons\ofxFlowTools\src\fluid;..\..\..\addons\ofxFlowTools\src\mask;..\..\..\addons\ofxFlowTools\src\opticalflow;..\..\..\addons\ofxFlowTools\src\particles;..\..\..\addons\ofxFlowTools\src\splitvelocity;..\..\..\addons\ofxFlowTools\src\tools;..\..\..\addons\ofxFlowTools\src\visualisation;..\..\..\addons\ofxInkSim\src;..\..\..\addons\ofxInkSim\src\brush;..\..\..\addons\ofxInkSim\src\shader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -125,17 +115,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;
-..\..\..\addons\ofxFlowTools\src;
-..\..\..\addons\ofxFlowTools\src\drawforces;
-..\..\..\addons\ofxFlowTools\src\filters;
-..\..\..\addons\ofxFlowTools\src\fluid;
-..\..\..\addons\ofxFlowTools\src\mask;
-..\..\..\addons\ofxFlowTools\src\opticalflow;
-..\..\..\addons\ofxFlowTools\src\particles;
-..\..\..\addons\ofxFlowTools\src\splitvelocity;
-..\..\..\addons\ofxFlowTools\src\tools;
-..\..\..\addons\ofxFlowTools\src\visualisation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxFlowTools\src;..\..\..\addons\ofxFlowTools\src\drawforces;..\..\..\addons\ofxFlowTools\src\filters;..\..\..\addons\ofxFlowTools\src\fluid;..\..\..\addons\ofxFlowTools\src\mask;..\..\..\addons\ofxFlowTools\src\opticalflow;..\..\..\addons\ofxFlowTools\src\particles;..\..\..\addons\ofxFlowTools\src\splitvelocity;..\..\..\addons\ofxFlowTools\src\tools;..\..\..\addons\ofxFlowTools\src\visualisation;..\..\..\addons\ofxInkSim\src;..\..\..\addons\ofxInkSim\src\brush;..\..\..\addons\ofxInkSim\src\shader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -155,17 +135,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;
-..\..\..\addons\ofxFlowTools\src;
-..\..\..\addons\ofxFlowTools\src\drawforces;
-..\..\..\addons\ofxFlowTools\src\filters;
-..\..\..\addons\ofxFlowTools\src\fluid;
-..\..\..\addons\ofxFlowTools\src\mask;
-..\..\..\addons\ofxFlowTools\src\opticalflow;
-..\..\..\addons\ofxFlowTools\src\particles;
-..\..\..\addons\ofxFlowTools\src\splitvelocity;
-..\..\..\addons\ofxFlowTools\src\tools;
-..\..\..\addons\ofxFlowTools\src\visualisation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxFlowTools\src;..\..\..\addons\ofxFlowTools\src\drawforces;..\..\..\addons\ofxFlowTools\src\filters;..\..\..\addons\ofxFlowTools\src\fluid;..\..\..\addons\ofxFlowTools\src\mask;..\..\..\addons\ofxFlowTools\src\opticalflow;..\..\..\addons\ofxFlowTools\src\particles;..\..\..\addons\ofxFlowTools\src\splitvelocity;..\..\..\addons\ofxFlowTools\src\tools;..\..\..\addons\ofxFlowTools\src\visualisation;..\..\..\addons\ofxInkSim\src;..\..\..\addons\ofxInkSim\src\brush;..\..\..\addons\ofxInkSim\src\shader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -188,17 +158,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;
-..\..\..\addons\ofxFlowTools\src;
-..\..\..\addons\ofxFlowTools\src\drawforces;
-..\..\..\addons\ofxFlowTools\src\filters;
-..\..\..\addons\ofxFlowTools\src\fluid;
-..\..\..\addons\ofxFlowTools\src\mask;
-..\..\..\addons\ofxFlowTools\src\opticalflow;
-..\..\..\addons\ofxFlowTools\src\particles;
-..\..\..\addons\ofxFlowTools\src\splitvelocity;
-..\..\..\addons\ofxFlowTools\src\tools;
-..\..\..\addons\ofxFlowTools\src\visualisation;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxFlowTools\src;..\..\..\addons\ofxFlowTools\src\drawforces;..\..\..\addons\ofxFlowTools\src\filters;..\..\..\addons\ofxFlowTools\src\fluid;..\..\..\addons\ofxFlowTools\src\mask;..\..\..\addons\ofxFlowTools\src\opticalflow;..\..\..\addons\ofxFlowTools\src\particles;..\..\..\addons\ofxFlowTools\src\splitvelocity;..\..\..\addons\ofxFlowTools\src\tools;..\..\..\addons\ofxFlowTools\src\visualisation;..\..\..\addons\ofxInkSim\src;..\..\..\addons\ofxInkSim\src\brush;..\..\..\addons\ofxInkSim\src\shader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -231,6 +191,10 @@
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSlider.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.cpp" />
     <ClCompile Include="..\..\..\addons\ofxGui\src\ofxToggle.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxInkSim\src\brush\BrashIF.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxInkSim\src\brush\SampleBrush.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxInkSim\src\FboPingPong.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxInkSim\src\ofxInkSim.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\ofApp.cpp" />
   </ItemGroup>
@@ -280,6 +244,8 @@
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\tools\ftDensityFloatMultiplier.h" />
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\tools\ftDensityVec2Multiplier.h" />
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\tools\ftEaseShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxFlowTools\src\tools\ftInvertColorShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxFlowTools\src\tools\ftMixForceShader.h" />
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\tools\ftNormalizationShader.h" />
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\tools\ftRedToLuminanceShader.h" />
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\tools\ftToScalar.h" />
@@ -305,6 +271,27 @@
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSlider.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxSliderGroup.h" />
     <ClInclude Include="..\..\..\addons\ofxGui\src\ofxToggle.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\brush\BrashIF.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\brush\SampleBrush.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\FboPingPong.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\ofxInkSim.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\AddPigmentShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\AddWaterShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\BlockShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\Collide1Shader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\Collide2Shader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\GapShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\GetVelDenShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\GetXYZShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\GetZShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\InkFlowShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\InkShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\InkSupplyShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\InkXAmtShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\InkXFrShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\InkXToShader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\Stream1Shader.h" />
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\Stream2Shader.h" />
     <ClInclude Include="src\ofApp.h" />
   </ItemGroup>
   <ItemGroup>

@@ -4,7 +4,6 @@
 
 [Bb]uild/
 [Oo]bj/
-*.VC.db
 *.o
 [Dd]ebug*/
 [Rr]elease*/
@@ -68,6 +67,8 @@ ipch/
 [Dd]ebug*/
 [Rr]elease*/
 Ankh.NoLoad
+*.VC.db
+*.VC.opendb
 
 #########################
 # PROJECT

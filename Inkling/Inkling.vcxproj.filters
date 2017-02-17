@@ -55,6 +55,18 @@
     <ClCompile Include="..\..\..\addons\ofxFlowTools\src\tools\ftAverageVelocity.cpp">
       <Filter>addons\ofxFlowTools\src\tools</Filter>
     </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxInkSim\src\brush\BrashIF.cpp">
+      <Filter>addons\ofxInkSim\src\brush</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxInkSim\src\brush\SampleBrush.cpp">
+      <Filter>addons\ofxInkSim\src\brush</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxInkSim\src\FboPingPong.cpp">
+      <Filter>addons\ofxInkSim\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxInkSim\src\ofxInkSim.cpp">
+      <Filter>addons\ofxInkSim\src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -101,6 +113,18 @@
     </Filter>
     <Filter Include="addons\ofxFlowTools\src\visualisation">
       <UniqueIdentifier>{2a7b955c-6b58-48ad-85b2-f168156b7e19}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxInkSim">
+      <UniqueIdentifier>{8e1513d3-2fdf-4808-a6e5-ead0a9d6f202}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxInkSim\src">
+      <UniqueIdentifier>{7b6352db-a5cb-4709-bddf-9ce96f5f6edb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxInkSim\src\brush">
+      <UniqueIdentifier>{9ca1839c-fc00-4ddd-895a-ff90b68b3a7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="addons\ofxInkSim\src\shader">
+      <UniqueIdentifier>{b4b33938-80da-41c7-a2d6-6908945a4417}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -316,6 +340,75 @@
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\visualisation\ftVTFieldShader.h">
       <Filter>addons\ofxFlowTools\src\visualisation</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\brush\BrashIF.h">
+      <Filter>addons\ofxInkSim\src\brush</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\brush\SampleBrush.h">
+      <Filter>addons\ofxInkSim\src\brush</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\AddPigmentShader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\AddWaterShader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\BlockShader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\Collide1Shader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\Collide2Shader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\GapShader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\GetVelDenShader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\GetXYZShader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\GetZShader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\InkFlowShader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\InkShader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\InkSupplyShader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\InkXAmtShader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\InkXFrShader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\InkXToShader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\Stream1Shader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\Stream2Shader.h">
+      <Filter>addons\ofxInkSim\src\shader</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\FboPingPong.h">
+      <Filter>addons\ofxInkSim\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxInkSim\src\ofxInkSim.h">
+      <Filter>addons\ofxInkSim\src</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxFlowTools\src\tools\ftInvertColorShader.h">
+      <Filter>addons\ofxFlowTools\src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxFlowTools\src\tools\ftMixForceShader.h">
+      <Filter>addons\ofxFlowTools\src\tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

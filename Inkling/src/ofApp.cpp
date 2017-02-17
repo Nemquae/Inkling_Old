@@ -5,6 +5,8 @@ void ofApp::setup(){
 
 	ofSetVerticalSync(false);
 	ofSetLogLevel(OF_LOG_NOTICE);
+	//ofSetBackgroundAuto(true);
+	//ofSetBackgroundColor(ofColor(255,255,255,127));
 
 	drawWidth = 1280;
 	drawHeight = 720;
@@ -38,12 +40,15 @@ void ofApp::setup(){
 
 	// CAMERA
 	//simpleCam.setup(640, 480, true);
-	didCamUpdate = false;
+	//didCamUpdate = true;
 	//cameraFbo.allocate(640, 480);
 	//cameraFbo.black();
 
 	// GUI
 	setupGui();
+
+	//mouseForces.invertForce(0);
+	//mouseForces.invertForce(3);
 
 	lastTime = ofGetElapsedTimef();
 
@@ -105,6 +110,11 @@ void ofApp::setupGui(){
 	guiColorSwitch = 1 - guiColorSwitch;
 	gui.add(mouseForces.rightButtonParameters);
 
+	gui.setDefaultHeaderBackgroundColor(guiHeaderColor[guiColorSwitch]);
+	gui.setDefaultFillColor(guiFillColor[guiColorSwitch]);
+	guiColorSwitch = 1 - guiColorSwitch;
+	gui.add(mouseForces.middleButtonParameters);
+
 	visualizeParameters.setName("visualizers");
 	visualizeParameters.add(showScalar.set("show scalar", true));
 	visualizeParameters.add(showField.set("show field", true));
@@ -136,7 +146,7 @@ void ofApp::setupGui(){
 	gui.loadFromFile("settings.xml");
 
 	gui.minimizeAll();
-	toggleGuiDraw = true;
+	toggleGuiDraw = false;
 }
 
 //--------------------------------------------------------------
@@ -180,17 +190,17 @@ void ofApp::update(){
 		if (mouseForces.didChange(i)) {
 			switch (mouseForces.getType(i)) {
 			case FT_DENSITY:
-				fluidSimulation.addDensity(mouseForces.getTextureReference(i), mouseForces.getStrength(i));
+				fluidSimulation.addDensity(mouseForces.getTextureReference(i), mouseForces.getStrength(i), false);
 				break;
 			case FT_VELOCITY:
-				fluidSimulation.addVelocity(mouseForces.getTextureReference(i), mouseForces.getStrength(i));
+				fluidSimulation.addVelocity(mouseForces.getTextureReference(i), mouseForces.getStrength(i), false);
 				particleFlow.addFlowVelocity(mouseForces.getTextureReference(i), mouseForces.getStrength(i));
 				break;
 			case FT_TEMPERATURE:
-				fluidSimulation.addTemperature(mouseForces.getTextureReference(i), mouseForces.getStrength(i));
+				fluidSimulation.addTemperature(mouseForces.getTextureReference(i), mouseForces.getStrength(i), false);
 				break;
 			case FT_PRESSURE:
-				fluidSimulation.addPressure(mouseForces.getTextureReference(i), mouseForces.getStrength(i));
+				fluidSimulation.addPressure(mouseForces.getTextureReference(i), mouseForces.getStrength(i), false);
 				break;
 			case FT_OBSTACLE:
 				fluidSimulation.addTempObstacle(mouseForces.getTextureReference(i));
@@ -239,6 +249,11 @@ void ofApp::keyPressed(int key){
 		mouseForces.reset();
 		break;
 
+	case 'i':
+	case 'I':
+		fluidSimulation.invert();
+		particleFlow.invert();
+
 	default: break;
 	}
 }
@@ -267,7 +282,15 @@ void ofApp::drawModeSetName(int &_value) {
 
 //--------------------------------------------------------------
 void ofApp::draw() {
-	ofClear(0, 0);
+	//glClearColor(0.3f, 0.4f, 0.1f, 1.0f);
+	//ofColor::white
+	//ofClear(ofColor(128,128,128,255));
+	if(fluidSimulation.isInverted())
+		ofClear(255,255);
+	else
+		ofClear(0,0);
+	//ofBackground(ofColor::white);
+	//ofBackground(ofColor(255, 255, 255, 255));
 	if (doDrawCamBackground.get())
 		drawSource();
 
@@ -304,10 +327,10 @@ void ofApp::draw() {
 void ofApp::drawComposite(int _x, int _y, int _width, int _height) {
 	ofPushStyle();
 
-	ofEnableBlendMode(OF_BLENDMODE_ADD);
+	ofEnableBlendMode(OF_BLENDMODE_ALPHA);
 	fluidSimulation.draw(_x, _y, _width, _height);
 
-	ofEnableBlendMode(OF_BLENDMODE_ADD);
+	ofEnableBlendMode(OF_BLENDMODE_ALPHA);
 	if (particleFlow.isActive())
 		particleFlow.draw(_x, _y, _width, _height);
 
@@ -355,7 +378,7 @@ void ofApp::drawFluidDensity(int _x, int _y, int _width, int _height) {
 void ofApp::drawFluidVelocity(int _x, int _y, int _width, int _height) {
 	ofPushStyle();
 	if (showScalar.get()) {
-		ofClear(0, 0);
+		ofClear(0,0);
 		ofEnableBlendMode(OF_BLENDMODE_ALPHA);
 		//	ofEnableBlendMode(OF_BLENDMODE_DISABLED); // altenate mode
 		displayScalar.setSource(fluidSimulation.getVelocity());
@@ -494,7 +517,7 @@ void ofApp::drawSource(int _x, int _y, int _width, int _height) {
 //--------------------------------------------------------------
 void ofApp::drawMouseForces(int _x, int _y, int _width, int _height) {
 	ofPushStyle();
-	ofClear(0, 0);
+	ofClear(0,0);
 
 	for (int i = 0; i<mouseForces.getNumForces(); i++) {
 		ofEnableBlendMode(OF_BLENDMODE_ADD);
