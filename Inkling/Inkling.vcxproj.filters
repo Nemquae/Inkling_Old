@@ -34,9 +34,6 @@
     <ClCompile Include="..\..\..\addons\ofxFlowTools\src\drawforces\ftDrawForce.cpp">
       <Filter>addons\ofxFlowTools\src\drawforces</Filter>
     </ClCompile>
-    <ClCompile Include="..\..\..\addons\ofxFlowTools\src\drawforces\ftDrawMouseForces.cpp">
-      <Filter>addons\ofxFlowTools\src\drawforces</Filter>
-    </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxFlowTools\src\fluid\ftFluidSimulation.cpp">
       <Filter>addons\ofxFlowTools\src\fluid</Filter>
     </ClCompile>
@@ -66,6 +63,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\addons\ofxInkSim\src\ofxInkSim.cpp">
       <Filter>addons\ofxInkSim\src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\addons\ofxFlowTools\src\drawforces\ftDrawInputForces.cpp">
+      <Filter>addons\ofxFlowTools\src\drawforces</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -177,9 +177,6 @@
       <Filter>addons\ofxFlowTools\src\drawforces</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\drawforces\ftDrawForceShader.h">
-      <Filter>addons\ofxFlowTools\src\drawforces</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\addons\ofxFlowTools\src\drawforces\ftDrawMouseForces.h">
       <Filter>addons\ofxFlowTools\src\drawforces</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\filters\ftContrastShader.h">
@@ -409,6 +406,9 @@
     </ClInclude>
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\tools\ftMixForceShader.h">
       <Filter>addons\ofxFlowTools\src\tools</Filter>
+    </ClInclude>
+    <ClInclude Include="..\..\..\addons\ofxFlowTools\src\drawforces\ftDrawInputForces.h">
+      <Filter>addons\ofxFlowTools\src\drawforces</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

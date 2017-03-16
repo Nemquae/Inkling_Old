@@ -176,7 +176,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\..\..\addons\ofxFlowTools\src\drawforces\ftDrawForce.cpp" />
-    <ClCompile Include="..\..\..\addons\ofxFlowTools\src\drawforces\ftDrawMouseForces.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxFlowTools\src\drawforces\ftDrawInputForces.cpp" />
     <ClCompile Include="..\..\..\addons\ofxFlowTools\src\fluid\ftFluidSimulation.cpp" />
     <ClCompile Include="..\..\..\addons\ofxFlowTools\src\mask\ftVelocityMask.cpp" />
     <ClCompile Include="..\..\..\addons\ofxFlowTools\src\opticalflow\ftOpticalFlow.cpp" />
@@ -201,7 +201,7 @@
   <ItemGroup>
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\drawforces\ftDrawForce.h" />
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\drawforces\ftDrawForceShader.h" />
-    <ClInclude Include="..\..\..\addons\ofxFlowTools\src\drawforces\ftDrawMouseForces.h" />
+    <ClInclude Include="..\..\..\addons\ofxFlowTools\src\drawforces\ftDrawInputForces.h" />
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\filters\ftContrastShader.h" />
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\filters\ftDecayShader.h" />
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\filters\ftEOGShader.h" />
