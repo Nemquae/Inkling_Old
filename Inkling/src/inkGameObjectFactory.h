@@ -65,6 +65,6 @@ private:
 		->enable_if_t< !creatable_from<T, Args...>::value, shared_ptr<T> >;
 
 
-};	//	EntityFactory
+};	//	inkEntityFactory
 
 }	//	ink

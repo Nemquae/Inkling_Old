@@ -30,7 +30,7 @@ public:
 
 	inkGameObject();
 	virtual ~inkGameObject();
-};	//	GameObject
+};	//	inkGameObject
 
 
 

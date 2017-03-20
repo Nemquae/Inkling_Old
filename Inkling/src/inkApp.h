@@ -373,6 +373,6 @@ public:
 	void dragEvent( ofDragInfo dragInfo );
 	void gotMessage( ofMessage msg );
 
-};	//	ofApp
+};	//	inkApp
 
 }	//	ink
