@@ -95,7 +95,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxFlowTools\src;..\..\..\addons\ofxFlowTools\src\drawforces;..\..\..\addons\ofxFlowTools\src\filters;..\..\..\addons\ofxFlowTools\src\fluid;..\..\..\addons\ofxFlowTools\src\mask;..\..\..\addons\ofxFlowTools\src\opticalflow;..\..\..\addons\ofxFlowTools\src\particles;..\..\..\addons\ofxFlowTools\src\splitvelocity;..\..\..\addons\ofxFlowTools\src\tools;..\..\..\addons\ofxFlowTools\src\visualisation;..\..\..\addons\ofxInkSim\src;..\..\..\addons\ofxInkSim\src\brush;..\..\..\addons\ofxInkSim\src\shader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxFlowTools\src;..\..\..\addons\ofxFlowTools\src\drawforces;..\..\..\addons\ofxFlowTools\src\filters;..\..\..\addons\ofxFlowTools\src\fluid;..\..\..\addons\ofxFlowTools\src\mask;..\..\..\addons\ofxFlowTools\src\opticalflow;..\..\..\addons\ofxFlowTools\src\particles;..\..\..\addons\ofxFlowTools\src\splitvelocity;..\..\..\addons\ofxFlowTools\src\tools;..\..\..\addons\ofxFlowTools\src\visualisation;..\..\..\addons\ofxInkSim\src;..\..\..\addons\ofxInkSim\src\brush;..\..\..\addons\ofxInkSim\src\shader;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -115,7 +115,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxFlowTools\src;..\..\..\addons\ofxFlowTools\src\drawforces;..\..\..\addons\ofxFlowTools\src\filters;..\..\..\addons\ofxFlowTools\src\fluid;..\..\..\addons\ofxFlowTools\src\mask;..\..\..\addons\ofxFlowTools\src\opticalflow;..\..\..\addons\ofxFlowTools\src\particles;..\..\..\addons\ofxFlowTools\src\splitvelocity;..\..\..\addons\ofxFlowTools\src\tools;..\..\..\addons\ofxFlowTools\src\visualisation;..\..\..\addons\ofxInkSim\src;..\..\..\addons\ofxInkSim\src\brush;..\..\..\addons\ofxInkSim\src\shader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxFlowTools\src;..\..\..\addons\ofxFlowTools\src\drawforces;..\..\..\addons\ofxFlowTools\src\filters;..\..\..\addons\ofxFlowTools\src\fluid;..\..\..\addons\ofxFlowTools\src\mask;..\..\..\addons\ofxFlowTools\src\opticalflow;..\..\..\addons\ofxFlowTools\src\particles;..\..\..\addons\ofxFlowTools\src\splitvelocity;..\..\..\addons\ofxFlowTools\src\tools;..\..\..\addons\ofxFlowTools\src\visualisation;..\..\..\addons\ofxInkSim\src;..\..\..\addons\ofxInkSim\src\brush;..\..\..\addons\ofxInkSim\src\shader;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -135,7 +135,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxFlowTools\src;..\..\..\addons\ofxFlowTools\src\drawforces;..\..\..\addons\ofxFlowTools\src\filters;..\..\..\addons\ofxFlowTools\src\fluid;..\..\..\addons\ofxFlowTools\src\mask;..\..\..\addons\ofxFlowTools\src\opticalflow;..\..\..\addons\ofxFlowTools\src\particles;..\..\..\addons\ofxFlowTools\src\splitvelocity;..\..\..\addons\ofxFlowTools\src\tools;..\..\..\addons\ofxFlowTools\src\visualisation;..\..\..\addons\ofxInkSim\src;..\..\..\addons\ofxInkSim\src\brush;..\..\..\addons\ofxInkSim\src\shader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxFlowTools\src;..\..\..\addons\ofxFlowTools\src\drawforces;..\..\..\addons\ofxFlowTools\src\filters;..\..\..\addons\ofxFlowTools\src\fluid;..\..\..\addons\ofxFlowTools\src\mask;..\..\..\addons\ofxFlowTools\src\opticalflow;..\..\..\addons\ofxFlowTools\src\particles;..\..\..\addons\ofxFlowTools\src\splitvelocity;..\..\..\addons\ofxFlowTools\src\tools;..\..\..\addons\ofxFlowTools\src\visualisation;..\..\..\addons\ofxInkSim\src;..\..\..\addons\ofxInkSim\src\brush;..\..\..\addons\ofxInkSim\src\shader;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
     </ClCompile>
@@ -158,7 +158,7 @@
       <PreprocessorDefinitions>%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
       <WarningLevel>Level3</WarningLevel>
-      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxFlowTools\src;..\..\..\addons\ofxFlowTools\src\drawforces;..\..\..\addons\ofxFlowTools\src\filters;..\..\..\addons\ofxFlowTools\src\fluid;..\..\..\addons\ofxFlowTools\src\mask;..\..\..\addons\ofxFlowTools\src\opticalflow;..\..\..\addons\ofxFlowTools\src\particles;..\..\..\addons\ofxFlowTools\src\splitvelocity;..\..\..\addons\ofxFlowTools\src\tools;..\..\..\addons\ofxFlowTools\src\visualisation;..\..\..\addons\ofxInkSim\src;..\..\..\addons\ofxInkSim\src\brush;..\..\..\addons\ofxInkSim\src\shader;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\..\addons\ofxGui\src;..\..\..\addons\ofxFlowTools\src;..\..\..\addons\ofxFlowTools\src\drawforces;..\..\..\addons\ofxFlowTools\src\filters;..\..\..\addons\ofxFlowTools\src\fluid;..\..\..\addons\ofxFlowTools\src\mask;..\..\..\addons\ofxFlowTools\src\opticalflow;..\..\..\addons\ofxFlowTools\src\particles;..\..\..\addons\ofxFlowTools\src\splitvelocity;..\..\..\addons\ofxFlowTools\src\tools;..\..\..\addons\ofxFlowTools\src\visualisation;..\..\..\addons\ofxInkSim\src;..\..\..\addons\ofxInkSim\src\brush;..\..\..\addons\ofxInkSim\src\shader;..\..\..\addons\ofxOsc\src;..\..\..\addons\ofxOsc\libs;..\..\..\addons\ofxOsc\libs\oscpack;..\..\..\addons\ofxOsc\libs\oscpack\src;..\..\..\addons\ofxOsc\libs\oscpack\src\ip;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32;..\..\..\addons\ofxOsc\libs\oscpack\src\ip\posix;..\..\..\addons\ofxOsc\libs\oscpack\src\osc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <CompileAs>CompileAsCpp</CompileAs>
     </ClCompile>
     <Link>
@@ -195,8 +195,25 @@
     <ClCompile Include="..\..\..\addons\ofxInkSim\src\brush\SampleBrush.cpp" />
     <ClCompile Include="..\..\..\addons\ofxInkSim\src\FboPingPong.cpp" />
     <ClCompile Include="..\..\..\addons\ofxInkSim\src\ofxInkSim.cpp" />
-    <ClCompile Include="src\main.cpp" />
-    <ClCompile Include="src\ofApp.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32\NetworkingUtils.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\win32\UdpSocket.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.cpp" />
+    <ClCompile Include="..\..\..\addons\ofxOsc\src\ofxOscSender.cpp" />
+    <ClCompile Include="src\inkComponent.cpp" />
+    <ClCompile Include="src\inkController.cpp" />
+    <ClCompile Include="src\inkGameObject.cpp" />
+    <ClCompile Include="src\inkGameObjectFactory.cpp" />
+    <ClCompile Include="src\inkLevelController.cpp" />
+    <ClCompile Include="src\inkMain.cpp" />
+    <ClCompile Include="src\inkApp.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\..\..\addons\ofxFlowTools\src\drawforces\ftDrawForce.h" />
@@ -292,7 +309,32 @@
     <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\InkXToShader.h" />
     <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\Stream1Shader.h" />
     <ClInclude Include="..\..\..\addons\ofxInkSim\src\shader\Stream2Shader.h" />
-    <ClInclude Include="src\ofApp.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\IpEndpointName.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\NetworkingUtils.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\PacketListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\TimerListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\ip\UdpSocket.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\MessageMappingOscPacketListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscException.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscHostEndianness.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscOutboundPacketStream.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPacketListener.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscPrintReceivedElements.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscReceivedElements.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\libs\oscpack\src\osc\OscTypes.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOsc.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscArg.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscBundle.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscMessage.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscParameterSync.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscReceiver.h" />
+    <ClInclude Include="..\..\..\addons\ofxOsc\src\ofxOscSender.h" />
+    <ClInclude Include="src\inkComponent.h" />
+    <ClInclude Include="src\inkController.h" />
+    <ClInclude Include="src\inkGameObject.h" />
+    <ClInclude Include="src\inkGameObjectFactory.h" />
+    <ClInclude Include="src\inkLevelController.h" />
+    <ClInclude Include="src\inkApp.h" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="$(OF_ROOT)\libs\openFrameworksCompiled\project\vs\openframeworksLib.vcxproj">

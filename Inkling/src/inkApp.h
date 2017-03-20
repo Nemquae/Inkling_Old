@@ -21,12 +21,17 @@
 #include "ofMain.h"
 #include "ofxGui.h"
 #include "ofxFlowTools.h"
+#include "inkGameObject.h"
+
 
 #define USE_PROGRAMMABLE_GL
 
 using namespace flowTools;
 
-enum drawModeEnum
+namespace ink
+{
+
+enum DrawMode
 {
 	DRAW_COMPOSITE = 0,
 	DRAW_FLUID_DENSITY,
@@ -46,7 +51,14 @@ enum drawModeEnum
 	DRAW_MOUSE
 };
 
-class ofApp : public ofBaseApp
+enum GameState
+{
+	START
+,	GAME
+,	END
+};
+
+class inkApp : public ofBaseApp
 {
 
 public:
@@ -63,6 +75,12 @@ public:
 	// Time
 	float				lastTime;
 	float				deltaTime;
+
+	// Game
+	GameState			gameState;
+	int					score;
+	shared_ptr
+		<inkGameObject>	player;
 
 	// FlowTools
 	int					flowWidth;
@@ -355,4 +373,6 @@ public:
 	void dragEvent( ofDragInfo dragInfo );
 	void gotMessage( ofMessage msg );
 
-};
+};	//	ofApp
+
+}	//	ink

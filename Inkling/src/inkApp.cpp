@@ -16,10 +16,12 @@
 // 02110-1301  USA
 // ================================================================================================
 
-#include "ofApp.h"
+#include "inkApp.h"
+
+using namespace ink;
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::setup()
+void inkApp::setup()
 {
 
 	ofSetVerticalSync( false );
@@ -63,7 +65,7 @@ void ofApp::setup()
 	//cameraFbo.allocate(640, 480);
 	//cameraFbo.black();
 
-	ofAddListener( ofEvents().touchDoubleTap, this, &ofApp::touchDoubleTap );
+	ofAddListener( ofEvents().touchDoubleTap, this, &inkApp::touchDoubleTap );
 
 	// GUI
 	setupGui();
@@ -75,13 +77,13 @@ void ofApp::setup()
 
 }
 
-void ofApp::touchDoubleTap( ofTouchEventArgs & touch )
+void inkApp::touchDoubleTap( ofTouchEventArgs & touch )
 {
 	toggleGuiDraw = !toggleGuiDraw;
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::setupGui()
+void inkApp::setupGui()
 {
 
 	gui.setup( "settings" );
@@ -90,7 +92,7 @@ void ofApp::setupGui()
 	gui.add( guiFPS.set( "average FPS", 0, 0, 60 ) );
 	gui.add( guiMinFPS.set( "minimum FPS", 0, 0, 60 ) );
 	gui.add( doFullScreen.set( "fullscreen (F)", false ) );
-	doFullScreen.addListener( this, &ofApp::setFullScreen );
+	doFullScreen.addListener( this, &inkApp::setFullScreen );
 	gui.add( toggleGuiDraw.set( "show gui (G)", false ) );
 	gui.add( doFlipCamera.set( "flip camera", true ) );
 	gui.add( doDrawCamBackground.set( "draw camera (C)", false ) );
@@ -102,7 +104,7 @@ void ofApp::setupGui()
 	)
 	);
 
-	drawMode.addListener( this, &ofApp::drawModeSetName );
+	drawMode.addListener( this, &inkApp::drawModeSetName );
 	gui.add( drawName.set( "MODE", "draw name" ) );
 
 
@@ -153,15 +155,15 @@ void ofApp::setupGui()
 	visualizeParameters.add( showScalar.set( "show scalar", true ) );
 	visualizeParameters.add( showField.set( "show field", true ) );
 	visualizeParameters.add( displayScalarScale.set( "scalar scale", 0.15, 0.05, 1.0 ) );
-	displayScalarScale.addListener( this, &ofApp::setDisplayScalarScale );
+	displayScalarScale.addListener( this, &inkApp::setDisplayScalarScale );
 	visualizeParameters.add( velocityFieldScale.set( "velocity scale", 0.1, 0.0, 0.5 ) );
-	velocityFieldScale.addListener( this, &ofApp::setVelocityFieldScale );
+	velocityFieldScale.addListener( this, &inkApp::setVelocityFieldScale );
 	visualizeParameters.add( temperatureFieldScale.set( "temperature scale", 0.1, 0.0, 0.5 ) );
-	temperatureFieldScale.addListener( this, &ofApp::setTemperatureFieldScale );
+	temperatureFieldScale.addListener( this, &inkApp::setTemperatureFieldScale );
 	visualizeParameters.add( pressureFieldScale.set( "pressure scale", 0.02, 0.0, 0.5 ) );
-	pressureFieldScale.addListener( this, &ofApp::setPressureFieldScale );
+	pressureFieldScale.addListener( this, &inkApp::setPressureFieldScale );
 	visualizeParameters.add( velocityLineSmooth.set( "line smooth", false ) );
-	velocityLineSmooth.addListener( this, &ofApp::setVelocityLineSmooth );
+	velocityLineSmooth.addListener( this, &inkApp::setVelocityLineSmooth );
 
 	gui.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
 	gui.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
@@ -185,7 +187,7 @@ void ofApp::setupGui()
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::update()
+void inkApp::update()
 {
 	deltaTime = ofGetElapsedTimef() - lastTime;
 	lastTime = ofGetElapsedTimef();
@@ -284,7 +286,7 @@ void ofApp::update()
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::keyPressed( int key )
+void inkApp::keyPressed( int key )
 {
 	switch( key )
 	{
@@ -321,7 +323,7 @@ void ofApp::keyPressed( int key )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawModeSetName( int &_value )
+void inkApp::drawModeSetName( int &_value )
 {
 	switch( _value )
 	{
@@ -345,7 +347,7 @@ void ofApp::drawModeSetName( int &_value )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::draw()
+void inkApp::draw()
 {
 	//glClearColor(0.3f, 0.4f, 0.1f, 1.0f);
 	//ofColor::white
@@ -392,7 +394,7 @@ void ofApp::draw()
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawComposite( int _x, int _y, int _width, int _height )
+void inkApp::drawComposite( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 
@@ -412,7 +414,7 @@ void ofApp::drawComposite( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawParticles( int _x, int _y, int _width, int _height )
+void inkApp::drawParticles( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 	ofEnableBlendMode( OF_BLENDMODE_ALPHA );
@@ -422,7 +424,7 @@ void ofApp::drawParticles( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawFluidFields( int _x, int _y, int _width, int _height )
+void inkApp::drawFluidFields( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 
@@ -438,7 +440,7 @@ void ofApp::drawFluidFields( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawFluidDensity( int _x, int _y, int _width, int _height )
+void inkApp::drawFluidDensity( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 
@@ -448,7 +450,7 @@ void ofApp::drawFluidDensity( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawFluidVelocity( int _x, int _y, int _width, int _height )
+void inkApp::drawFluidVelocity( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 	if( showScalar.get() )
@@ -469,7 +471,7 @@ void ofApp::drawFluidVelocity( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawFluidPressure( int _x, int _y, int _width, int _height )
+void inkApp::drawFluidPressure( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 	ofClear( 128 );
@@ -489,7 +491,7 @@ void ofApp::drawFluidPressure( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawFluidTemperature( int _x, int _y, int _width, int _height )
+void inkApp::drawFluidTemperature( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 	if( showScalar.get() )
@@ -508,7 +510,7 @@ void ofApp::drawFluidTemperature( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawFluidDivergence( int _x, int _y, int _width, int _height )
+void inkApp::drawFluidDivergence( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 	if( showScalar.get() )
@@ -527,7 +529,7 @@ void ofApp::drawFluidDivergence( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawFluidVorticity( int _x, int _y, int _width, int _height )
+void inkApp::drawFluidVorticity( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 	if( showScalar.get() )
@@ -547,7 +549,7 @@ void ofApp::drawFluidVorticity( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawFluidBuoyance( int _x, int _y, int _width, int _height )
+void inkApp::drawFluidBuoyance( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 	if( showScalar.get() )
@@ -566,7 +568,7 @@ void ofApp::drawFluidBuoyance( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawFluidObstacle( int _x, int _y, int _width, int _height )
+void inkApp::drawFluidObstacle( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 	ofEnableBlendMode( OF_BLENDMODE_DISABLED );
@@ -575,7 +577,7 @@ void ofApp::drawFluidObstacle( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawMask( int _x, int _y, int _width, int _height )
+void inkApp::drawMask( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 	ofEnableBlendMode( OF_BLENDMODE_DISABLED );
@@ -584,7 +586,7 @@ void ofApp::drawMask( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawOpticalFlow( int _x, int _y, int _width, int _height )
+void inkApp::drawOpticalFlow( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 	if( showScalar.get() )
@@ -603,7 +605,7 @@ void ofApp::drawOpticalFlow( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawSource( int _x, int _y, int _width, int _height )
+void inkApp::drawSource( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 	ofEnableBlendMode( OF_BLENDMODE_DISABLED );
@@ -612,7 +614,7 @@ void ofApp::drawSource( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawMouseForces( int _x, int _y, int _width, int _height )
+void inkApp::drawMouseForces( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 	ofClear( 0, 0 );
@@ -659,7 +661,7 @@ void ofApp::drawMouseForces( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawVelocityDots( int _x, int _y, int _width, int _height )
+void inkApp::drawVelocityDots( int _x, int _y, int _width, int _height )
 {
 	ofPushStyle();
 	ofEnableBlendMode( OF_BLENDMODE_ADD );
@@ -669,7 +671,7 @@ void ofApp::drawVelocityDots( int _x, int _y, int _width, int _height )
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::drawGui()
+void inkApp::drawGui()
 {
 	guiFPS = (int)( ofGetFrameRate() + 0.5 );
 
@@ -702,61 +704,61 @@ void ofApp::drawGui()
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::keyReleased( int key )
+void inkApp::keyReleased( int key )
 {
 
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::mouseMoved( int x, int y )
+void inkApp::mouseMoved( int x, int y )
 {
 
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::mouseDragged( int x, int y, int button )
+void inkApp::mouseDragged( int x, int y, int button )
 {
 
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::mousePressed( int x, int y, int button )
+void inkApp::mousePressed( int x, int y, int button )
 {
 
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::mouseReleased( int x, int y, int button )
+void inkApp::mouseReleased( int x, int y, int button )
 {
 
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::mouseEntered( int x, int y )
+void inkApp::mouseEntered( int x, int y )
 {
 
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::mouseExited( int x, int y )
+void inkApp::mouseExited( int x, int y )
 {
 
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::windowResized( int w, int h )
+void inkApp::windowResized( int w, int h )
 {
 
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::gotMessage( ofMessage msg )
+void inkApp::gotMessage( ofMessage msg )
 {
 
 }
 
 //-------------------------------------------------------------------------------------------------
-void ofApp::dragEvent( ofDragInfo dragInfo )
+void inkApp::dragEvent( ofDragInfo dragInfo )
 {
 
 }

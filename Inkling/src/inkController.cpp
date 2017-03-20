@@ -16,29 +16,15 @@
 // 02110-1301  USA
 // ================================================================================================
 
-#include "ofMain.h"
-#include "ofApp.h"
+#include "inkController.h"
 
-int main()
+
+
+inkController::inkController()
 {
+}
 
-	ofGLFWWindowSettings windowSettings;
 
-#ifdef USE_PROGRAMMABLE_GL
-	windowSettings.setGLVersion( 4, 1 );
-#endif
-	windowSettings.width = 1024;
-	windowSettings.height = 768;
-	windowSettings.windowMode = OF_WINDOW;
-
-	ofCreateWindow( windowSettings );
-
-	// vvvv setup the GL context (default method not using flowtools) vvvv
-	//ofSetupOpenGL(1024,768,OF_WINDOW);			
-
-	// this kicks off the running of my app
-	// can be OF_WINDOW or OF_FULLSCREEN
-	// pass in width and height too:
-	ofRunApp( new ofApp() );
-
+inkController::~inkController()
+{
 }
