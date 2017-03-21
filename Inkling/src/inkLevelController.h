@@ -17,12 +17,19 @@
 // ================================================================================================
 
 #pragma once
+
 #include "inkController.h"
+
+namespace ink
+{
+
 class inkLevelController :
 	public inkController
 {
 public:
 	inkLevelController();
 	virtual ~inkLevelController();
-};
+};	//	inkLevelController
+
+}	//	ink
 

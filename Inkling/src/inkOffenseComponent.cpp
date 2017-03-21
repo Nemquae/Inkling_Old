@@ -16,15 +16,15 @@
 // 02110-1301  USA
 // ================================================================================================
 
-#include "inkLevelController.h"
+#include "inkOffenseComponent.h"
 
 using namespace ink;
 
-inkLevelController::inkLevelController()
+inkOffenseComponent::inkOffenseComponent()
 {
 }
 
 
-inkLevelController::~inkLevelController()
+inkOffenseComponent::~inkOffenseComponent()
 {
 }

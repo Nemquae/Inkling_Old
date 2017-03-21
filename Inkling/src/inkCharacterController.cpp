@@ -16,15 +16,15 @@
 // 02110-1301  USA
 // ================================================================================================
 
-#include "inkLevelController.h"
+#include "inkCharacterController.h"
 
 using namespace ink;
 
-inkLevelController::inkLevelController()
+inkCharacterController::inkCharacterController()
 {
 }
 
 
-inkLevelController::~inkLevelController()
+inkCharacterController::~inkCharacterController()
 {
 }

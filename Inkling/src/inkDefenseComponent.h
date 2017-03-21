@@ -16,15 +16,22 @@
 // 02110-1301  USA
 // ================================================================================================
 
-#include "inkLevelController.h"
+#pragma once
 
-using namespace ink;
+#include "inkComponent.h"
 
-inkLevelController::inkLevelController()
+namespace ink
 {
-}
 
-
-inkLevelController::~inkLevelController()
+class inkDefenseComponent :
+	public inkComponent
 {
-}
+public:
+	int lives;
+
+	inkDefenseComponent();
+	virtual ~inkDefenseComponent();
+};	// inkDefenseComponent
+
+}	// ink
+

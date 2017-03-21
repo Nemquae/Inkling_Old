@@ -17,10 +17,16 @@
 // ================================================================================================
 
 #pragma once
+
+namespace ink
+{
+
 class inkController
 {
 public:
 	inkController();
 	virtual ~inkController();
-};
+};	// inkController
+
+}	// ink
 

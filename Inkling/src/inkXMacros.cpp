@@ -16,15 +16,5 @@
 // 02110-1301  USA
 // ================================================================================================
 
-#include "inkLevelController.h"
+#include "inkXMacros.h"
 
-using namespace ink;
-
-inkLevelController::inkLevelController()
-{
-}
-
-
-inkLevelController::~inkLevelController()
-{
-}

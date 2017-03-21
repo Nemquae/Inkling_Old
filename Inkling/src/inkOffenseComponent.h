@@ -16,15 +16,24 @@
 // 02110-1301  USA
 // ================================================================================================
 
-#include "inkLevelController.h"
+#pragma once
 
-using namespace ink;
+#include "inkComponent.h"
 
-inkLevelController::inkLevelController()
+namespace ink
 {
-}
 
-
-inkLevelController::~inkLevelController()
+class inkOffenseComponent :
+	public inkComponent
 {
-}
+public:
+	inkOffenseComponent();
+	virtual ~inkOffenseComponent();
+
+	void update();
+	void shoot();
+	bool canShoot();
+};	//	inkOffenseComponent
+
+}	//	ink
+

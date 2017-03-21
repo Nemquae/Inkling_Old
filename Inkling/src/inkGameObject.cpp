@@ -20,7 +20,10 @@
 
 using namespace ink;
 
+int inkGameObject::totalIDs = 0;
+
 inkGameObject::inkGameObject()
+: id(++totalIDs)
 {
 }
 

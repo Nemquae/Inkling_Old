@@ -106,9 +106,6 @@
     <ClCompile Include="src\inkLevelController.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\inkGameObjectFactory.cpp">
-      <Filter>src</Filter>
-    </ClCompile>
     <ClCompile Include="src\inkGameObject.cpp">
       <Filter>src</Filter>
     </ClCompile>
@@ -116,6 +113,21 @@
       <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\inkComponent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\inkCharacterController.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\inkDefenseComponent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\inkOffenseComponent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\inkSpriteComponent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\inkXMacros.cpp">
       <Filter>src</Filter>
     </ClCompile>
   </ItemGroup>
@@ -558,6 +570,21 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\inkComponent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\inkCharacterController.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\inkOffenseComponent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\inkDefenseComponent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\inkSpriteComponent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\inkXMacros.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

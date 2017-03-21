@@ -18,9 +18,12 @@
 
 #include "inkComponent.h"
 
+using namespace ink;
 
+int inkComponent::totalIDs = 0;
 
 inkComponent::inkComponent()
+: id(++totalIDs)
 {
 }
 

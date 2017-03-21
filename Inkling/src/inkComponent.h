@@ -17,10 +17,21 @@
 // ================================================================================================
 
 #pragma once
+
+namespace ink
+{
+
 class inkComponent
 {
 public:
 	inkComponent();
 	virtual ~inkComponent();
-};
+
+	const int	id;
+
+	static int	totalIDs;
+
+};	//	inkComponent
+
+}	//	ink
 

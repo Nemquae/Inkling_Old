@@ -19,20 +19,72 @@
 #pragma once
 
 #include <memory>
+#include <unordered_map>
+#include <typeindex>
+
+#include "ofPoint.h"
+#include "inkXMacros.h"
+#include "inkComponent.h"
 
 namespace ink
 {
 
 class inkGameObject
 {
-
 public:
 
 	inkGameObject();
 	virtual ~inkGameObject();
+
+	ofPoint		pos;
+	const int	id;
+
+	static int	totalIDs;
+
+	template <typename T>
+	std::shared_ptr<T> get(int id = 0)
+	{
+		std::type_index index( typeid( T ) );
+		if(components.count(std::type_index(typeid(T))) != 0)
+		{
+			std::unordered_map< int, std::shared_ptr<inkComponent> > & map = components[ index ];
+			
+			if( map.count( id ) != 0 || (id == 0 && map.size() > 0) )
+			{
+				return static_pointer_cast<T>( map[ id ] );
+			}
+			else
+			{
+				return nullptr;
+			}
+		}
+		else
+		{
+			return nullptr;
+		}
+	}
+
+	template <typename T>
+	void add(std::shared_ptr< T> component)
+	{
+		components[ std::type_index( typeid( *component ) ) ][component->id] = component;
+	}
+
+	template <typename T>
+	void add()
+	{
+		std::shared_ptr<inkComponent> component = 
+			static_pointer_cast<inkComponent>( std::make_shared<T>() );
+
+		components[ std::type_index( typeid( T ) ) ][ component->id ] = component;
+	}
+
+private:
+
+	std::unordered_map<std::type_index, std::unordered_map< int, std::shared_ptr<inkComponent> > > 
+		components;
+
 };	//	inkGameObject
-
-
 
 }	//	ink
 

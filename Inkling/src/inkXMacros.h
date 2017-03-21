@@ -16,15 +16,35 @@
 // 02110-1301  USA
 // ================================================================================================
 
-#include "inkLevelController.h"
+#pragma once
 
-using namespace ink;
+#include <string>
 
-inkLevelController::inkLevelController()
+#define LIST_OF_CLASSES		\
+	X(App)					\
+	X(CharacterController)	\
+	X(Component)			\
+	X(Controller)			\
+	X(DefenseComponent)		\
+	X(GameObject)			\
+	X(GameObjectFactory)	\
+	X(LevelController)		\
+	X(OffenseComponent)		\
+	X(SpriteComponent)		
+
+namespace ink
 {
-}
 
-
-inkLevelController::~inkLevelController()
+#define X(name) , e ## name
+enum inkClassEnum
 {
-}
+	Null
+	LIST_OF_CLASSES
+};
+#undef X
+
+#define X(name) const std::string s ## name = "name";
+LIST_OF_CLASSES
+#undef X
+
+}	//	ink

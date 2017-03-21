@@ -16,15 +16,15 @@
 // 02110-1301  USA
 // ================================================================================================
 
-#include "inkLevelController.h"
+#include "inkSpriteComponent.h"
 
 using namespace ink;
 
-inkLevelController::inkLevelController()
+inkSpriteComponent::inkSpriteComponent()
 {
 }
 
 
-inkLevelController::~inkLevelController()
+inkSpriteComponent::~inkSpriteComponent()
 {
 }

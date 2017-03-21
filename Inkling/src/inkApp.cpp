@@ -19,10 +19,15 @@
 #include "inkApp.h"
 
 using namespace ink;
+using namespace flowTools;
 
 //-------------------------------------------------------------------------------------------------
 void inkApp::setup()
 {
+	player = gameObjectFactory.create( PLAYER );
+
+	gameState = START;
+	score = 0;
 
 	ofSetVerticalSync( false );
 	ofSetLogLevel( OF_LOG_NOTICE );
@@ -192,134 +197,226 @@ void inkApp::update()
 	deltaTime = ofGetElapsedTimef() - lastTime;
 	lastTime = ofGetElapsedTimef();
 
-	simpleCam.update();
-
-	if( simpleCam.isFrameNew() )
+	switch(gameState)
 	{
-		ofPushStyle();
-		ofEnableBlendMode( OF_BLENDMODE_DISABLED );
-		cameraFbo.begin();
+	case START:
+	{
 
-		if( doFlipCamera )
-			simpleCam.draw( cameraFbo.getWidth()
-							, 0
-							, -cameraFbo.getWidth()
-							, cameraFbo.getHeight()
-			);  // Flip Horizontal
-		else
-			simpleCam.draw( 0, 0, cameraFbo.getWidth(), cameraFbo.getHeight() );
-		cameraFbo.end();
-		ofPopStyle();
-
-		opticalFlow.setSource( cameraFbo.getTexture() );
-
-		// opticalFlow.update(deltaTime);
-		// use internal deltatime instead
-		opticalFlow.update();
-
-		velocityMask.setDensity( cameraFbo.getTexture() );
-		velocityMask.setVelocity( opticalFlow.getOpticalFlow() );
-		velocityMask.update();
+		break;
 	}
-
-
-	fluidSimulation.addVelocity( opticalFlow.getOpticalFlowDecay() );
-	fluidSimulation.addDensity( velocityMask.getColorMask() );
-	fluidSimulation.addTemperature( velocityMask.getLuminanceMask() );
-
-	inputForces.update( deltaTime );
-
-	for( int i = 0; i < inputForces.getNumForces(); i++ )
+	case GAME:
 	{
-		if( inputForces.didChange( i ) )
+
+		break;
+	}
+	case END:
+	{
+
+		break;
+	}
+	case FLOW:
+	{
+		simpleCam.update();
+
+		if( simpleCam.isFrameNew() )
 		{
-			switch( inputForces.getType( i ) )
+			ofPushStyle();
+			ofEnableBlendMode( OF_BLENDMODE_DISABLED );
+			cameraFbo.begin();
+
+			if( doFlipCamera )
+				simpleCam.draw( cameraFbo.getWidth()
+								, 0
+								, -cameraFbo.getWidth()
+								, cameraFbo.getHeight()
+				);  // Flip Horizontal
+			else
+				simpleCam.draw( 0, 0, cameraFbo.getWidth(), cameraFbo.getHeight() );
+			cameraFbo.end();
+			ofPopStyle();
+
+			opticalFlow.setSource( cameraFbo.getTexture() );
+
+			// opticalFlow.update(deltaTime);
+			// use internal deltatime instead
+			opticalFlow.update();
+
+			velocityMask.setDensity( cameraFbo.getTexture() );
+			velocityMask.setVelocity( opticalFlow.getOpticalFlow() );
+			velocityMask.update();
+		}
+
+
+		fluidSimulation.addVelocity( opticalFlow.getOpticalFlowDecay() );
+		fluidSimulation.addDensity( velocityMask.getColorMask() );
+		fluidSimulation.addTemperature( velocityMask.getLuminanceMask() );
+
+		inputForces.update( deltaTime );
+
+		for( int i = 0; i < inputForces.getNumForces(); i++ )
+		{
+			if( inputForces.didChange( i ) )
 			{
-			case FT_DENSITY:
-				fluidSimulation.addDensity
-				( inputForces.getTextureReference( i )
-				  , inputForces.getStrength( i )
-				  , false );
-				break;
-			case FT_VELOCITY:
-				fluidSimulation.addVelocity
-				( inputForces.getTextureReference( i )
-				  , inputForces.getStrength( i )
-				  , false );
-				particleFlow.addFlowVelocity
-				( inputForces.getTextureReference( i )
-				  , inputForces.getStrength( i ) );
-				break;
-			case FT_TEMPERATURE:
-				fluidSimulation.addTemperature
-				( inputForces.getTextureReference( i )
-				  , inputForces.getStrength( i )
-				  , false );
-				break;
-			case FT_PRESSURE:
-				fluidSimulation.addPressure
-				( inputForces.getTextureReference( i )
-				  , inputForces.getStrength( i )
-				  , false );
-				break;
-			case FT_OBSTACLE:
-				fluidSimulation.addTempObstacle
-				( inputForces.getTextureReference( i ) );
-			default:
-				break;
+				switch( inputForces.getType( i ) )
+				{
+				case FT_DENSITY:
+					fluidSimulation.addDensity
+					( inputForces.getTextureReference( i )
+					  , inputForces.getStrength( i )
+					  , false );
+					break;
+				case FT_VELOCITY:
+					fluidSimulation.addVelocity
+					( inputForces.getTextureReference( i )
+					  , inputForces.getStrength( i )
+					  , false );
+					particleFlow.addFlowVelocity
+					( inputForces.getTextureReference( i )
+					  , inputForces.getStrength( i ) );
+					break;
+				case FT_TEMPERATURE:
+					fluidSimulation.addTemperature
+					( inputForces.getTextureReference( i )
+					  , inputForces.getStrength( i )
+					  , false );
+					break;
+				case FT_PRESSURE:
+					fluidSimulation.addPressure
+					( inputForces.getTextureReference( i )
+					  , inputForces.getStrength( i )
+					  , false );
+					break;
+				case FT_OBSTACLE:
+					fluidSimulation.addTempObstacle
+					( inputForces.getTextureReference( i ) );
+				default:
+					break;
+				}
 			}
 		}
-	}
 
-	fluidSimulation.update();
+		fluidSimulation.update();
 
-	if( particleFlow.isActive() )
-	{
-		particleFlow.setSpeed( fluidSimulation.getSpeed() );
-		particleFlow.setCellSize( fluidSimulation.getCellSize() );
-		particleFlow.addFlowVelocity( opticalFlow.getOpticalFlow() );
-		particleFlow.addFluidVelocity( fluidSimulation.getVelocity() );
-		//		particleFlow.addDensity(fluidSimulation.getDensity());
-		particleFlow.setObstacle( fluidSimulation.getObstacle() );
+		if( particleFlow.isActive() )
+		{
+			particleFlow.setSpeed( fluidSimulation.getSpeed() );
+			particleFlow.setCellSize( fluidSimulation.getCellSize() );
+			particleFlow.addFlowVelocity( opticalFlow.getOpticalFlow() );
+			particleFlow.addFluidVelocity( fluidSimulation.getVelocity() );
+			//		particleFlow.addDensity(fluidSimulation.getDensity());
+			particleFlow.setObstacle( fluidSimulation.getObstacle() );
+		}
+		particleFlow.update();
+		break;
 	}
-	particleFlow.update();
+	default:
+		break;
+	}
 }
 
 //-------------------------------------------------------------------------------------------------
 void inkApp::keyPressed( int key )
 {
-	switch( key )
+	switch( gameState )
 	{
-	case 'G':
-	case 'g': toggleGuiDraw = !toggleGuiDraw; break;
-	case 'f':
-	case 'F': doFullScreen.set( !doFullScreen.get() ); break;
-	case 'c':
-	case 'C': doDrawCamBackground.set( !doDrawCamBackground.get() ); break;
-
-	case '1': drawMode.set( DRAW_COMPOSITE ); break;
-	case '2': drawMode.set( DRAW_FLUID_FIELDS ); break;
-	case '3': drawMode.set( DRAW_FLUID_VELOCITY ); break;
-	case '4': drawMode.set( DRAW_FLUID_PRESSURE ); break;
-	case '5': drawMode.set( DRAW_FLUID_TEMPERATURE ); break;
-	case '6': drawMode.set( DRAW_OPTICAL_FLOW ); break;
-	case '7': drawMode.set( DRAW_FLOW_MASK ); break;
-	case '8': drawMode.set( DRAW_MOUSE ); break;
-
-	case 'r':
-	case 'R':
-		fluidSimulation.reset();
-		fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
-		inputForces.reset();
+	case START:
+	{
+		switch( key )
+		{
+		case ' ':
+		{
+			gameState = GAME;
+			break;
+		}
+		default: break;
+		}
 		break;
+	}
+	case GAME:
+	{
+		switch( key )
+		{
+		case 'w':
+		case 'W':
+		case OF_KEY_UP:
+		{
+			player->get<inkCharacterController>()->isUpPressed = true;
+			break;
+		}
 
-	case 'i':
-	case 'I':
-		fluidSimulation.invert();
-		particleFlow.invert();
+		case 'a':
+		case 'A':
+		case OF_KEY_LEFT:
+		{
+			player->get<inkCharacterController>()->isLeftPressed = true;
+			break;
+		}
 
+		case 's':
+		case 'S':
+		case OF_KEY_DOWN:
+		{
+			player->get<inkCharacterController>()->isDownPressed = true;
+			break;
+		}
+
+		case 'd':
+		case 'D':
+		case OF_KEY_RIGHT:
+		{
+			player->get<inkCharacterController>()->isRightPressed = true;
+			break;
+		}
+
+		default: break;
+		}
+
+		break;
+	}
+	case END:
+	{
+		break;
+	}
+	case FLOW:
+	{
+		switch( key )
+		{
+		case 'G':
+		case 'g': toggleGuiDraw = !toggleGuiDraw; break;
+		case 'f':
+		case 'F': doFullScreen.set( !doFullScreen.get() ); break;
+		case 'c':
+		case 'C': doDrawCamBackground.set( !doDrawCamBackground.get() ); break;
+
+		case '1': drawMode.set( DRAW_COMPOSITE ); break;
+		case '2': drawMode.set( DRAW_FLUID_FIELDS ); break;
+		case '3': drawMode.set( DRAW_FLUID_VELOCITY ); break;
+		case '4': drawMode.set( DRAW_FLUID_PRESSURE ); break;
+		case '5': drawMode.set( DRAW_FLUID_TEMPERATURE ); break;
+		case '6': drawMode.set( DRAW_OPTICAL_FLOW ); break;
+		case '7': drawMode.set( DRAW_FLOW_MASK ); break;
+		case '8': drawMode.set( DRAW_MOUSE ); break;
+
+		case 'r':
+		case 'R':
+			fluidSimulation.reset();
+			fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
+			inputForces.reset();
+			break;
+
+		case 'i':
+		case 'I':
+			fluidSimulation.invert();
+			particleFlow.invert();
+			break;
+
+		default: break;
+		}
+		break;
+	}
 	default: break;
 	}
+	
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -349,47 +446,68 @@ void inkApp::drawModeSetName( int &_value )
 //-------------------------------------------------------------------------------------------------
 void inkApp::draw()
 {
-	//glClearColor(0.3f, 0.4f, 0.1f, 1.0f);
-	//ofColor::white
-	//ofClear(ofColor(128,128,128,255));
-	if( fluidSimulation.isInverted() )
-		ofClear( 255, 255 );
-	else
-		ofClear( 0, 0 );
-	//ofBackground(ofColor::white);
-	//ofBackground(ofColor(255, 255, 255, 255));
-	if( doDrawCamBackground.get() )
-		drawSource();
-
-
-	if( !toggleGuiDraw )
+	switch(gameState)
 	{
-		//ofHideCursor();
-		drawComposite();
+	case START:
+	{
+		break;
 	}
-	else
+	case GAME:
 	{
-		ofShowCursor();
-		switch( drawMode.get() )
+		break;
+	}
+	case END:
+	{
+		break;
+	}
+	case FLOW:
+	{
+		//glClearColor(0.3f, 0.4f, 0.1f, 1.0f);
+		//ofColor::white
+		//ofClear(ofColor(128,128,128,255));
+		if( fluidSimulation.isInverted() )
+			ofClear( 255, 255 );
+		else
+			ofClear( 0, 0 );
+		//ofBackground(ofColor::white);
+		//ofBackground(ofColor(255, 255, 255, 255));
+		if( doDrawCamBackground.get() )
+			drawSource();
+
+
+		if( !toggleGuiDraw )
 		{
-		case DRAW_COMPOSITE: drawComposite(); break;
-		case DRAW_PARTICLES: drawParticles(); break;
-		case DRAW_FLUID_FIELDS: drawFluidFields(); break;
-		case DRAW_FLUID_DENSITY: drawFluidDensity(); break;
-		case DRAW_FLUID_VELOCITY: drawFluidVelocity(); break;
-		case DRAW_FLUID_PRESSURE: drawFluidPressure(); break;
-		case DRAW_FLUID_TEMPERATURE: drawFluidTemperature(); break;
-		case DRAW_FLUID_DIVERGENCE: drawFluidDivergence(); break;
-		case DRAW_FLUID_VORTICITY: drawFluidVorticity(); break;
-		case DRAW_FLUID_BUOYANCY: drawFluidBuoyance(); break;
-		case DRAW_FLUID_OBSTACLE: drawFluidObstacle(); break;
-		case DRAW_FLOW_MASK: drawMask(); break;
-		case DRAW_OPTICAL_FLOW: drawOpticalFlow(); break;
-		case DRAW_SOURCE: drawSource(); break;
-		case DRAW_MOUSE: drawMouseForces(); break;
-		case DRAW_VELDOTS: drawVelocityDots(); break;
+			//ofHideCursor();
+			drawComposite();
 		}
-		drawGui();
+		else
+		{
+			ofShowCursor();
+			switch( drawMode.get() )
+			{
+			case DRAW_COMPOSITE: drawComposite(); break;
+			case DRAW_PARTICLES: drawParticles(); break;
+			case DRAW_FLUID_FIELDS: drawFluidFields(); break;
+			case DRAW_FLUID_DENSITY: drawFluidDensity(); break;
+			case DRAW_FLUID_VELOCITY: drawFluidVelocity(); break;
+			case DRAW_FLUID_PRESSURE: drawFluidPressure(); break;
+			case DRAW_FLUID_TEMPERATURE: drawFluidTemperature(); break;
+			case DRAW_FLUID_DIVERGENCE: drawFluidDivergence(); break;
+			case DRAW_FLUID_VORTICITY: drawFluidVorticity(); break;
+			case DRAW_FLUID_BUOYANCY: drawFluidBuoyance(); break;
+			case DRAW_FLUID_OBSTACLE: drawFluidObstacle(); break;
+			case DRAW_FLOW_MASK: drawMask(); break;
+			case DRAW_OPTICAL_FLOW: drawOpticalFlow(); break;
+			case DRAW_SOURCE: drawSource(); break;
+			case DRAW_MOUSE: drawMouseForces(); break;
+			case DRAW_VELDOTS: drawVelocityDots(); break;
+			}
+			drawGui();
+		}
+		break;
+	}
+	default:
+		break;
 	}
 }
 
@@ -706,7 +824,63 @@ void inkApp::drawGui()
 //-------------------------------------------------------------------------------------------------
 void inkApp::keyReleased( int key )
 {
+	switch( gameState )
+	{
+	case START:
+	{
+		break;
+	}
+	case GAME:
+	{
+		switch( key )
+		{
+		case 'w':
+		case 'W':
+		case OF_KEY_UP:
+		{
+			player->get<inkCharacterController>()->isUpPressed = false;
+			break;
+		}
 
+		case 'a':
+		case 'A':
+		case OF_KEY_LEFT:
+		{
+			player->get<inkCharacterController>()->isLeftPressed = false;
+			break;
+		}
+
+		case 's':
+		case 'S':
+		case OF_KEY_DOWN:
+		{
+			player->get<inkCharacterController>()->isDownPressed = false;
+			break;
+		}
+
+		case 'd':
+		case 'D':
+		case OF_KEY_RIGHT:
+		{
+			player->get<inkCharacterController>()->isRightPressed = false;
+			break;
+		}
+
+		default: break;
+		}
+
+		break;
+	}
+	case END:
+	{
+		break;
+	}
+	case FLOW:
+	{
+		break;
+	}
+	default: break;
+	}
 }
 
 //-------------------------------------------------------------------------------------------------

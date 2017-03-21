@@ -16,15 +16,29 @@
 // 02110-1301  USA
 // ================================================================================================
 
-#include "inkLevelController.h"
+#pragma once
 
-using namespace ink;
+#include <memory>
 
-inkLevelController::inkLevelController()
+#include "ofImage.h"
+#include "inkComponent.h"
+
+namespace ink
 {
-}
 
-
-inkLevelController::~inkLevelController()
+class inkSpriteComponent :
+	public inkComponent
 {
-}
+public:
+	inkSpriteComponent();
+	virtual ~inkSpriteComponent();
+
+	void setup( std::shared_ptr<ofImage> _img );
+	void update();
+	void draw();
+
+	std::shared_ptr<ofImage> img;
+};	//	inkSpriteComponent
+
+}	//	ink
+

@@ -16,15 +16,29 @@
 // 02110-1301  USA
 // ================================================================================================
 
-#include "inkLevelController.h"
+#pragma once
 
-using namespace ink;
+#include "inkComponent.h"
 
-inkLevelController::inkLevelController()
+namespace ink
 {
-}
 
-
-inkLevelController::~inkLevelController()
+class inkCharacterController :
+	public inkComponent
 {
-}
+public:
+	inkCharacterController();
+	virtual ~inkCharacterController();
+
+	float width, height, speed;
+
+	bool isLeftPressed, isRightPressed, isDownPressed, isUpPressed;
+
+	void setup();
+	void update();
+
+	void calculateMovement();
+};	//	inkCharacterController
+
+}	//	ink
+

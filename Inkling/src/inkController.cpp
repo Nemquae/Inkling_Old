@@ -18,7 +18,7 @@
 
 #include "inkController.h"
 
-
+using namespace ink;
 
 inkController::inkController()
 {

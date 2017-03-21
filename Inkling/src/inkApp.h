@@ -22,11 +22,10 @@
 #include "ofxGui.h"
 #include "ofxFlowTools.h"
 #include "inkGameObject.h"
+#include "inkGameObjectFactory.h"
 
 
 #define USE_PROGRAMMABLE_GL
-
-using namespace flowTools;
 
 namespace ink
 {
@@ -56,6 +55,7 @@ enum GameState
 	START
 ,	GAME
 ,	END
+,	FLOW
 };
 
 class inkApp : public ofBaseApp
@@ -67,311 +67,307 @@ public:
 	void draw();
 
 	// Camera
-	ofVideoGrabber		simpleCam;
-	bool				didCamUpdate;
-	ftFbo				cameraFbo;
-	ofParameter<bool>	doFlipCamera;
+	ofVideoGrabber					simpleCam;
+	bool							didCamUpdate;
+	flowTools::ftFbo				cameraFbo;
+	ofParameter<bool>				doFlipCamera;
 
 	// Time
-	float				lastTime;
-	float				deltaTime;
+	float							lastTime;
+	float							deltaTime;
 
 	// Game
-	GameState			gameState;
-	int					score;
-	shared_ptr
-		<inkGameObject>	player;
+	GameState						gameState;
+	int								score;
+	shared_ptr<inkGameObject>		player;
+	inkGameObjectFactory			gameObjectFactory;
 
 	// FlowTools
-	int					flowWidth;
-	int					flowHeight;
-	int					drawWidth;
-	int					drawHeight;
+	int								flowWidth;
+	int								flowHeight;
+	int								drawWidth;
+	int								drawHeight;
 
-	ftOpticalFlow		opticalFlow;
-	ftVelocityMask		velocityMask;
-	ftFluidSimulation	fluidSimulation;
-	ftParticleFlow		particleFlow;
+	flowTools::ftOpticalFlow		opticalFlow;
+	flowTools::ftVelocityMask		velocityMask;
+	flowTools::ftFluidSimulation	fluidSimulation;
+	flowTools::ftParticleFlow		particleFlow;
 
-	ftVelocitySpheres	velocityDots;
+	flowTools::ftVelocitySpheres	velocityDots;
 
-	ofImage				flowToolsLogoImage;
-	bool				showLogo;
+	ofImage							flowToolsLogoImage;
+	bool							showLogo;
 
 	// InputDraw
-	ftDrawInputForces	inputForces;
+	flowTools::ftDrawInputForces	inputForces;
 
-	void				touchDoubleTap( ofTouchEventArgs & touch );
+	void							touchDoubleTap( ofTouchEventArgs & touch );
 
 	// Visualisations
-	ofParameterGroup	visualizeParameters;
-	ftDisplayScalar		displayScalar;
-	ftVelocityField		velocityField;
-	ftTemperatureField	temperatureField;
-	ftPressureField		pressureField;
-	ftVTField			velocityTemperatureField;
+	ofParameterGroup				visualizeParameters;
+	flowTools::ftDisplayScalar		displayScalar;
+	flowTools::ftVelocityField		velocityField;
+	flowTools::ftTemperatureField	temperatureField;
+	flowTools::ftPressureField		pressureField;
+	flowTools::ftVTField			velocityTemperatureField;
 
-	ofParameter<bool>	showScalar;
-	ofParameter<bool>	showField;
-	ofParameter<float>	displayScalarScale;
-	void				setDisplayScalarScale( float& _value )
-						{
-							displayScalar.setScale( _value );
-						}
+	ofParameter<bool>				showScalar;
+	ofParameter<bool>				showField;
+	ofParameter<float>				displayScalarScale;
+	void							setDisplayScalarScale( float& _value )
+									{
+										displayScalar.setScale( _value );
+									}
 
-	ofParameter<float>	velocityFieldScale;
-	void				setVelocityFieldScale( float& _value )
-						{
-							velocityField.setVelocityScale( _value );
-							velocityTemperatureField.setVelocityScale( _value );
-						}
+	ofParameter<float>				velocityFieldScale;
+	void							setVelocityFieldScale( float& _value )
+									{
+										velocityField.setVelocityScale( _value );
+										velocityTemperatureField.setVelocityScale( _value );
+									}
 
-	ofParameter<float>	temperatureFieldScale;
-	void				setTemperatureFieldScale( float& _value )
-						{
-							temperatureField.setTemperatureScale( _value )
-								; velocityTemperatureField
-								.setTemperatureScale( _value )
-								;
-						}
+	ofParameter<float>				temperatureFieldScale;
+	void							setTemperatureFieldScale( float& _value )
+									{
+										temperatureField.setTemperatureScale( _value ); 
+										velocityTemperatureField.setTemperatureScale( _value );
+									}
 
-	ofParameter<float>	pressureFieldScale;
-	void				setPressureFieldScale( float& _value )
-						{
-							pressureField.setPressureScale( _value );
-						}
+	ofParameter<float>				pressureFieldScale;
+	void							setPressureFieldScale( float& _value )
+									{
+										pressureField.setPressureScale( _value );
+									}
 
-	ofParameter<bool>	velocityLineSmooth;
-	void				setVelocityLineSmooth( bool& _value )
-						{
-							velocityField.setLineSmooth( _value )
-								; velocityTemperatureField
-								.setLineSmooth( _value )
-								;
-						}
+	ofParameter<bool>				velocityLineSmooth;
+	void							setVelocityLineSmooth( bool& _value )
+									{
+										velocityField.setLineSmooth( _value ); 
+										velocityTemperatureField.setLineSmooth( _value );
+									}
 
 	// GUI
-	ofxPanel			gui;
-	void				setupGui();
-	void				keyPressed( int key );
-	void				drawGui();
-	ofParameter<bool>	toggleGuiDraw;
-	ofParameter<float>	guiFPS;
-	ofParameter<float>	guiMinFPS;
-	deque<float>		deltaTimeDeque;
-	ofParameter<bool>	doFullScreen;
-	void				setFullScreen( bool& _value ) {ofSetFullscreen( _value );}
+	ofxPanel						gui;
+	void							setupGui();
+	void							keyPressed( int key );
+	void							drawGui();
+	ofParameter<bool>				toggleGuiDraw;
+	ofParameter<float>				guiFPS;
+	ofParameter<float>				guiMinFPS;
+	deque<float>					deltaTimeDeque;
+	ofParameter<bool>				doFullScreen;
+	void							setFullScreen( bool& _value ) {ofSetFullscreen( _value );}
 
 	// DRAW
-	ofParameter<bool>	doDrawCamBackground;
+	ofParameter<bool>				doDrawCamBackground;
 
-	ofParameter<int>	drawMode;
-	void				drawModeSetName( int& _value );
-	ofParameter<string> drawName;
+	ofParameter<int>				drawMode;
+	void							drawModeSetName( int& _value );
+	ofParameter<string>				drawName;
 
-	void				drawComposite()
-						{
-							drawComposite
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawComposite()
+									{
+										drawComposite
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawComposite( int _x, int _y, int _width, int _height );
+	void							drawComposite( int _x, int _y, int _width, int _height );
 
-	void				drawParticles()
-						{
-							drawParticles
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawParticles()
+									{
+										drawParticles
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawParticles( int _x, int _y, int _width, int _height );
+	void							drawParticles( int _x, int _y, int _width, int _height );
 
-	void				drawFluidFields()
-						{
-							drawFluidFields
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawFluidFields()
+									{
+										drawFluidFields
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawFluidFields( int _x, int _y, int _width, int _height );
+	void							drawFluidFields( int _x, int _y, int _width, int _height );
 
-	void				drawFluidDensity()
-						{
-							drawFluidDensity
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawFluidDensity()
+									{
+										drawFluidDensity
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawFluidDensity( int _x, int _y, int _width, int _height );
+	void							drawFluidDensity( int _x, int _y, int _width, int _height );
 
-	void				drawFluidVelocity()
-						{
-							drawFluidVelocity
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawFluidVelocity()
+									{
+										drawFluidVelocity
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawFluidVelocity( int _x, int _y, int _width, int _height );
+	void							drawFluidVelocity( int _x, int _y, int _width, int _height );
 
-	void				drawFluidPressure()
-						{
-							drawFluidPressure
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawFluidPressure()
+									{
+										drawFluidPressure
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawFluidPressure( int _x, int _y, int _width, int _height );
+	void							drawFluidPressure( int _x, int _y, int _width, int _height );
 
-	void				drawFluidTemperature()
-						{
-							drawFluidTemperature
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawFluidTemperature()
+									{
+										drawFluidTemperature
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawFluidTemperature( int _x, int _y, int _width, int _height );
+	void							drawFluidTemperature( int _x, int _y, int _width, int _height );
 
-	void				drawFluidDivergence()
-						{
-							drawFluidDivergence
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawFluidDivergence()
+									{
+										drawFluidDivergence
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawFluidDivergence( int _x, int _y, int _width, int _height );
+	void							drawFluidDivergence( int _x, int _y, int _width, int _height );
 
-	void				drawFluidVorticity()
-						{
-							drawFluidVorticity
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawFluidVorticity()
+									{
+										drawFluidVorticity
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawFluidVorticity( int _x, int _y, int _width, int _height );
+	void							drawFluidVorticity( int _x, int _y, int _width, int _height );
 
-	void				drawFluidBuoyance()
-						{
-							drawFluidBuoyance
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawFluidBuoyance()
+									{
+										drawFluidBuoyance
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawFluidBuoyance( int _x, int _y, int _width, int _height );
+	void							drawFluidBuoyance( int _x, int _y, int _width, int _height );
 
-	void				drawFluidObstacle()
-						{
-							drawFluidObstacle
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawFluidObstacle()
+									{
+										drawFluidObstacle
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawFluidObstacle( int _x, int _y, int _width, int _height );
+	void							drawFluidObstacle( int _x, int _y, int _width, int _height );
 
-	void				drawMask()
-						{
-							drawMask
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawMask()
+									{
+										drawMask
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawMask( int _x, int _y, int _width, int _height );
+	void							drawMask( int _x, int _y, int _width, int _height );
 
-	void				drawOpticalFlow()
-						{
-							drawOpticalFlow
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawOpticalFlow()
+									{
+										drawOpticalFlow
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawOpticalFlow( int _x, int _y, int _width, int _height );
+	void							drawOpticalFlow( int _x, int _y, int _width, int _height );
 
-	void				drawSource()
-						{
-							drawSource
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawSource()
+									{
+										drawSource
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawSource( int _x, int _y, int _width, int _height );
+	void							drawSource( int _x, int _y, int _width, int _height );
 
-	void				drawMouseForces()
-						{
-							drawMouseForces
-							( 0
-							  , 0
-							  , ofGetWindowWidth()
-							  , ofGetWindowHeight()
-							);
-						}
+	void							drawMouseForces()
+									{
+										drawMouseForces
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawMouseForces( int _x, int _y, int _width, int _height );
+	void							drawMouseForces( int _x, int _y, int _width, int _height );
 
-	void				drawVelocityDots()
-					{
-						drawVelocityDots
-						( 0
-						  , 0
-						  , ofGetWindowWidth()
-						  , ofGetWindowHeight()
-						);
-					}
+	void							drawVelocityDots()
+									{
+										drawVelocityDots
+										( 0
+										  , 0
+										  , ofGetWindowWidth()
+										  , ofGetWindowHeight()
+										);
+									}
 
-	void				drawVelocityDots( int _x, int _y, int _width, int _height );
+	void							drawVelocityDots( int _x, int _y, int _width, int _height );
 
-	//void keyPressed(int key);
-	void keyReleased( int key );
-	void mouseMoved( int x, int y );
-	void mouseDragged( int x, int y, int button );
-	void mousePressed( int x, int y, int button );
-	void mouseReleased( int x, int y, int button );
-	void mouseEntered( int x, int y );
-	void mouseExited( int x, int y );
-	void windowResized( int w, int h );
-	void dragEvent( ofDragInfo dragInfo );
-	void gotMessage( ofMessage msg );
+	//void							keyPressed(int key);
+	void							keyReleased( int key );
+	void							mouseMoved( int x, int y );
+	void							mouseDragged( int x, int y, int button );
+	void							mousePressed( int x, int y, int button );
+	void							mouseReleased( int x, int y, int button );
+	void							mouseEntered( int x, int y );
+	void							mouseExited( int x, int y );
+	void							windowResized( int w, int h );
+	void							dragEvent( ofDragInfo dragInfo );
+	void							gotMessage( ofMessage msg );
 
 };	//	inkApp
 

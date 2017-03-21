@@ -22,47 +22,90 @@
 #include <utility>
 #include <stdexcept>
 #include <exception>
-#include <iostream>
 
 #include "inkGameObject.h"
-
-using namespace std;
+#include "inkCharacterController.h"
+#include "inkDefenseComponent.h"
+#include "inkOffenseComponent.h"
+#include "inkSpriteComponent.h"
 
 namespace ink
 {
 
+enum PrefabType
+{
+	  PLAYER
+	, ENEMY
+	, BULLET
+	, LIFE
+};
+
+template<class T, class...Args>
+class creatable_from
+{
+public:
+	template<class X, class...Ys>
+	static auto test( int ) -> decltype( X( declval<Ys>()... ), void(), true_type() );
+
+	template<class X, class...Ys>
+	static auto test( ... ) -> decltype( false_type() );
+
+	static constexpr auto value = decltype( test<T, Args...>( 0 ) )::value;
+
+};
+
 class inkGameObjectFactory
 {
 public:
-	inkGameObjectFactory();
+	inkGameObjectFactory() {}
 
-	virtual ~inkGameObjectFactory();
-
-	enum PrefabType
-	{
-		PLAYER
-	,	ENEMY
-	,	BULLET
-	,	LIFE
-	};
+	virtual ~inkGameObjectFactory() {}
 
 	template<class...Args>
-	shared_ptr<inkGameObject> create( const PrefabType& type, Args&&...args );
+	std::shared_ptr<inkGameObject> create( const PrefabType& type, Args&&...args )
+	{
+		shared_ptr<inkGameObject> gameObj;
 
+		switch( type )
+		{
+		case PLAYER:
+			gameObj = createEmpty<inkGameObject>( forward<Args>( args )... );
+			gameObj->add<inkCharacterController>();
+			gameObj->add<inkDefenseComponent>();
+			gameObj->add<inkOffenseComponent>();
+			gameObj->add<inkSpriteComponent>();
+			//gameObj->components[ eCharacterController ] = make_shared<inkCharacterController>();
+			//gameObj->components[ eDefenseComponent ] = make_shared<inkDefenseComponent>();
+			//gameObj->components[ eOffenseComponent ] = make_shared<inkOffenseComponent>();
+			//gameObj->components[ eSpriteComponent ] = make_shared<inkSpriteComponent>();
+		case ENEMY:
+			break;
+		case BULLET:
+			break;
+		case LIFE:
+			break;
+		default:
+			break;
+		}
 
+		return{};
+	}
 
 private:
 
 	template<class T, class...Args>
-	class creatable_from;
+	static auto createEmpty( Args&&...args )
+		->std::enable_if_t< creatable_from<T, Args...>::value, std::shared_ptr<T> >
+	{
+		return make_shared<T>( forward<Args>( args )... );
+	}
 
 	template<class T, class...Args>
 	static auto createEmpty( Args&&...args )
-		->enable_if_t< creatable_from<T, Args...>::value, shared_ptr<T> >;
-
-	template<class T, class...Args>
-	static auto createEmpty( Args&&...args )
-		->enable_if_t< !creatable_from<T, Args...>::value, shared_ptr<T> >;
+		->std::enable_if_t< !creatable_from<T, Args...>::value, std::shared_ptr<T> >
+	{
+		throw invalid_argument( "wrong number of arguments" );
+	}
 
 
 };	//	inkEntityFactory
