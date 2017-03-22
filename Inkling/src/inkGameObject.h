@@ -51,9 +51,13 @@ public:
 		{
 			std::unordered_map< int, std::shared_ptr<inkComponent> > & map = components[ index ];
 			
-			if( map.count( id ) != 0 || (id == 0 && map.size() > 0) )
+			if( map.count( id ) != 0 )
 			{
 				return static_pointer_cast<T>( map[ id ] );
+			}
+			else if( id == 0 && map.size() > 0 )
+			{
+				return static_pointer_cast<T>( map.begin()->second );
 			}
 			else
 			{
@@ -76,7 +80,7 @@ public:
 	void add()
 	{
 		std::shared_ptr<inkComponent> component = 
-			static_pointer_cast<inkComponent>( std::make_shared<T>() );
+			static_pointer_cast<inkComponent>( std::make_shared<T>(*this) );
 
 		components[ std::type_index( typeid( T ) ) ][ component->id ] = component;
 	}

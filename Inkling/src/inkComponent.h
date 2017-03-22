@@ -21,10 +21,12 @@
 namespace ink
 {
 
+class inkGameObject;
+
 class inkComponent
 {
 public:
-	inkComponent();
+	inkComponent( inkGameObject & gameObj );
 	virtual ~inkComponent();
 
 	const int	id;
@@ -33,6 +35,8 @@ public:
 
 	virtual void setup() = 0;
 	virtual void update() = 0;
+
+	typename inkGameObject & gameObject;
 
 };	//	inkComponent
 

@@ -27,7 +27,7 @@ class inkOffenseComponent :
 	public inkComponent
 {
 public:
-	inkOffenseComponent();
+	inkOffenseComponent(inkGameObject & gameObj);
 	virtual ~inkOffenseComponent();
 
 	virtual void setup();

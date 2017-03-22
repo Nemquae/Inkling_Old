@@ -17,10 +17,12 @@
 // ================================================================================================
 
 #include "inkSpriteComponent.h"
+#include "inkGameObject.h"
 
 using namespace ink;
 
-inkSpriteComponent::inkSpriteComponent()
+inkSpriteComponent::inkSpriteComponent( inkGameObject & gameObj )
+: inkComponent( gameObj )
 {
 }
 
@@ -31,6 +33,7 @@ inkSpriteComponent::~inkSpriteComponent()
 
 void inkSpriteComponent::setup( std::shared_ptr<ofImage> _img )
 {
+	img = _img;
 }
 
 void inkSpriteComponent::setup( )
@@ -39,4 +42,9 @@ void inkSpriteComponent::setup( )
 
 void inkSpriteComponent::update()
 {
+}
+
+void inkSpriteComponent::draw()
+{
+	img->draw( gameObject.pos );
 }

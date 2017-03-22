@@ -29,7 +29,7 @@ void inkApp::setup()
 	gameState = START;
 	score = 0;
 
-	playerImage.loadImage( "player.img" );
+	playerImage.loadImage( "imgs\\player.png" );
 	player->get<inkSpriteComponent>()->setup( make_shared<ofImage>(playerImage) );
 
 	ofSetVerticalSync( false );
@@ -209,7 +209,7 @@ void inkApp::update()
 	}
 	case GAME:
 	{
-
+		player->update();
 		break;
 	}
 	case END:
@@ -457,6 +457,7 @@ void inkApp::draw()
 	}
 	case GAME:
 	{
+		player->get<inkSpriteComponent>()->draw();
 		break;
 	}
 	case END:

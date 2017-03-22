@@ -27,7 +27,7 @@ class inkCharacterController :
 	public inkComponent
 {
 public:
-	inkCharacterController();
+	inkCharacterController( inkGameObject & gameObj );
 	virtual ~inkCharacterController();
 
 	float width, height, speed;

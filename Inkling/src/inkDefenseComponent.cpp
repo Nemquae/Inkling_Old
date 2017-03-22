@@ -20,7 +20,8 @@
 
 using namespace ink;
 
-inkDefenseComponent::inkDefenseComponent()
+inkDefenseComponent::inkDefenseComponent( inkGameObject & gameObj )
+: inkComponent( gameObj )
 {
 }
 

@@ -22,8 +22,9 @@ using namespace ink;
 
 int inkComponent::totalIDs = 0;
 
-inkComponent::inkComponent()
+inkComponent::inkComponent(inkGameObject & gameObj)
 : id(++totalIDs)
+, gameObject( gameObj )
 {
 }
 

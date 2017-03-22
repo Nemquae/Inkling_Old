@@ -29,7 +29,7 @@ class inkDefenseComponent :
 public:
 	int lives;
 
-	inkDefenseComponent();
+	inkDefenseComponent( inkGameObject & gameObj);
 	virtual ~inkDefenseComponent();
 
 	virtual void setup();

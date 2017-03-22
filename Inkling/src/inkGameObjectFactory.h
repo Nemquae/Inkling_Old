@@ -78,6 +78,7 @@ public:
 			//gameObj->components[ eDefenseComponent ] = make_shared<inkDefenseComponent>();
 			//gameObj->components[ eOffenseComponent ] = make_shared<inkOffenseComponent>();
 			//gameObj->components[ eSpriteComponent ] = make_shared<inkSpriteComponent>();
+			return gameObj;
 		case ENEMY:
 			break;
 		case BULLET:

@@ -20,7 +20,8 @@
 
 using namespace ink;
 
-inkCharacterController::inkCharacterController()
+inkCharacterController::inkCharacterController( inkGameObject & gameObj )
+: inkComponent(gameObj)
 {
 }
 
