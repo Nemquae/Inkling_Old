@@ -30,7 +30,9 @@ public:
 	inkOffenseComponent();
 	virtual ~inkOffenseComponent();
 
-	void update();
+	virtual void setup();
+	virtual void update();
+
 	void shoot();
 	bool canShoot();
 };	//	inkOffenseComponent

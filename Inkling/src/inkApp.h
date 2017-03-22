@@ -81,6 +81,7 @@ public:
 	int								score;
 	shared_ptr<inkGameObject>		player;
 	inkGameObjectFactory			gameObjectFactory;
+	ofImage							playerImage;
 
 	// FlowTools
 	int								flowWidth;

@@ -28,3 +28,12 @@ inkOffenseComponent::inkOffenseComponent()
 inkOffenseComponent::~inkOffenseComponent()
 {
 }
+
+
+void inkOffenseComponent::setup()
+{
+}
+
+void inkOffenseComponent::update()
+{
+}

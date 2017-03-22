@@ -41,6 +41,8 @@ public:
 
 	static int	totalIDs;
 
+	void update();
+
 	template <typename T>
 	std::shared_ptr<T> get(int id = 0)
 	{

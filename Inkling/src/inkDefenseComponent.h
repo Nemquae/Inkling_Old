@@ -31,6 +31,10 @@ public:
 
 	inkDefenseComponent();
 	virtual ~inkDefenseComponent();
+
+	virtual void setup();
+	virtual void update();
+
 };	// inkDefenseComponent
 
 }	// ink

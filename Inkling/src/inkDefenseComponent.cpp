@@ -28,3 +28,11 @@ inkDefenseComponent::inkDefenseComponent()
 inkDefenseComponent::~inkDefenseComponent()
 {
 }
+
+void inkDefenseComponent::setup()
+{
+}
+
+void inkDefenseComponent::update()
+{
+}

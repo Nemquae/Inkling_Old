@@ -28,3 +28,15 @@ inkSpriteComponent::inkSpriteComponent()
 inkSpriteComponent::~inkSpriteComponent()
 {
 }
+
+void inkSpriteComponent::setup( std::shared_ptr<ofImage> _img )
+{
+}
+
+void inkSpriteComponent::setup( )
+{
+}
+
+void inkSpriteComponent::update()
+{
+}

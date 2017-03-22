@@ -29,6 +29,9 @@ void inkApp::setup()
 	gameState = START;
 	score = 0;
 
+	playerImage.loadImage( "player.img" );
+	player->get<inkSpriteComponent>()->setup( make_shared<ofImage>(playerImage) );
+
 	ofSetVerticalSync( false );
 	ofSetLogLevel( OF_LOG_NOTICE );
 	//ofSetBackgroundAuto(true);

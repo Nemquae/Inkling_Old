@@ -34,8 +34,9 @@ public:
 	virtual ~inkSpriteComponent();
 
 	void setup( std::shared_ptr<ofImage> _img );
-	void update();
-	void draw();
+
+	virtual void setup();
+	virtual void update();
 
 	std::shared_ptr<ofImage> img;
 };	//	inkSpriteComponent

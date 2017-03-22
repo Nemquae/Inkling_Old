@@ -31,3 +31,14 @@ inkGameObject::inkGameObject()
 inkGameObject::~inkGameObject()
 {
 }
+
+void inkGameObject::update()
+{
+	for each ( auto i in components )
+	{
+		for each (auto j in i.second)
+		{
+			j.second->update();
+		}
+	}
+}

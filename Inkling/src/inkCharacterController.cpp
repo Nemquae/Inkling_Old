@@ -28,3 +28,11 @@ inkCharacterController::inkCharacterController()
 inkCharacterController::~inkCharacterController()
 {
 }
+
+void inkCharacterController::setup()
+{
+}
+
+void inkCharacterController::update()
+{
+}
