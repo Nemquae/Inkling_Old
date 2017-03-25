@@ -80,8 +80,13 @@ public:
 	GameState						gameState;
 	int								score;
 	shared_ptr<inkGameObject>		player;
+	std::vector< shared_ptr
+				 < inkGameObject> >	bullets;
 	inkGameObjectFactory			gameObjectFactory;
 	ofImage							playerImage;
+	ofImage							enemyImage;
+	ofImage							playerBulletImage;
+	ofImage							enemyBulletImage;
 
 	// FlowTools
 	int								flowWidth;

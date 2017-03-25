@@ -30,7 +30,13 @@ void inkApp::setup()
 	score = 0;
 
 	playerImage.loadImage( "imgs\\player.png" );
-	player->get<inkSpriteComponent>()->setup( make_shared<ofImage>(playerImage) );
+	enemyImage.loadImage( "imgs\\enemy.png" );
+	playerBulletImage.loadImage( "imgs\\player_bullet.png" );
+	enemyBulletImage.loadImage( "img\\enemy_bullet.png" );
+
+	player->get<inkSpriteComponent>()->img = make_shared<ofImage>(playerImage);
+
+
 
 	ofSetVerticalSync( false );
 	ofSetLogLevel( OF_LOG_NOTICE );
@@ -210,6 +216,29 @@ void inkApp::update()
 	case GAME:
 	{
 		player->update();
+
+		for(int i = 0; i < bullets.size(); ++i)
+		{
+			bullets[i]->update();
+			shared_ptr<inkCharacterController> bulCharCon = bullets[ i ]->get<inkCharacterController>();
+
+			if( bulCharCon->collisionLayer == 0)
+			{
+				bullets[ i ]->pos.y -= bulCharCon->speed;
+			}
+			else
+			{
+				bullets[ i ]->pos.y += bulCharCon->speed;
+			}
+
+			ofPoint pos = bullets[ i ]->pos;
+			float width = bullets[ i ]->get<inkCharacterController>()->width;
+			if(pos.y - width /2 < 0 || pos.y + width /2 > ofGetHeight())
+			{
+				bullets.erase( bullets.begin() + i );
+			}
+		}
+
 		break;
 	}
 	case END:
@@ -371,6 +400,17 @@ void inkApp::keyPressed( int key )
 			break;
 		}
 
+		case ' ':
+		{
+			shared_ptr<inkGameObject> b = gameObjectFactory.create( BULLET );
+			b->pos = player->pos;
+			b->get<inkCharacterController>()->collisionLayer = 0;
+			b->get<inkCharacterController>()->speed = player->get<inkCharacterController>()->speed + 3;
+			b->get<inkSpriteComponent>()->img = make_shared<ofImage>(playerBulletImage);
+			bullets.push_back( b );
+			break;
+		}
+
 		default: break;
 		}
 
@@ -457,7 +497,14 @@ void inkApp::draw()
 	}
 	case GAME:
 	{
+		ofBackground( 0, 0, 0 );
 		player->get<inkSpriteComponent>()->draw();
+
+		for(auto&& b : bullets)
+		{
+			b->get<inkSpriteComponent>()->draw();
+		}
+
 		break;
 	}
 	case END:

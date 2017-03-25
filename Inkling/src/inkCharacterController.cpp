@@ -17,6 +17,7 @@
 // ================================================================================================
 
 #include "inkCharacterController.h"
+#include "inkGameObject.h"
 
 using namespace ink;
 
@@ -32,8 +33,36 @@ inkCharacterController::~inkCharacterController()
 
 void inkCharacterController::setup()
 {
+	width = 0;
+	height = 0;
+	speed = 1;
+	isLeftPressed = false;
+	isRightPressed = false;
+	isUpPressed = false;
+	isDownPressed = false;
 }
 
 void inkCharacterController::update()
 {
+	this->calculateMovement();
+}
+
+void inkCharacterController::calculateMovement()
+{
+	if(isLeftPressed)
+	{
+		gameObject.pos.x -= speed;
+	}
+	if(isRightPressed)
+	{
+		gameObject.pos.x += speed;
+	}
+	if(isUpPressed)
+	{
+		gameObject.pos.y -= speed;
+	}
+	if(isDownPressed)
+	{
+		gameObject.pos.y += speed;
+	}
 }

@@ -32,6 +32,17 @@ inkGameObject::~inkGameObject()
 {
 }
 
+void inkGameObject::setup()
+{
+	for( auto && i : components )
+	{
+		for( auto && j : i.second )
+		{
+			j.second->setup();
+		}
+	}
+}
+
 void inkGameObject::update()
 {
 	for each ( auto i in components )

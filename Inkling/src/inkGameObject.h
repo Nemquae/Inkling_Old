@@ -41,6 +41,7 @@ public:
 
 	static int	totalIDs;
 
+	void setup();
 	void update();
 
 	template <typename T>

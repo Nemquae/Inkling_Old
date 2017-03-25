@@ -18,6 +18,7 @@
 
 #include "inkSpriteComponent.h"
 #include "inkGameObject.h"
+#include "inkCharacterController.h"
 
 using namespace ink;
 
@@ -31,13 +32,9 @@ inkSpriteComponent::~inkSpriteComponent()
 {
 }
 
-void inkSpriteComponent::setup( std::shared_ptr<ofImage> _img )
-{
-	img = _img;
-}
-
 void inkSpriteComponent::setup( )
 {
+	center = false;
 }
 
 void inkSpriteComponent::update()
@@ -46,5 +43,14 @@ void inkSpriteComponent::update()
 
 void inkSpriteComponent::draw()
 {
-	img->draw( gameObject.pos );
+	if(center)
+	{
+		ofPoint pos = gameObject.pos;
+		float width = gameObject.get<inkCharacterController>()->width;
+		img->draw( pos.x - width / 2, pos.y - width / 2 );
+	}
+	else
+	{
+		img->draw( gameObject.pos );
+	}
 }

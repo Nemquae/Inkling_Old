@@ -31,11 +31,12 @@ public:
 	virtual ~inkCharacterController();
 
 	float width, height, speed;
+	int collisionLayer;
 
 	bool isLeftPressed, isRightPressed, isDownPressed, isUpPressed;
 
-	void setup();
-	void update();
+	void setup() override;
+	void update() override;
 
 	void calculateMovement();
 };	//	inkCharacterController

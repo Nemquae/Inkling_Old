@@ -33,13 +33,12 @@ public:
 	inkSpriteComponent(inkGameObject & gameObj);
 	virtual ~inkSpriteComponent();
 
-	void setup( std::shared_ptr<ofImage> _img );
-
 	virtual void setup();
 	virtual void update();
 	void draw();
 
 	std::shared_ptr<ofImage> img;
+	bool center;
 };	//	inkSpriteComponent
 
 }	//	ink

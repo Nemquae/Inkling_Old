@@ -74,15 +74,16 @@ public:
 			gameObj->add<inkDefenseComponent>();
 			gameObj->add<inkOffenseComponent>();
 			gameObj->add<inkSpriteComponent>();
-			//gameObj->components[ eCharacterController ] = make_shared<inkCharacterController>();
-			//gameObj->components[ eDefenseComponent ] = make_shared<inkDefenseComponent>();
-			//gameObj->components[ eOffenseComponent ] = make_shared<inkOffenseComponent>();
-			//gameObj->components[ eSpriteComponent ] = make_shared<inkSpriteComponent>();
+			gameObj->setup();
 			return gameObj;
 		case ENEMY:
 			break;
 		case BULLET:
-			break;
+			gameObj = createEmpty<inkGameObject>( forward<Args>( args )... );
+			gameObj->add<inkCharacterController>();
+			gameObj->add<inkSpriteComponent>();
+			gameObj->setup();
+			return gameObj;
 		case LIFE:
 			break;
 		default:
