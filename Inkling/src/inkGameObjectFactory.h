@@ -64,7 +64,7 @@ public:
 	template<class...Args>
 	std::shared_ptr<inkGameObject> create( const PrefabType& type, Args&&...args )
 	{
-		shared_ptr<inkGameObject> gameObj;
+		shared_ptr<inkGameObject> gameObj = nullptr;
 
 		switch( type )
 		{
@@ -75,22 +75,28 @@ public:
 			gameObj->add<inkOffenseComponent>();
 			gameObj->add<inkSpriteComponent>();
 			gameObj->setup();
-			return gameObj;
+			break;
 		case ENEMY:
+			gameObj = createEmpty<inkGameObject>( forward<Args>( args )... );
+			gameObj->add<inkCharacterController>();
+			gameObj->add<inkDefenseComponent>();
+			gameObj->add<inkOffenseComponent>();
+			gameObj->add<inkSpriteComponent>();
+			gameObj->setup();
 			break;
 		case BULLET:
 			gameObj = createEmpty<inkGameObject>( forward<Args>( args )... );
 			gameObj->add<inkCharacterController>();
 			gameObj->add<inkSpriteComponent>();
 			gameObj->setup();
-			return gameObj;
+			break;
 		case LIFE:
 			break;
 		default:
 			break;
 		}
 
-		return{};
+		return gameObj;
 	}
 
 private:

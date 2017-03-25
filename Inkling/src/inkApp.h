@@ -23,6 +23,7 @@
 #include "ofxFlowTools.h"
 #include "inkGameObject.h"
 #include "inkGameObjectFactory.h"
+#include "inkLevelController.h"
 
 
 #define USE_PROGRAMMABLE_GL
@@ -82,11 +83,20 @@ public:
 	shared_ptr<inkGameObject>		player;
 	std::vector< shared_ptr
 				 < inkGameObject> >	bullets;
+	std::vector< shared_ptr
+				 < inkGameObject> > enemies;
+
 	inkGameObjectFactory			gameObjectFactory;
 	ofImage							playerImage;
 	ofImage							enemyImage;
 	ofImage							playerBulletImage;
 	ofImage							enemyBulletImage;
+
+	float							maxEnemyAmplitude;
+	float							maxEnemyShootInterval;
+	int								lives;
+
+	inkLevelController				levelController;
 
 	// FlowTools
 	int								flowWidth;

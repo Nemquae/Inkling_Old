@@ -17,6 +17,7 @@
 // ================================================================================================
 
 #include "inkApp.h"
+#include "inkOffenseComponent.h"
 
 using namespace ink;
 using namespace flowTools;
@@ -28,15 +29,17 @@ void inkApp::setup()
 
 	gameState = START;
 	score = 0;
+	lives = 0;
 
 	playerImage.loadImage( "imgs\\player.png" );
-	enemyImage.loadImage( "imgs\\enemy.png" );
+	enemyImage.loadImage( "imgs\\enemy0.png" );
 	playerBulletImage.loadImage( "imgs\\player_bullet.png" );
-	enemyBulletImage.loadImage( "img\\enemy_bullet.png" );
+	enemyBulletImage.loadImage( "imgs\\enemy_bullet.png" );
 
 	player->get<inkSpriteComponent>()->img = make_shared<ofImage>(playerImage);
 
-
+	maxEnemyAmplitude = 3.0;
+	maxEnemyShootInterval = 1.5;
 
 	ofSetVerticalSync( false );
 	ofSetLogLevel( OF_LOG_NOTICE );
@@ -239,6 +242,63 @@ void inkApp::update()
 			}
 		}
 
+		for(int i = 0; i < bullets.size(); ++i)
+		{
+			if(bullets[i]->get<inkCharacterController>()->collisionLayer == 0)
+			{
+				for(int e = enemies.size()-1; e >= 0 && i < bullets.size(); --e)
+				{
+					if(ofDist(bullets[i]->pos.x, bullets[i]->pos.y, enemies[e]->pos.x, enemies[e]->pos.y) 
+						< (enemies[e]->get<inkCharacterController>()->width + bullets[i]->get<inkCharacterController>()->width)/2)
+					{
+						enemies.erase( enemies.begin() + e );
+						bullets.erase( bullets.begin() + i );
+						score += 10;
+					}
+				}
+			}
+			else if ( ofDist( bullets[ i ]->pos.x, bullets[ i ]->pos.y, player->pos.x, player->pos.y )
+					  < ( player->get<inkCharacterController>()->width + bullets[ i ]->get<inkCharacterController>()->width ) / 2 )
+			{
+				bullets.erase( bullets.begin() + i );
+				lives--;
+
+				if( lives <= 0 )
+					gameState = END;
+			}
+		}
+
+		for (int i = 0; i < enemies.size(); ++i)
+		{
+			enemies[ i ]->update();
+			enemies[ i ]->pos.y += enemies[ i ]->get<inkCharacterController>()->speed;
+			enemies[ i ]->pos.x += enemies[ i ]->get<inkOffenseComponent>()->amplitude * sin( ofGetElapsedTimef() );
+			if( ofGetElapsedTimef() - enemies[ i ]->get<inkOffenseComponent>()->startShoot > enemies[ i ]->get<inkOffenseComponent>()->shootInterval )
+			{
+				enemies[ i ]->get<inkOffenseComponent>()->startShoot = ofGetElapsedTimef();
+				shared_ptr<inkGameObject> b = gameObjectFactory.create( BULLET );
+				b->pos = enemies[ i ]->pos;
+				b->get<inkCharacterController>()->collisionLayer = 1;
+				b->get<inkCharacterController>()->speed = enemies[ i ]->get<inkCharacterController>()->speed + 3;
+				b->get<inkSpriteComponent>()->img = make_shared<ofImage>( enemyBulletImage );
+				bullets.push_back( b );
+			}
+		}
+
+		if(levelController.shouldSpawn())
+		{
+			shared_ptr<inkGameObject> e = gameObjectFactory.create( ENEMY );
+			e->pos.x = ofRandom( ofGetWidth() );
+			e->pos.y = 0;
+			e->get<inkSpriteComponent>()->img = make_shared<ofImage>(enemyImage);
+			e->get<inkCharacterController>()->width = enemyImage.getWidth();
+			e->get<inkCharacterController>()->speed = ofRandom( 2, 7 );
+			e->get<inkOffenseComponent>()->amplitude = ofRandom( maxEnemyAmplitude );
+			e->get<inkOffenseComponent>()->shootInterval = ofRandom( 0.5, maxEnemyAmplitude );
+			e->get<inkOffenseComponent>()->startShoot = ofGetElapsedTimef();
+			enemies.push_back( e );
+		}
+
 		break;
 	}
 	case END:
@@ -358,6 +418,7 @@ void inkApp::keyPressed( int key )
 		case ' ':
 		{
 			gameState = GAME;
+			levelController.setup( ofGetElapsedTimeMillis() );
 			break;
 		}
 		default: break;
@@ -503,6 +564,11 @@ void inkApp::draw()
 		for(auto&& b : bullets)
 		{
 			b->get<inkSpriteComponent>()->draw();
+		}
+
+		for(auto&& e : enemies)
+		{
+			e->get<inkSpriteComponent>()->draw();
 		}
 
 		break;

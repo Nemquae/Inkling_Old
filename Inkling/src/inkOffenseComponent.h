@@ -33,6 +33,10 @@ public:
 	virtual void setup();
 	virtual void update();
 
+	float							amplitude;
+	float							startShoot;
+	float							shootInterval;
+
 	void shoot();
 	bool canShoot();
 };	//	inkOffenseComponent

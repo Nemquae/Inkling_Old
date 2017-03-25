@@ -18,6 +18,7 @@
 
 #pragma once
 
+#include "ofUtils.h"
 #include "inkController.h"
 
 namespace ink
@@ -29,6 +30,13 @@ class inkLevelController :
 public:
 	inkLevelController();
 	virtual ~inkLevelController();
+
+	float startTime;
+	float intervalTime;
+
+	void setup( float s );
+	bool shouldSpawn();
+
 };	//	inkLevelController
 
 }	//	ink

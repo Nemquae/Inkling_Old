@@ -28,3 +28,19 @@ inkLevelController::inkLevelController()
 inkLevelController::~inkLevelController()
 {
 }
+
+void inkLevelController::setup(float s)
+{
+	startTime = s;
+	intervalTime = 500;
+}
+
+bool inkLevelController::shouldSpawn()
+{
+	if(ofGetElapsedTimeMillis() - startTime > intervalTime)
+	{
+		startTime = ofGetElapsedTimeMillis();
+		return true;
+	}
+	return false;
+}
