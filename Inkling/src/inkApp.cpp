@@ -27,7 +27,7 @@ void inkApp::setup()
 {
 	player = gameObjectFactory.create( PLAYER );
 
-	gameState = START;
+	gameState = FLOW;
 	score = 0;
 	lives = 0;
 
@@ -35,6 +35,7 @@ void inkApp::setup()
 	enemyImage.loadImage( "imgs\\enemy0.png" );
 	playerBulletImage.loadImage( "imgs\\player_bullet.png" );
 	enemyBulletImage.loadImage( "imgs\\enemy_bullet.png" );
+	lifeImage.loadImage( "imgs\\life_image.png" );
 
 	player->get<inkSpriteComponent>()->img = make_shared<ofImage>(playerImage);
 

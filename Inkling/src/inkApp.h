@@ -85,12 +85,15 @@ public:
 				 < inkGameObject> >	bullets;
 	std::vector< shared_ptr
 				 < inkGameObject> > enemies;
+	std::vector< shared_ptr
+				 < inkGameObject> > bonuses;
 
 	inkGameObjectFactory			gameObjectFactory;
 	ofImage							playerImage;
 	ofImage							enemyImage;
 	ofImage							playerBulletImage;
 	ofImage							enemyBulletImage;
+	ofImage							lifeImage;
 
 	float							maxEnemyAmplitude;
 	float							maxEnemyShootInterval;
