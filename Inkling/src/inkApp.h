@@ -25,6 +25,9 @@
 #include "inkGameObjectFactory.h"
 #include "inkLevelController.h"
 
+#if (TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS)
+#include "ofxiOS.h"
+#endif
 
 #define USE_PROGRAMMABLE_GL
 
@@ -59,7 +62,11 @@ enum GameState
 ,	FLOW
 };
 
+#if (TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS)
+class inkApp : public ofxiOSApp
+#else
 class inkApp : public ofBaseApp
+#endif
 {
 
 public:

@@ -45,9 +45,9 @@ void inkGameObject::setup()
 
 void inkGameObject::update()
 {
-	for each ( auto i in components )
+    for ( auto && i : components )
 	{
-		for each (auto j in i.second)
+        for (auto && j : i.second)
 		{
 			j.second->update();
 		}
