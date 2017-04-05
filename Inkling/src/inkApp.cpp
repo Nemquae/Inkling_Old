@@ -53,7 +53,7 @@ void inkApp::setup()
 	flowWidth = drawWidth / 4;
 	flowHeight = drawHeight / 4;
     
-    ofLogError(string("GLSL Version = ") + string((char *)glGetString(GL_SHADING_LANGUAGE_VERSION)) + string("\n"));
+    ofLogNotice(string("GLSL Version = ") + string((char *)glGetString(GL_SHADING_LANGUAGE_VERSION)) + string("\n"));
 
 	// FLOW & MASK
 	opticalFlow.setup( flowWidth, flowHeight );
