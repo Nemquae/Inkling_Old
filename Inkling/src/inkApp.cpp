@@ -31,11 +31,11 @@ void inkApp::setup()
 	score = 0;
 	lives = 0;
 
-	playerImage.loadImage( "imgs\\player.png" );
-	enemyImage.loadImage( "imgs\\enemy0.png" );
-	playerBulletImage.loadImage( "imgs\\player_bullet.png" );
-	enemyBulletImage.loadImage( "imgs\\enemy_bullet.png" );
-	lifeImage.loadImage( "imgs\\life_image.png" );
+	playerImage.loadImage( "player.png" );
+	enemyImage.loadImage( "enemy0.png" );
+	playerBulletImage.loadImage( "player_bullet.png" );
+	enemyBulletImage.loadImage( "enemy_bullet.png" );
+	lifeImage.loadImage( "life_image.png" );
 
 	player->get<inkSpriteComponent>()->img = make_shared<ofImage>(playerImage);
 
@@ -52,6 +52,8 @@ void inkApp::setup()
 	// process all but the density on 16th resolution
 	flowWidth = drawWidth / 4;
 	flowHeight = drawHeight / 4;
+    
+    ofLogNotice(string("GLSL Version = ") + string((char *)glGetString(GL_SHADING_LANGUAGE_VERSION)) + string("\n"));
 
 	// FLOW & MASK
 	opticalFlow.setup( flowWidth, flowHeight );
