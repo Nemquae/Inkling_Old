@@ -27,7 +27,7 @@ void inkApp::setup()
 {
 	player = gameObjectFactory.create( PLAYER );
 
-	gameState = FLOW;
+	gameState = START;
 	score = 0;
 	lives = 0;
 
