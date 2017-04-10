@@ -18,6 +18,7 @@
 
 #include "inkApp.h"
 #include "inkOffenseComponent.h"
+#include <sstream>
 
 using namespace ink;
 using namespace flowTools;
@@ -25,9 +26,13 @@ using namespace flowTools;
 //-------------------------------------------------------------------------------------------------
 void inkApp::setup()
 {
+    std::stringstream ss;
+    ss << "GL Error 1 = " << glGetError() << std::endl;
+    ofLogNotice(ss.str());
+    
 	player = gameObjectFactory.create( PLAYER );
 
-	gameState = START;
+	gameState = FLOW;
 	score = 0;
 	lives = 0;
 
@@ -65,7 +70,7 @@ void inkApp::setup()
 
 	flowToolsLogoImage.load( "inkling.png" );
 	fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
-	showLogo = false;
+	showLogo = true;
 
 	velocityDots.setup( flowWidth / 4, flowHeight / 4 );
 
@@ -94,7 +99,10 @@ void inkApp::setup()
 	//mouseForces.invertForce(3);
 
 	lastTime = ofGetElapsedTimef();
-
+    
+    ss.clear();
+    ss << "GL Error 2 = " << glGetError() << std::endl;
+    ofLogNotice(ss.str());
 }
 
 void inkApp::touchDoubleTap( ofTouchEventArgs & touch )
@@ -211,6 +219,10 @@ void inkApp::update()
 {
 	deltaTime = ofGetElapsedTimef() - lastTime;
 	lastTime = ofGetElapsedTimef();
+    
+    std::stringstream ss;
+    ss << "GL Error 3 = " << glGetError() << std::endl;
+    ofLogNotice(ss.str());
 
 	switch(gameState)
 	{
@@ -340,6 +352,10 @@ void inkApp::update()
 			velocityMask.setVelocity( opticalFlow.getOpticalFlow() );
 			velocityMask.update();
 		}
+        
+        std::stringstream ss;
+        ss << "GL Error 4 = " << glGetError() << std::endl;
+        ofLogNotice(ss.str());
 
 
 		fluidSimulation.addVelocity( opticalFlow.getOpticalFlowDecay() );
@@ -347,6 +363,10 @@ void inkApp::update()
 		fluidSimulation.addTemperature( velocityMask.getLuminanceMask() );
 
 		inputForces.update( deltaTime );
+        
+        ss.clear();
+        ss << "GL Error 5 = " << glGetError() << std::endl;
+        ofLogNotice(ss.str());
 
 		for( int i = 0; i < inputForces.getNumForces(); i++ )
 		{
@@ -391,6 +411,10 @@ void inkApp::update()
 		}
 
 		fluidSimulation.update();
+        
+        ss.clear();
+        ss << "GL Error 6 = " << glGetError() << std::endl;
+        ofLogNotice(ss.str());
 
 		if( particleFlow.isActive() )
 		{
@@ -407,6 +431,10 @@ void inkApp::update()
 	default:
 		break;
 	}
+    
+    ss.clear();
+    ss << "GL Error 7 = " << glGetError() << std::endl;
+    ofLogNotice(ss.str());
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -553,6 +581,10 @@ void inkApp::drawModeSetName( int &_value )
 //-------------------------------------------------------------------------------------------------
 void inkApp::draw()
 {
+    std::stringstream ss;
+    ss << "GL Error 8 = " << glGetError() << std::endl;
+    ofLogNotice(ss.str());
+    
 	switch(gameState)
 	{
 	case START:
@@ -594,6 +626,9 @@ void inkApp::draw()
 		if( doDrawCamBackground.get() )
 			drawSource();
 
+        ss.clear();
+        ss << "GL Error 9 = " << glGetError() << std::endl;
+        ofLogNotice(ss.str());
 
 		if( !toggleGuiDraw )
 		{
@@ -629,19 +664,35 @@ void inkApp::draw()
 	default:
 		break;
 	}
+    
+    ss.clear();
+    ss << "GL Error 19 = " << glGetError() << std::endl;
+    ofLogNotice(ss.str());
 }
 
 //-------------------------------------------------------------------------------------------------
 void inkApp::drawComposite( int _x, int _y, int _width, int _height )
 {
+    std::stringstream ss;
+    ss << "GL Error 10 = " << glGetError() << std::endl;
+    ofLogNotice(ss.str());
+    
 	ofPushStyle();
 
 	ofEnableBlendMode( OF_BLENDMODE_ALPHA );
 	fluidSimulation.draw( _x, _y, _width, _height );
+    
+    ss.clear();
+    ss << "GL Error 11 = " << glGetError() << std::endl;
+    ofLogNotice(ss.str());
 
 	ofEnableBlendMode( OF_BLENDMODE_ALPHA );
 	if( particleFlow.isActive() )
 		particleFlow.draw( _x, _y, _width, _height );
+    
+    ss.clear();
+    ss << "GL Error 17 = " << glGetError() << std::endl;
+    ofLogNotice(ss.str());
 
 	if( showLogo )
 	{
@@ -649,6 +700,10 @@ void inkApp::drawComposite( int _x, int _y, int _width, int _height )
 	}
 
 	ofPopStyle();
+    
+    ss.clear();
+    ss << "GL Error 18 = " << glGetError() << std::endl;
+    ofLogNotice(ss.str());
 }
 
 //-------------------------------------------------------------------------------------------------
