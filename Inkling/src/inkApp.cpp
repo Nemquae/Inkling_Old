@@ -20,15 +20,21 @@
 #include "inkOffenseComponent.h"
 #include <sstream>
 
+//#define DEBUG_GL_ERRORS 1
+
 using namespace ink;
 using namespace flowTools;
 
 //-------------------------------------------------------------------------------------------------
 void inkApp::setup()
 {
-    std::stringstream ss;
-    ss << "GL Error 1 = " << glGetError() << std::endl;
-    ofLogNotice(ss.str());
+#ifdef DEBUG_GL_ERRORS
+	std::stringstream ss;
+	ss << "GL Error 1 = " << glGetError() << std::endl;
+	ofLogNotice( ss.str() );
+#endif // DEBUG_GL_ERRORS
+
+   
     
 	player = gameObjectFactory.create( PLAYER );
 
@@ -70,7 +76,7 @@ void inkApp::setup()
 
 	flowToolsLogoImage.load( "inkling.png" );
 	fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
-	showLogo = true;
+	showLogo = false;
 
 	velocityDots.setup( flowWidth / 4, flowHeight / 4 );
 
@@ -100,9 +106,13 @@ void inkApp::setup()
 
 	lastTime = ofGetElapsedTimef();
     
-    ss.clear();
+#ifdef DEBUG_GL_ERRORS
+	ss.clear();
     ss << "GL Error 2 = " << glGetError() << std::endl;
     ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
+    
 }
 
 void inkApp::touchDoubleTap( ofTouchEventArgs & touch )
@@ -220,9 +230,12 @@ void inkApp::update()
 	deltaTime = ofGetElapsedTimef() - lastTime;
 	lastTime = ofGetElapsedTimef();
     
-    std::stringstream ss;
+#ifdef DEBUG_GL_ERRORS
+	std::stringstream ss;
     ss << "GL Error 3 = " << glGetError() << std::endl;
     ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+    
 
 	switch(gameState)
 	{
@@ -353,9 +366,12 @@ void inkApp::update()
 			velocityMask.update();
 		}
         
+#ifdef DEBUG_GL_ERRORS
         std::stringstream ss;
         ss << "GL Error 4 = " << glGetError() << std::endl;
         ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
 
 
 		fluidSimulation.addVelocity( opticalFlow.getOpticalFlowDecay() );
@@ -363,10 +379,13 @@ void inkApp::update()
 		fluidSimulation.addTemperature( velocityMask.getLuminanceMask() );
 
 		inputForces.update( deltaTime );
-        
+
+#ifdef DEBUG_GL_ERRORS
         ss.clear();
         ss << "GL Error 5 = " << glGetError() << std::endl;
         ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
 
 		for( int i = 0; i < inputForces.getNumForces(); i++ )
 		{
@@ -412,9 +431,12 @@ void inkApp::update()
 
 		fluidSimulation.update();
         
+#ifdef DEBUG_GL_ERRORS
         ss.clear();
         ss << "GL Error 6 = " << glGetError() << std::endl;
         ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
 
 		if( particleFlow.isActive() )
 		{
@@ -432,9 +454,12 @@ void inkApp::update()
 		break;
 	}
     
+#ifdef DEBUG_GL_ERRORS
     ss.clear();
     ss << "GL Error 7 = " << glGetError() << std::endl;
     ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -581,9 +606,12 @@ void inkApp::drawModeSetName( int &_value )
 //-------------------------------------------------------------------------------------------------
 void inkApp::draw()
 {
+#ifdef DEBUG_GL_ERRORS
     std::stringstream ss;
     ss << "GL Error 8 = " << glGetError() << std::endl;
     ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
     
 	switch(gameState)
 	{
@@ -626,9 +654,12 @@ void inkApp::draw()
 		if( doDrawCamBackground.get() )
 			drawSource();
 
+#ifdef DEBUG_GL_ERRORS
         ss.clear();
         ss << "GL Error 9 = " << glGetError() << std::endl;
         ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
 
 		if( !toggleGuiDraw )
 		{
@@ -665,34 +696,46 @@ void inkApp::draw()
 		break;
 	}
     
+#ifdef DEBUG_GL_ERRORS
     ss.clear();
     ss << "GL Error 19 = " << glGetError() << std::endl;
     ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
 }
 
 //-------------------------------------------------------------------------------------------------
 void inkApp::drawComposite( int _x, int _y, int _width, int _height )
 {
+#ifdef DEBUG_GL_ERRORS
     std::stringstream ss;
     ss << "GL Error 10 = " << glGetError() << std::endl;
     ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
     
 	ofPushStyle();
 
 	ofEnableBlendMode( OF_BLENDMODE_ALPHA );
 	fluidSimulation.draw( _x, _y, _width, _height );
     
+#ifdef DEBUG_GL_ERRORS
     ss.clear();
     ss << "GL Error 11 = " << glGetError() << std::endl;
     ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
 
 	ofEnableBlendMode( OF_BLENDMODE_ALPHA );
 	if( particleFlow.isActive() )
 		particleFlow.draw( _x, _y, _width, _height );
     
+#ifdef DEBUG_GL_ERRORS
     ss.clear();
     ss << "GL Error 17 = " << glGetError() << std::endl;
     ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
 
 	if( showLogo )
 	{
@@ -701,9 +744,12 @@ void inkApp::drawComposite( int _x, int _y, int _width, int _height )
 
 	ofPopStyle();
     
+#ifdef DEBUG_GL_ERRORS
     ss.clear();
     ss << "GL Error 18 = " << glGetError() << std::endl;
     ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
 }
 
 //-------------------------------------------------------------------------------------------------
