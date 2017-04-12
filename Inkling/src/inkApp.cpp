@@ -20,7 +20,7 @@
 #include "inkOffenseComponent.h"
 #include <sstream>
 
-//#define DEBUG_GL_ERRORS 1
+#define DEBUG_GL_ERRORS 1
 
 using namespace ink;
 using namespace flowTools;
@@ -118,6 +118,8 @@ void inkApp::setup()
 void inkApp::touchDoubleTap( ofTouchEventArgs & touch )
 {
 	toggleGuiDraw = !toggleGuiDraw;
+    
+    drawMode.set((drawMode.get() + 1) % drawMode.getMax());
 }
 
 //-------------------------------------------------------------------------------------------------
