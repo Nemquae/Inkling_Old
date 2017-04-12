@@ -20,7 +20,7 @@
 #include "inkOffenseComponent.h"
 #include <sstream>
 
-#define DEBUG_GL_ERRORS 1
+//#define DEBUG_GL_ERRORS 1
 
 using namespace ink;
 using namespace flowTools;
