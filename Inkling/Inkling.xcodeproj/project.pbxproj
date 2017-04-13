@@ -186,10 +186,6 @@
 		868A35942A59385254051503 /* ftSvAverage.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ftSvAverage.h; path = ../../../addons/ofxFlowTools/src/splitvelocity/ftSvAverage.h; sourceTree = SOURCE_ROOT; };
 		87F26B4B24CBD428AD9EEBAA /* ofxBaseGui.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxBaseGui.h; path = ../../../addons/ofxGui/src/ofxBaseGui.h; sourceTree = SOURCE_ROOT; };
 		89449E3044D456F7DE7BEA14 /* ofxPanel.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ofxPanel.h; path = ../../../addons/ofxGui/src/ofxPanel.h; sourceTree = SOURCE_ROOT; };
-		8D93E3461E93D597006925EF /* gl2ext.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gl2ext.h; sourceTree = "<group>"; };
-		8D93E3471E93D597006925EF /* gl32.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gl32.h; sourceTree = "<group>"; };
-		8D93E3481E93D597006925EF /* gl3platform.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = gl3platform.h; sourceTree = "<group>"; };
-		8D93E3491E93D758006925EF /* khrplatform.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = khrplatform.h; sourceTree = "<group>"; };
 		8D93E34B1E93E376006925EF /* .gitkeep */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = .gitkeep; sourceTree = "<group>"; };
 		8D93E34C1E93E376006925EF /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
 		8D93E34D1E93E376006925EF /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
@@ -376,7 +372,6 @@
 				678E130D17951540005B6D19 /* Default@2x.png */,
 				678E130F17951549005B6D19 /* Default-568h@2x~iphone.png */,
 				E4D8936A11527B74007E1F53 /* src */,
-				8D93E3451E93D597006925EF /* GLES3 */,
 				BB24E1F710DAA51900E9C588 /* openFrameworks */,
 				BB16F26B0F2B646B00518274 /* addons */,
 				BB16E9930F2B1E5900518274 /* libs */,
@@ -513,17 +508,6 @@
 				955707CBA6B73CF01FA026E4 /* ftToScalarShader.h */,
 			);
 			name = tools;
-			sourceTree = "<group>";
-		};
-		8D93E3451E93D597006925EF /* GLES3 */ = {
-			isa = PBXGroup;
-			children = (
-				8D93E3491E93D758006925EF /* khrplatform.h */,
-				8D93E3461E93D597006925EF /* gl2ext.h */,
-				8D93E3471E93D597006925EF /* gl32.h */,
-				8D93E3481E93D597006925EF /* gl3platform.h */,
-			);
-			path = GLES3;
 			sourceTree = "<group>";
 		};
 		8D93E34A1E93E376006925EF /* data */ = {
@@ -1006,6 +990,10 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				ONLY_ACTIVE_ARCH = YES;
+				"OTHER_CPLUSPLUSFLAGS[arch=*]" = (
+					"-D",
+					DEBUG_GL_ERRORS,
+				);
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
