@@ -60,6 +60,7 @@ enum GameState
 ,	GAME
 ,	END
 ,	FLOW
+,   NO_GAME_STATE
 };
 
 #if (TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS)
@@ -101,6 +102,10 @@ public:
 	ofImage							playerBulletImage;
 	ofImage							enemyBulletImage;
 	ofImage							lifeImage;
+
+	ofImage							startScreen;
+	ofImage							endScreen;
+	ofTrueTypeFont					scoreFont;
 
 	float							maxEnemyAmplitude;
 	float							maxEnemyShootInterval;
