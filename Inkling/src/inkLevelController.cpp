@@ -31,15 +31,27 @@ inkLevelController::~inkLevelController()
 
 void inkLevelController::setup(float s)
 {
-	startTime = s;
-	intervalTime = 500;
+	enemyStartTime = s;
+	enemyIntervalTime = 500;
+	bonusStartTime = s;
+	bonusIntervalTime = 2500;
 }
 
-bool inkLevelController::shouldSpawn()
+bool inkLevelController::shouldSpawnEnemy()
 {
-	if(ofGetElapsedTimeMillis() - startTime > intervalTime)
+	if(ofGetElapsedTimeMillis() - enemyStartTime > enemyIntervalTime)
 	{
-		startTime = ofGetElapsedTimeMillis();
+		enemyStartTime = ofGetElapsedTimeMillis();
+		return true;
+	}
+	return false;
+}
+
+bool inkLevelController::shouldSpawnBonus()
+{
+	if( ofGetElapsedTimeMillis() - bonusStartTime > bonusIntervalTime )
+	{
+		bonusStartTime = ofGetElapsedTimeMillis();
 		return true;
 	}
 	return false;

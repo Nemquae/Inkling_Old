@@ -102,6 +102,10 @@ public:
 	ofImage							enemyBulletImage;
 	ofImage							lifeImage;
 
+	ofImage							startScreen;
+	ofImage							endScreen;
+	ofTrueTypeFont					scoreFont;
+
 	float							maxEnemyAmplitude;
 	float							maxEnemyShootInterval;
 	int								lives;

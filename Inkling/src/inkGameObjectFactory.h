@@ -37,7 +37,7 @@ enum PrefabType
 	  PLAYER
 	, ENEMY
 	, BULLET
-	, LIFE
+	, BONUS
 };
 
 template<class T, class...Args>
@@ -90,7 +90,11 @@ public:
 			gameObj->add<inkSpriteComponent>();
 			gameObj->setup();
 			break;
-		case LIFE:
+		case BONUS:
+			gameObj = createEmpty<inkGameObject>( forward<Args>( args )... );
+			gameObj->add<inkCharacterController>();
+			gameObj->add<inkSpriteComponent>();
+			gameObj->setup();
 			break;
 		default:
 			break;

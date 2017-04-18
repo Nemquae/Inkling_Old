@@ -31,11 +31,15 @@ public:
 	inkLevelController();
 	virtual ~inkLevelController();
 
-	float startTime;
-	float intervalTime;
+	float enemyStartTime;
+	float enemyIntervalTime;
+
+	float bonusStartTime;
+	float bonusIntervalTime;
 
 	void setup( float s );
-	bool shouldSpawn();
+	bool shouldSpawnEnemy();
+	bool shouldSpawnBonus();
 
 };	//	inkLevelController
 
