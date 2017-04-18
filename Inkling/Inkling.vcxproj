@@ -211,6 +211,7 @@
     <ClCompile Include="src\inkComponent.cpp" />
     <ClCompile Include="src\inkController.cpp" />
     <ClCompile Include="src\inkDefenseComponent.cpp" />
+    <ClCompile Include="src\inkFlowComponent.cpp" />
     <ClCompile Include="src\inkGameObject.cpp" />
     <ClCompile Include="src\inkLevelController.cpp" />
     <ClCompile Include="src\inkMain.cpp" />
@@ -337,6 +338,7 @@
     <ClInclude Include="src\inkComponent.h" />
     <ClInclude Include="src\inkController.h" />
     <ClInclude Include="src\inkDefenseComponent.h" />
+    <ClInclude Include="src\inkFlowComponent.h" />
     <ClInclude Include="src\inkGameObject.h" />
     <ClInclude Include="src\inkGameObjectFactory.h" />
     <ClInclude Include="src\inkLevelController.h" />

@@ -130,6 +130,7 @@
     <ClCompile Include="src\inkXMacros.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\inkFlowComponent.cpp" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -587,6 +588,7 @@
     <ClInclude Include="src\inkXMacros.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="src\inkFlowComponent.h" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />
