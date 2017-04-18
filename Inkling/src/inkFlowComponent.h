@@ -21,6 +21,7 @@
 #include <memory>
 
 #include "inkComponent.h"
+#include "ftDrawForce.h"
 
 namespace ink
 {
@@ -35,6 +36,14 @@ public:
 	virtual void setup();
 	virtual void update();
 	void draw();
+	void reset();
+
+	flowTools::ftDrawForce drawDensityForce;
+	flowTools::ftDrawForce drawVelocityForce;
+	flowTools::ftDrawForce drawTemperatureForce;
+
+private:
+	ofPoint lastPos;
 
 };	//	inkFlowComponent
 

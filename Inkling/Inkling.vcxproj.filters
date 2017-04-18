@@ -130,7 +130,12 @@
     <ClCompile Include="src\inkXMacros.cpp">
       <Filter>src</Filter>
     </ClCompile>
-    <ClCompile Include="src\inkFlowComponent.cpp" />
+    <ClCompile Include="src\inkFlowComponent.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="src\inkLiveTester.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -588,7 +593,12 @@
     <ClInclude Include="src\inkXMacros.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="src\inkFlowComponent.h" />
+    <ClInclude Include="src\inkFlowComponent.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\inkLiveTester.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="icon.rc" />

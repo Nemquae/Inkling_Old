@@ -24,6 +24,7 @@
 #include "inkGameObject.h"
 #include "inkGameObjectFactory.h"
 #include "inkLevelController.h"
+#include "inkLiveTester.h"
 
 #if (TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS)
 #include "ofxiOS.h"
@@ -113,6 +114,7 @@ public:
     bool                            ignoreDoubleTouch;
 
 	inkLevelController				levelController;
+	inkLiveTester					liveTester;
 
 	// FlowTools
 	int								flowWidth;

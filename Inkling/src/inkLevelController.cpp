@@ -35,6 +35,7 @@ void inkLevelController::setup(float s)
 	enemyIntervalTime = 500;
 	bonusStartTime = s;
 	bonusIntervalTime = 2500;
+	triggerBonus = false;
 }
 
 bool inkLevelController::shouldSpawnEnemy()
@@ -49,9 +50,10 @@ bool inkLevelController::shouldSpawnEnemy()
 
 bool inkLevelController::shouldSpawnBonus()
 {
-	if( ofGetElapsedTimeMillis() - bonusStartTime > bonusIntervalTime )
+	if( (ofGetElapsedTimeMillis() - bonusStartTime > bonusIntervalTime) || triggerBonus)
 	{
 		bonusStartTime = ofGetElapsedTimeMillis();
+		triggerBonus = false;
 		return true;
 	}
 	return false;

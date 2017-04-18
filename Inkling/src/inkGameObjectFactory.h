@@ -28,6 +28,7 @@
 #include "inkDefenseComponent.h"
 #include "inkOffenseComponent.h"
 #include "inkSpriteComponent.h"
+#include "inkFlowComponent.h"
 
 namespace ink
 {
@@ -82,6 +83,7 @@ public:
 			gameObj->add<inkDefenseComponent>();
 			gameObj->add<inkOffenseComponent>();
 			gameObj->add<inkSpriteComponent>();
+			gameObj->add<inkFlowComponent>();
 			gameObj->setup();
 			break;
 		case BULLET:

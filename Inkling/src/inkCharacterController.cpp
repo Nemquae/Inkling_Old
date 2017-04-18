@@ -35,7 +35,7 @@ void inkCharacterController::setup()
 {
 	width = 0;
 	height = 0;
-	speed = 1;
+	speed = 5;
 	isLeftPressed = false;
 	isRightPressed = false;
 	isUpPressed = false;

@@ -24,11 +24,11 @@
 namespace ink
 {
 
-class inkLiveTesting
+class inkLiveTester
 {
 public:
-	inkLiveTesting();
-	~inkLiveTesting();
+	inkLiveTester();
+	~inkLiveTester();
 
 	void setup();
 	void update();

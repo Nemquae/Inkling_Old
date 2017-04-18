@@ -37,6 +37,8 @@ public:
 	float bonusStartTime;
 	float bonusIntervalTime;
 
+	bool triggerBonus;
+
 	void setup( float s );
 	bool shouldSpawnEnemy();
 	bool shouldSpawnBonus();

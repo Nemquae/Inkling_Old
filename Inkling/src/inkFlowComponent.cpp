@@ -21,6 +21,7 @@
 #include "inkCharacterController.h"
 
 using namespace ink;
+using namespace flowTools;
 
 
 inkFlowComponent::inkFlowComponent( inkGameObject & gameObj )
@@ -35,13 +36,40 @@ inkFlowComponent::~inkFlowComponent()
 
 void inkFlowComponent::setup()
 {
+	drawDensityForce.setup( ofGetWidth(), ofGetHeight(), FT_DENSITY, true );
+	drawDensityForce.setName( "draw full res" );
+	drawDensityForce.setForce( ofColor( 255.f, 0.f, 0.f ) );
+	drawDensityForce.setStrength( 100.f );
+	drawVelocityForce.setup( ofGetWidth()/4, ofGetHeight()/4, FT_VELOCITY, true );
+	drawVelocityForce.setName( "draw flow res 1" );
+	drawTemperatureForce.setup( ofGetWidth()/4, ofGetHeight()/4, FT_TEMPERATURE, true );
+	drawTemperatureForce.setName( "draw flow res 2" );
+
+	lastPos = gameObject.pos;
 }
 
 void inkFlowComponent::update()
 {
+	ofVec2f velocity = ofVec2f(gameObject.pos.x - lastPos.x, gameObject.pos.y - lastPos.y);
+	lastPos = gameObject.pos;
+
+	drawDensityForce.applyForce( velocity );
+	drawVelocityForce.setForce( velocity );
+	drawTemperatureForce.applyForce( velocity );
+
+	drawDensityForce.update();
+	drawVelocityForce.update();
+	drawTemperatureForce.update();
 }
 
 void inkFlowComponent::draw()
 {
 	
+}
+
+void inkFlowComponent::reset()
+{
+	drawDensityForce.reset();
+	drawVelocityForce.reset();
+	drawTemperatureForce.reset();
 }
