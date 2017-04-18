@@ -30,7 +30,11 @@ void inkApp::setup()
 {
 #ifdef DEBUG_GL_ERRORS
 	std::stringstream ss;
-	ss << "GL Error 1 = " << glGetError() << std::endl;
+    GLint result;
+	ss << "GL Error 1a = " << glGetError() << std::endl;
+    ss << glCheckFramebufferStatus(GL_FRAMEBUFFER) << std::endl;
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &result);
+    ss << result << std::endl;
 	ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
@@ -41,6 +45,7 @@ void inkApp::setup()
 	gameState = FLOW;
 	score = 0;
 	lives = 0;
+    ignoreDoubleTouch = false;
 
 	playerImage.loadImage( "player.png" );
 	enemyImage.loadImage( "enemy0.png" );
@@ -53,7 +58,7 @@ void inkApp::setup()
 	maxEnemyAmplitude = 3.0;
 	maxEnemyShootInterval = 1.5;
 
-	ofSetVerticalSync( false );
+	ofSetVerticalSync( true );
 	ofSetLogLevel( OF_LOG_NOTICE );
 	//ofSetBackgroundAuto(true);
 	//ofSetBackgroundColor(ofColor(255,255,255,127));
@@ -69,16 +74,39 @@ void inkApp::setup()
 	// FLOW & MASK
 	opticalFlow.setup( flowWidth, flowHeight );
 	velocityMask.setup( drawWidth, drawHeight );
+    
+#ifdef DEBUG_GL_ERRORS
+	ss.clear();
+    ss << "GL Error 1b = " << glGetError() << std::endl;
+    ss << glCheckFramebufferStatus(GL_FRAMEBUFFER) << std::endl;
+    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &result);
+    ss << result << std::endl;
+    ofLogNotice( ss.str() );
+#endif // DEBUG_GL_ERRORS
 
 	// FLUID & PARTICLES
 	fluidSimulation.setup( flowWidth, flowHeight, drawWidth, drawHeight );
 	particleFlow.setup( flowWidth, flowHeight, drawWidth, drawHeight );
+    
+#ifdef DEBUG_GL_ERRORS
+	ss.clear();
+    ss << "GL Error 1c = " << glGetError() << std::endl;
+    ss << glCheckFramebufferStatus(GL_FRAMEBUFFER) << std::endl;
+    ofLogNotice( ss.str() );
+#endif // DEBUG_GL_ERRORS
 
 	flowToolsLogoImage.load( "inkling.png" );
 	fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
 	showLogo = false;
 
 	velocityDots.setup( flowWidth / 4, flowHeight / 4 );
+    
+#ifdef DEBUG_GL_ERRORS
+    ss.clear();
+    ss << "GL Error 1d = " << glGetError() << std::endl;
+    ss << glCheckFramebufferStatus(GL_FRAMEBUFFER) << std::endl;
+    ofLogNotice( ss.str() );
+#endif // DEBUG_GL_ERRORS
 
 	// VISUALIZATION
 	displayScalar.setup( flowWidth, flowHeight );
@@ -86,15 +114,28 @@ void inkApp::setup()
 	temperatureField.setup( flowWidth / 4, flowHeight / 4 );
 	pressureField.setup( flowWidth / 4, flowHeight / 4 );
 	velocityTemperatureField.setup( flowWidth / 4, flowHeight / 4 );
+    
+#ifdef DEBUG_GL_ERRORS
+    ss.clear();
+    ss << "GL Error 1e = " << glGetError() << std::endl;
+    ss << glCheckFramebufferStatus(GL_FRAMEBUFFER) << std::endl;
+    ofLogNotice( ss.str() );
+#endif // DEBUG_GL_ERRORS
 
 	// MOUSE & TOUCH DRAW
 	inputForces.setup( flowWidth, flowHeight, drawWidth, drawHeight );
 
 	// CAMERA
-	//simpleCam.setup(640, 480, true);
-	//didCamUpdate = true;
-	//cameraFbo.allocate(640, 480);
-	//cameraFbo.black();
+//	simpleCam.setup(640, 480, true);
+//	didCamUpdate = true;
+//	cameraFbo.allocate(640, 480);
+//	cameraFbo.black();
+    
+#ifdef DEBUG_GL_ERRORS
+    ss.clear();
+    ss << "GL Error 1f = " << glGetError() << std::endl;
+    ofLogNotice( ss.str() );
+#endif // DEBUG_GL_ERRORS
 
 	ofAddListener( ofEvents().touchDoubleTap, this, &inkApp::touchDoubleTap );
 
@@ -112,12 +153,24 @@ void inkApp::setup()
     ofLogNotice(ss.str());
 #endif // DEBUG_GL_ERRORS
 
+    toggleGuiDraw = true;
+    
+    drawMode.set(DRAW_COMPOSITE);
     
 }
 
 void inkApp::touchDoubleTap( ofTouchEventArgs & touch )
 {
-	toggleGuiDraw = !toggleGuiDraw;
+	//toggleGuiDraw = !toggleGuiDraw;
+    
+    if(!ignoreDoubleTouch)
+    {
+        drawMode.set((drawMode.get() + 1) % drawMode.getMax());
+        ofLogWarning() << "Draw Mode: " << drawMode.get() << std::endl;
+        ignoreDoubleTouch = true;
+    }
+    else
+        ignoreDoubleTouch = false;
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -688,7 +741,9 @@ void inkApp::draw()
 			case DRAW_MOUSE: drawMouseForces(); break;
 			case DRAW_VELDOTS: drawVelocityDots(); break;
 			}
+#if !((TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS))
 			drawGui();
+#endif
 		}
 		break;
 	}

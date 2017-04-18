@@ -72,6 +72,7 @@
 		8D93E3E41E94C816006925EF /* test8.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D93E3BE1E94C816006925EF /* test8.png */; };
 		8D93E3E51E94C816006925EF /* test9.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D93E3BF1E94C816006925EF /* test9.png */; };
 		8D93E3E61E94C816006925EF /* test10.png in Resources */ = {isa = PBXBuildFile; fileRef = 8D93E3C01E94C816006925EF /* test10.png */; };
+		8DC136F01E9F5AE7002C66BD /* settings.xml in Resources */ = {isa = PBXBuildFile; fileRef = 8DC136EF1E9F5AE7002C66BD /* settings.xml */; };
 		8EA04B616D228D22AEC6C9C8 /* ftAverageVelocity.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 5250BCAC86C0139070F38127 /* ftAverageVelocity.cpp */; };
 		9199A1F799437E1064918393 /* ftDrawInputForces.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 9B6622367727C75AC19BB37E /* ftDrawInputForces.cpp */; };
 		AFBC335CC80DC27DCC9E70D7 /* ftFluidSimulation.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 66EA260B157526C716077F8A /* ftFluidSimulation.cpp */; };
@@ -232,6 +233,7 @@
 		8D93E3BE1E94C816006925EF /* test8.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test8.png; sourceTree = "<group>"; };
 		8D93E3BF1E94C816006925EF /* test9.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test9.png; sourceTree = "<group>"; };
 		8D93E3C01E94C816006925EF /* test10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = test10.png; sourceTree = "<group>"; };
+		8DC136EF1E9F5AE7002C66BD /* settings.xml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = settings.xml; sourceTree = "<group>"; };
 		8F9605EE4B1FACD7088BCA07 /* ftDecayShader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ftDecayShader.h; path = ../../../addons/ofxFlowTools/src/filters/ftDecayShader.h; sourceTree = SOURCE_ROOT; };
 		8FDFCC972FD8649F027E03F1 /* ftVTFieldShader.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 30; name = ftVTFieldShader.h; path = ../../../addons/ofxFlowTools/src/visualisation/ftVTFieldShader.h; sourceTree = SOURCE_ROOT; };
 		907C5B5E104864A2D3A25745 /* ofxToggle.cpp */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.cpp; fileEncoding = 30; name = ofxToggle.cpp; path = ../../../addons/ofxGui/src/ofxToggle.cpp; sourceTree = SOURCE_ROOT; };
@@ -513,6 +515,7 @@
 		8D93E34A1E93E376006925EF /* data */ = {
 			isa = PBXGroup;
 			children = (
+				8DC136EF1E9F5AE7002C66BD /* settings.xml */,
 				8D93E39B1E94C816006925EF /* alum.jpg */,
 				8D93E39C1E94C816006925EF /* alum2.jpg */,
 				8D93E39D1E94C816006925EF /* alum3.jpg */,
@@ -785,6 +788,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				8D93E3D91E94C816006925EF /* player_bullet.png in Resources */,
+				8DC136F01E9F5AE7002C66BD /* settings.xml in Resources */,
 				678E130817951530005B6D19 /* Icon@2x.png in Resources */,
 				678E130A17951536005B6D19 /* Icon.png in Resources */,
 				8D93E37D1E93E376006925EF /* Icon-72@2x.png in Resources */,
@@ -909,6 +913,7 @@
 				INFOPLIST_FILE = "ofxiOS-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				ONLY_ACTIVE_ARCH = YES;
+				"OTHER_CPLUSPLUSFLAGS[arch=*]" = "";
 				PRODUCT_BUNDLE_IDENTIFIER = "${PRODUCT_NAME:identifier}";
 				PRODUCT_NAME = "${TARGET_NAME}";
 				TARGETED_DEVICE_FAMILY = 2;
@@ -955,6 +960,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphonesimulator*]" = "";
 				COMPRESS_PNG_FILES = NO;
+				DEVELOPMENT_TEAM = BLREQ764V8;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
@@ -990,6 +996,7 @@
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 10.3;
 				ONLY_ACTIVE_ARCH = YES;
+				"OTHER_CPLUSPLUSFLAGS[arch=*]" = "";
 				"PROVISIONING_PROFILE[sdk=iphoneos*]" = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1021,6 +1028,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphonesimulator*]" = "";
 				COMPRESS_PNG_FILES = NO;
+				DEVELOPMENT_TEAM = BLREQ764V8;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = c11;
 				GCC_DYNAMIC_NO_PIC = NO;

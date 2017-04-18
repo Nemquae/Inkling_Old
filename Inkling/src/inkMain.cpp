@@ -33,9 +33,10 @@ int main()
     settings.numOfAntiAliasingSamples = 0; // number of samples used for anti-aliasing.
     settings.enableHardwareOrientation = false; // enables native view orientation.
     settings.enableHardwareOrientationAnimation = false; // enables native orientation changes to be animated.
-    settings.glesVersion = OFXIOS_RENDERER_ES2; // type of renderer to use, ES1, ES2, ES3
+    settings.glesVersion = OFXIOS_RENDERER_ES3; // type of renderer to use, ES1, ES2, ES3
     settings.windowMode = OF_GAME_MODE;
-    settings.setupOrientation = ofOrientation::OF_ORIENTATION_90_LEFT;
+    settings.setupOrientation = ofOrientation::OF_ORIENTATION_DEFAULT;
+    
     ofCreateWindow(settings);
 #else
 	ofGLFWWindowSettings windowSettings;

@@ -105,6 +105,7 @@ public:
 	float							maxEnemyAmplitude;
 	float							maxEnemyShootInterval;
 	int								lives;
+    bool                            ignoreDoubleTouch;
 
 	inkLevelController				levelController;
 
