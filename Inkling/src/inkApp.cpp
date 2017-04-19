@@ -434,6 +434,7 @@ void inkApp::update()
 			e->get<inkOffenseComponent>()->amplitude = ofRandom( maxEnemyAmplitude );
 			e->get<inkOffenseComponent>()->shootInterval = ofRandom( 0.5, maxEnemyAmplitude );
 			e->get<inkOffenseComponent>()->startShoot = ofGetElapsedTimef();
+			e->get<inkFlowComponent>()->setForce( ofFloatColor( 1.f, 0.f, 0.f, 1.f ) );
 			enemies.push_back( e );
 		}
 
@@ -500,11 +501,13 @@ void inkApp::update()
 		for( int i = 0; i < enemies.size(); ++i )
 		{
 			shared_ptr<inkFlowComponent> f = enemies[ i ]->get<inkFlowComponent>();
-			fluidSimulation.addDensity( f->drawDensityForce.getTexture(), f->drawDensityForce.getStrength() );
-			fluidSimulation.addVelocity( f->drawVelocityForce.getTexture(), f->drawVelocityForce.getStrength() );
-			particleFlow.addFlowVelocity( f->drawVelocityForce.getTexture(), f->drawVelocityForce.getStrength() );
-			fluidSimulation.addTemperature( f->drawTemperatureForce.getTexture(), f->drawTemperatureForce.getStrength() );
+			fluidSimulation.addDensity( f->getDensityTexture(), f->getStrength() );
+			fluidSimulation.addVelocity( f->getVelocityTexture(), f->getStrength() );
+			particleFlow.addFlowVelocity( f->getVelocityTexture(), f->getStrength() );
+			fluidSimulation.addTemperature( f->getTemperatureTexture(), f->getStrength() );
 		}
+
+		inkFlowComponent::reset();
 
 		fluidSimulation.update();
 

@@ -23,6 +23,13 @@
 using namespace ink;
 using namespace flowTools;
 
+bool inkFlowComponent::isInitialized = false;
+ftDrawForceShader	inkFlowComponent::densityDrawForceShader;
+ftFbo				inkFlowComponent::densityBuffer;
+ftDrawForceShader	inkFlowComponent::velocityDrawForceShader;
+ftFbo				inkFlowComponent::velocityBuffer;
+ftDrawForceShader	inkFlowComponent::temperatureDrawForceShader;
+ftFbo				inkFlowComponent::temperatureBuffer;
 
 inkFlowComponent::inkFlowComponent( inkGameObject & gameObj )
 : inkComponent( gameObj )
@@ -36,40 +43,97 @@ inkFlowComponent::~inkFlowComponent()
 
 void inkFlowComponent::setup()
 {
-	drawDensityForce.setup( ofGetWidth(), ofGetHeight(), FT_DENSITY, true );
-	drawDensityForce.setName( "draw full res" );
-	drawDensityForce.setForce( ofColor( 255.f, 0.f, 0.f ) );
-	drawDensityForce.setStrength( 100.f );
-	drawVelocityForce.setup( ofGetWidth()/4, ofGetHeight()/4, FT_VELOCITY, true );
-	drawVelocityForce.setName( "draw flow res 1" );
-	drawTemperatureForce.setup( ofGetWidth()/4, ofGetHeight()/4, FT_TEMPERATURE, true );
-	drawTemperatureForce.setName( "draw flow res 2" );
+	parameters.setName( "flow force" );
+	parameters.add( force.set( "force", ofVec4f( 1, 1, 1, 1 ), ofVec4f( -1, -1, -1, -1 ), ofVec4f( 1, 1, 1, 1 ) ) );
+	parameters.add( strength.set( "strength", 0.01, 0, 5 ) );
+	parameters.add( radius.set( "radius", 0.035, 0, .1 ) );
+	parameters.add( edge.set( "edge", 1.0, 0, 1 ) );
 
 	lastPos = gameObject.pos;
+
+	if(!isInitialized)
+	{
+		isInitialized = true;
+		densityDrawForceShader.setup();
+		velocityDrawForceShader.setup();
+		temperatureDrawForceShader.setup();
+
+#if (TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS)
+		densityBuffer.allocate( width, height, GL_RGBA );
+		velocityBuffer.allocate( width, height, GL_RGBA );
+		temperatureBuffer.allocate( width, height, GL_RGBA );
+#else
+		densityBuffer.allocate( ofGetWidth(), ofGetHeight(), GL_RGBA32F );
+		velocityBuffer.allocate( ofGetWidth(), ofGetHeight(), GL_RGBA32F );
+		temperatureBuffer.allocate( ofGetWidth(), ofGetHeight(), GL_RGBA32F );
+#endif
+		densityBuffer.black();
+		velocityBuffer.black();
+		temperatureBuffer.black();
+	}
+
+	density = ofFloatColor( 1, 1, 1, 1 );
+	velocity = ofVec2f( 0, 0 );
+	temperature = 1;
+	pressure = -1;
+	obstacle = true;
+
+	forceChanged = false;
+	forceApplied = false;
+
 }
 
 void inkFlowComponent::update()
 {
-	ofVec2f velocity = ofVec2f(gameObject.pos.x - lastPos.x, gameObject.pos.y - lastPos.y);
+
+
+
+	ofVec2f velocity = ofVec4f(gameObject.pos.x - lastPos.x, gameObject.pos.y - lastPos.y, 0, 1);
+	ofVec2f normalizedPos = ofVec4f( gameObject.pos.x / ofGetWidth(), gameObject.pos.y / ofGetHeight(), 0, 1 );
+
 	lastPos = gameObject.pos;
 
-	drawDensityForce.applyForce( velocity );
-	drawVelocityForce.setForce( velocity );
-	drawTemperatureForce.applyForce( velocity );
+	absolutePosition = normalizedPos * ofVec2f( ofGetWidth(), ofGetHeight() );
+	absoluteRadius = radius * ofGetWidth();
 
-	drawDensityForce.update();
-	drawVelocityForce.update();
-	drawTemperatureForce.update();
+
+	ofVec4f velocityForce = force.get() * ofVec4f( ofGetWidth(), ofGetHeight(), 0, 1 );
+	ofVec4f pressureForce = force.get() * ofVec4f( 100, 0, 0, 1 );
+	ofVec4f temperatureForce = ofVec4f( force.get().x, force.get().x, force.get().x, 1 );
+	ofVec4f obstacleForce = ofVec4f( force.get().x, force.get().x, force.get().x, 1 );
+
+	ofPushStyle();
+
+	ofEnableBlendMode( OF_BLENDMODE_ADD );
+
+	densityDrawForceShader.update(		densityBuffer,
+										force.get(),
+										absolutePosition,
+										absoluteRadius,
+										edge,
+										1.0f );
+
+	velocityDrawForceShader.update(		velocityBuffer,
+										velocity,
+										absolutePosition,
+										absoluteRadius,
+										edge,
+										0.0f );
+
+	temperatureDrawForceShader.update(	temperatureBuffer,
+										force.get(),
+										absolutePosition,
+										absoluteRadius,
+										edge,
+										0.0f );
+
+	ofPopStyle();
 }
 
-void inkFlowComponent::draw()
-{
-	
-}
 
 void inkFlowComponent::reset()
 {
-	drawDensityForce.reset();
-	drawVelocityForce.reset();
-	drawTemperatureForce.reset();
+	densityBuffer.black();
+	velocityBuffer.black();
+	temperatureBuffer.black();
 }
