@@ -75,6 +75,7 @@ public:
 			gameObj->add<inkDefenseComponent>();
 			gameObj->add<inkOffenseComponent>();
 			gameObj->add<inkSpriteComponent>();
+			gameObj->add<inkFlowComponent>();
 			gameObj->setup();
 			break;
 		case ENEMY:

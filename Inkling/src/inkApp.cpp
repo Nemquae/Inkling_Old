@@ -63,13 +63,15 @@ void inkApp::setup()
 	player->get<inkCharacterController>()->height = playerImage.getHeight();
 	player->pos.x = ofGetWidth() / 2;
 	player->pos.y = ofGetHeight() / 2;
+	player->get<inkFlowComponent>()->setForce( ofFloatColor( 0, 1, 0, 1 ) );
+	player->get<inkFlowComponent>()->setInitiatlPos( player->pos );
 
 	maxEnemyAmplitude = 3.0;
 	maxEnemyShootInterval = 1.5;
 
 	//liveTester.setup();
 
-	liveTester.enemyIntervalTime = 500;
+	liveTester.enemyIntervalTime = 2500;
 	liveTester.maxEnemyAmplitude = 3.0;
 	liveTester.maxEnemyShootInterval = 1.5;
 	liveTester.triggerBonus = false;
@@ -330,29 +332,29 @@ void inkApp::update()
 		maxEnemyShootInterval = liveTester.maxEnemyShootInterval;
 		levelController.triggerBonus = liveTester.triggerBonus;
 
-		for(int i = 0; i < bullets.size(); ++i)
-		{
-			bullets[i]->update();
-			shared_ptr<inkCharacterController> bulCharCon = bullets[ i ]->get<inkCharacterController>();
+		//for(int i = 0; i < bullets.size(); ++i)
+		//{
+		//	bullets[i]->update();
+		//	shared_ptr<inkCharacterController> bulCharCon = bullets[ i ]->get<inkCharacterController>();
 
-			if( bulCharCon->collisionLayer == 0)
-			{
-				bullets[ i ]->pos.y -= bulCharCon->speed;
-			}
-			else
-			{
-				bullets[ i ]->pos.y += bulCharCon->speed;
-			}
+		//	if( bulCharCon->collisionLayer == 0)
+		//	{
+		//		bullets[ i ]->pos.y -= bulCharCon->speed;
+		//	}
+		//	else
+		//	{
+		//		bullets[ i ]->pos.y += bulCharCon->speed;
+		//	}
 
-			ofPoint pos = bullets[ i ]->pos;
-			float width = bullets[ i ]->get<inkCharacterController>()->width;
-			if(pos.y - width /2 < 0 || pos.y + width /2 > ofGetHeight())
-			{
-				bullets.erase( bullets.begin() + i );
-			}
-		}
+		//	ofPoint pos = bullets[ i ]->pos;
+		//	float width = bullets[ i ]->get<inkCharacterController>()->width;
+		//	if(pos.y - width /2 < 0 || pos.y + width /2 > ofGetHeight())
+		//	{
+		//		bullets.erase( bullets.begin() + i );
+		//	}
+		//}
 
-		for(int i = 0; i < bullets.size(); ++i)
+		/*for(int i = 0; i < bullets.size(); ++i)
 		{
 			if(bullets[i]->get<inkCharacterController>()->collisionLayer == 0)
 			{
@@ -376,9 +378,9 @@ void inkApp::update()
 				if( lives <= 0 )
 					gameState = END;
 			}
-		}
+		}*/
 
-		for( int i = 0; i < bonuses.size(); ++i )
+		/*for( int i = 0; i < bonuses.size(); ++i )
 		{
 			bonuses[ i ]->update();
 			bonuses[ i ]->pos.y += bonuses[ i ]->get<inkCharacterController>()->speed;
@@ -392,7 +394,7 @@ void inkApp::update()
 			{
 				bonuses.erase( bonuses.begin() + i );
 			}
-		}
+		}*/
 
 
 
@@ -401,7 +403,7 @@ void inkApp::update()
 			enemies[ i ]->update();
 			enemies[ i ]->pos.y += enemies[ i ]->get<inkCharacterController>()->speed;
 			enemies[ i ]->pos.x += enemies[ i ]->get<inkOffenseComponent>()->amplitude * sin( ofGetElapsedTimef() );
-			if( ofGetElapsedTimef() - enemies[ i ]->get<inkOffenseComponent>()->startShoot > enemies[ i ]->get<inkOffenseComponent>()->shootInterval )
+			/*if( ofGetElapsedTimef() - enemies[ i ]->get<inkOffenseComponent>()->startShoot > enemies[ i ]->get<inkOffenseComponent>()->shootInterval )
 			{
 				enemies[ i ]->get<inkOffenseComponent>()->startShoot = ofGetElapsedTimef();
 				shared_ptr<inkGameObject> b = gameObjectFactory.create( BULLET );
@@ -414,7 +416,7 @@ void inkApp::update()
 				b->pos.x = enemies[ i ]->pos.x + enemyImage.getWidth() / 2.f - enemyBulletImage.getWidth() / 2.f;
 				b->pos.y = enemies[ i ]->pos.y + enemyImage.getHeight() / 2.f - enemyBulletImage.getHeight() / 2.f;
 				bullets.push_back( b );
-			}
+			}*/
 
 			if( enemies[ i ]->pos.y + enemies[ i ]->get<inkCharacterController>()->height / 2 > ofGetHeight() )
 			{
@@ -438,7 +440,7 @@ void inkApp::update()
 			enemies.push_back( e );
 		}
 
-		if( levelController.shouldSpawnBonus() )
+		/*if( levelController.shouldSpawnBonus() )
 		{
 			std::shared_ptr<inkGameObject> b = gameObjectFactory.create( BONUS );
 			b->get<inkSpriteComponent>()->img = make_shared<ofImage>( lifeImage );
@@ -448,7 +450,7 @@ void inkApp::update()
 			b->pos.x = ofRandom( ofGetWidth() );
 			b->pos.y = -lifeImage.getHeight() / 2;
 			bonuses.push_back( b );
-		}
+		}*/
 
 		fluidSimulation.addVelocity( opticalFlow.getOpticalFlowDecay() );
 		fluidSimulation.addDensity( velocityMask.getColorMask() );
@@ -498,14 +500,13 @@ void inkApp::update()
 			}
 		}
 
-		for( int i = 0; i < enemies.size(); ++i )
-		{
-			shared_ptr<inkFlowComponent> f = enemies[ i ]->get<inkFlowComponent>();
-			fluidSimulation.addDensity( f->getDensityTexture(), f->getStrength() );
-			fluidSimulation.addVelocity( f->getVelocityTexture(), f->getStrength() );
-			particleFlow.addFlowVelocity( f->getVelocityTexture(), f->getStrength() );
-			fluidSimulation.addTemperature( f->getTemperatureTexture(), f->getStrength() );
-		}
+
+		shared_ptr<inkFlowComponent> f = player->get<inkFlowComponent>();
+		fluidSimulation.addDensity( f->getDensityTexture(), f->getStrength() );
+		fluidSimulation.addVelocity( f->getVelocityTexture(), 1.f );
+		particleFlow.addFlowVelocity( f->getVelocityTexture(), 1.f );
+		fluidSimulation.addTemperature( f->getTemperatureTexture(), 1.f );
+		
 
 		inkFlowComponent::reset();
 
@@ -714,16 +715,16 @@ void inkApp::keyPressed( int key )
 
 		case ' ':
 		{
-			shared_ptr<inkGameObject> b = gameObjectFactory.create( BULLET );
+			//shared_ptr<inkGameObject> b = gameObjectFactory.create( BULLET );
 
-			b->get<inkCharacterController>()->collisionLayer = 0;
-			b->get<inkCharacterController>()->width = playerBulletImage.getWidth();
-			b->get<inkCharacterController>()->height = playerBulletImage.getHeight();
-			b->get<inkCharacterController>()->speed = player->get<inkCharacterController>()->speed + 3;
-			b->get<inkSpriteComponent>()->img = make_shared<ofImage>(playerBulletImage);
-			b->pos.x = player->pos.x + playerImage.getWidth() / 2.f - playerBulletImage.getWidth() / 2.f;
-			b->pos.y = player->pos.y + playerImage.getHeight() / 2.f - playerBulletImage.getHeight() / 2.f;
-			bullets.push_back( b );
+			//b->get<inkCharacterController>()->collisionLayer = 0;
+			//b->get<inkCharacterController>()->width = playerBulletImage.getWidth();
+			//b->get<inkCharacterController>()->height = playerBulletImage.getHeight();
+			//b->get<inkCharacterController>()->speed = player->get<inkCharacterController>()->speed + 3;
+			//b->get<inkSpriteComponent>()->img = make_shared<ofImage>(playerBulletImage);
+			//b->pos.x = player->pos.x + playerImage.getWidth() / 2.f - playerBulletImage.getWidth() / 2.f;
+			//b->pos.y = player->pos.y + playerImage.getHeight() / 2.f - playerBulletImage.getHeight() / 2.f;
+			//bullets.push_back( b );
 			break;
 		}
 

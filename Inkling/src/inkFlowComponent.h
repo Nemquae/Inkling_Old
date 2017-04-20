@@ -60,6 +60,7 @@ public:
 	void setForce( ofFloatColor _force ) { force = ofVec4f( _force.r, _force.g, _force.b, _force.a ); }
 	void setForce( ofColor _force ) { force = ofVec4f( _force.r / 255.0, _force.g / 255.0, _force.b / 255.0, _force.a / 255.0 ); }
 
+	void setInitiatlPos( ofPoint _pos ) { lastPos = _pos; }
 
 	float	getRadius() { return radius.get(); }
 	float	getEdge() { return edge.get(); }

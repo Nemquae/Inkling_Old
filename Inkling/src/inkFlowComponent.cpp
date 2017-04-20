@@ -19,6 +19,7 @@
 #include "inkFlowComponent.h"
 #include "inkGameObject.h"
 #include "inkCharacterController.h"
+#include "inkSpriteComponent.h"
 
 using namespace ink;
 using namespace flowTools;
@@ -45,7 +46,7 @@ void inkFlowComponent::setup()
 {
 	parameters.setName( "flow force" );
 	parameters.add( force.set( "force", ofVec4f( 1, 1, 1, 1 ), ofVec4f( -1, -1, -1, -1 ), ofVec4f( 1, 1, 1, 1 ) ) );
-	parameters.add( strength.set( "strength", 0.01, 0, 5 ) );
+	parameters.add( strength.set( "strength", 1.0, 0, 5 ) );
 	parameters.add( radius.set( "radius", 0.035, 0, .1 ) );
 	parameters.add( edge.set( "edge", 1.0, 0, 1 ) );
 
@@ -86,10 +87,11 @@ void inkFlowComponent::setup()
 void inkFlowComponent::update()
 {
 
+	float width = gameObject.get<inkSpriteComponent>()->img->getWidth();
+	float height = gameObject.get<inkSpriteComponent>()->img->getHeight();
 
-
-	ofVec2f velocity = ofVec4f(gameObject.pos.x - lastPos.x, gameObject.pos.y - lastPos.y, 0, 1);
-	ofVec2f normalizedPos = ofVec4f( gameObject.pos.x / ofGetWidth(), gameObject.pos.y / ofGetHeight(), 0, 1 );
+	ofVec4f velocity = ofVec4f(-(gameObject.pos.x - lastPos.x)/4.f, -(gameObject.pos.y - lastPos.y)/4.f, 0, 1);
+	ofVec2f normalizedPos = ofVec4f( (gameObject.pos.x + width/2.f) / ofGetWidth(), (gameObject.pos.y + height/2.f) / ofGetHeight(), 0, 1 );
 
 	lastPos = gameObject.pos;
 

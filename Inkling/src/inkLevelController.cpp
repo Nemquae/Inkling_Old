@@ -32,7 +32,7 @@ inkLevelController::~inkLevelController()
 void inkLevelController::setup(float s)
 {
 	enemyStartTime = s;
-	enemyIntervalTime = 500;
+	enemyIntervalTime = 2500;
 	bonusStartTime = s;
 	bonusIntervalTime = 2500;
 	triggerBonus = false;
