@@ -54,11 +54,23 @@ void inkApp::setup()
 	enemyBulletImage.load( "enemy_bullet.png" );
 	lifeImage.load( "life_image.png" );
 
+	butterflyImage.load( "butterfly.png" );
+	butterflyLineImage.load( "butterfly_line.png" );
+	splashHDImage.load( "splash_fhd.png" );
+	splashiPadImage.load( "splash_ipad.png" );
+	redButtonImage.load( "redButton.png" );
+	greenButtonImage.load( "greenButton.png" );
+	blueButtonImage.load( "blueButton.png" );
+
 	startScreen.load( "start_screen.png" );
 	endScreen.load( "end_screen.png" );
 	scoreFont.load( "Gota_Light.otf", 48 );
 
-	player->get<inkSpriteComponent>()->img = make_shared<ofImage>(playerImage);
+	butterflyImage.resize( 541.f / 10.f, 348.f / 10.f );
+	splashHDImage.resize( ofGetWidth(), ofGetHeight() );
+	splashiPadImage.resize( ofGetWidth(), ofGetHeight() );
+
+	player->get<inkSpriteComponent>()->img = make_shared<ofImage>( butterflyImage );
 	player->get<inkCharacterController>()->width = playerImage.getWidth();
 	player->get<inkCharacterController>()->height = playerImage.getHeight();
 	player->pos.x = ofGetWidth() / 2;
@@ -198,22 +210,36 @@ void inkApp::touchDoubleTap( ofTouchEventArgs & touch )
     
 }
 
+void inkApp::redButtonPressed()
+{
+
+}
+
+void inkApp::greenButtonPressed()
+{
+
+}
+
+void inkApp::blueButtonPressed()
+{
+
+}
+
 //-------------------------------------------------------------------------------------------------
 void inkApp::setupGui()
 {
-
-	gui.setup( "settings" );
-	gui.setDefaultBackgroundColor( ofColor( 0, 0, 0, 127 ) );
-	gui.setDefaultFillColor( ofColor( 160, 160, 160, 160 ) );
-	gui.add( guiFPS.set( "average FPS", 0, 0, 60 ) );
-	gui.add( guiMinFPS.set( "minimum FPS", 0, 0, 60 ) );
-	gui.add( doFullScreen.set( "fullscreen (F)", false ) );
+	settingsPanel.setup( "settings" );
+	settingsPanel.setDefaultBackgroundColor( ofColor( 0, 0, 0, 127 ) );
+	settingsPanel.setDefaultFillColor( ofColor( 160, 160, 160, 160 ) );
+	settingsPanel.add( guiFPS.set( "average FPS", 0, 0, 60 ) );
+	settingsPanel.add( guiMinFPS.set( "minimum FPS", 0, 0, 60 ) );
+	settingsPanel.add( doFullScreen.set( "fullscreen (F)", false ) );
 	doFullScreen.addListener( this, &inkApp::setFullScreen );
-	gui.add( toggleGuiDraw.set( "show gui (G)", false ) );
-	gui.add( doFlipCamera.set( "flip camera", true ) );
-	gui.add( doDrawCamBackground.set( "draw camera (C)", false ) );
+	settingsPanel.add( toggleGuiDraw.set( "show gui (G)", false ) );
+	settingsPanel.add( doFlipCamera.set( "flip camera", true ) );
+	settingsPanel.add( doDrawCamBackground.set( "draw camera (C)", false ) );
 
-	gui.add( drawMode.set( "draw mode"
+	settingsPanel.add( drawMode.set( "draw mode"
 						   , DRAW_FLUID_DENSITY
 						   , DRAW_FLUID_DENSITY
 						   , DRAW_MOUSE
@@ -221,8 +247,7 @@ void inkApp::setupGui()
 	);
 
 	drawMode.addListener( this, &inkApp::drawModeSetName );
-	gui.add( drawName.set( "MODE", "draw name" ) );
-
+	settingsPanel.add( drawName.set( "MODE", "draw name" ) );
 
 	int guiColorSwitch = 0;
 	ofColor guiHeaderColor[ 2 ];
@@ -232,40 +257,40 @@ void inkApp::setupGui()
 	guiFillColor[ 0 ].set( 160, 160, 80, 200 );
 	guiFillColor[ 1 ].set( 80, 160, 160, 200 );
 
-	gui.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
-	gui.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
 	guiColorSwitch = 1 - guiColorSwitch;
-	gui.add( opticalFlow.parameters );
+	settingsPanel.add( opticalFlow.parameters );
 
-	gui.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
-	gui.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
 	guiColorSwitch = 1 - guiColorSwitch;
-	gui.add( velocityMask.parameters );
+	settingsPanel.add( velocityMask.parameters );
 
-	gui.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
-	gui.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
 	guiColorSwitch = 1 - guiColorSwitch;
-	gui.add( fluidSimulation.parameters );
+	settingsPanel.add( fluidSimulation.parameters );
 
-	gui.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
-	gui.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
 	guiColorSwitch = 1 - guiColorSwitch;
-	gui.add( particleFlow.parameters );
+	settingsPanel.add( particleFlow.parameters );
 
-	gui.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
-	gui.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
 	guiColorSwitch = 1 - guiColorSwitch;
-	gui.add( inputForces.leftButtonParameters );
+	settingsPanel.add( inputForces.leftButtonParameters );
 
-	gui.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
-	gui.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
 	guiColorSwitch = 1 - guiColorSwitch;
-	gui.add( inputForces.rightButtonParameters );
+	settingsPanel.add( inputForces.rightButtonParameters );
 
-	gui.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
-	gui.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
 	guiColorSwitch = 1 - guiColorSwitch;
-	gui.add( inputForces.middleButtonParameters );
+	settingsPanel.add( inputForces.middleButtonParameters );
 
 	visualizeParameters.setName( "visualizers" );
 	visualizeParameters.add( showScalar.set( "show scalar", true ) );
@@ -281,25 +306,61 @@ void inkApp::setupGui()
 	visualizeParameters.add( velocityLineSmooth.set( "line smooth", false ) );
 	velocityLineSmooth.addListener( this, &inkApp::setVelocityLineSmooth );
 
-	gui.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
-	gui.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
 	guiColorSwitch = 1 - guiColorSwitch;
-	gui.add( visualizeParameters );
+	settingsPanel.add( visualizeParameters );
 
-	gui.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
-	gui.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultHeaderBackgroundColor( guiHeaderColor[ guiColorSwitch ] );
+	settingsPanel.setDefaultFillColor( guiFillColor[ guiColorSwitch ] );
 	guiColorSwitch = 1 - guiColorSwitch;
-	gui.add( velocityDots.parameters );
+	settingsPanel.add( velocityDots.parameters );
 
 	// if the settings file is not present the parameters will not be set 
 	// during this setup
 	if( !ofFile( "settings.xml" ) )
-		gui.saveToFile( "settings.xml" );
+		settingsPanel.saveToFile( "settings.xml" );
 
-	gui.loadFromFile( "settings.xml" );
+	settingsPanel.loadFromFile( "settings.xml" );
 
-	gui.minimizeAll();
+	settingsPanel.minimizeAll();
 	toggleGuiDraw = false;
+
+	//buttonsPanel.setup( "buttons" );
+	//buttonsPanel.setPosition( 200, ofGetHeight() - 200 );
+	//buttonsPanel.setShape( 200, ofGetHeight() - 200, ofGetWidth() - 400, 150 );
+
+	redButton.setup( "redButton", 200, 200 );
+	redButton.setBackgroundColor( ofColor::red );
+	redButton.setFillColor( ofColor::red );
+	redButton.setBorderColor( ofColor::red );
+	redButton.addListener( this, &inkApp::redButtonPressed );
+	redButton.setShape( 200, ofGetHeight() - 200, 200, 100 );
+	redButton.setTextColor( ofColor( 0, 0 ) );
+	//redButton.setSize( 200, 200 );
+	//buttonsPanel.add( &redButton );
+
+	greenButton.setup( "greenButton", 200, 200 );
+	greenButton.setBackgroundColor( ofColor::green );
+	greenButton.setFillColor( ofColor::green );
+	greenButton.setBorderColor( ofColor::green );
+	greenButton.addListener( this, &inkApp::greenButtonPressed );
+	greenButton.setShape( 450, ofGetHeight() - 200, 200, 100 );
+	greenButton.setTextColor( ofColor( 0, 0 ) );
+	//greenButton.setSize( 200, 200 );
+	//buttonsPanel.add( &greenButton );
+
+	blueButton.setup( "blueButton", 200, 200 );
+	blueButton.setBackgroundColor( ofColor::blue );
+	blueButton.setFillColor( ofColor::blue );
+	blueButton.setBorderColor( ofColor::blue );
+	blueButton.addListener( this, &inkApp::blueButtonPressed );
+	blueButton.setShape( 700, ofGetHeight() - 200, 200, 100 );
+	blueButton.setTextColor( ofColor( 0, 0 ) );
+	//blueButton.setSize( 200, 200 );
+	//buttonsPanel.add( &blueButton );
+
+	//buttonsPanel.registerMouseEvents();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -848,7 +909,12 @@ void inkApp::draw()
 	{
 	case START:
 	{
-		startScreen.draw(0, 0);
+		//startScreen.draw(0, 0);
+#if !((TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS))
+		splashHDImage.draw( 0, 0 );
+#else
+		splashiPadImage.draw( 0, 0 );
+#endif
 
 		break;
 	}
@@ -890,6 +956,20 @@ void inkApp::draw()
 			drawGui();
 #endif
 		}
+
+		ofPushStyle();
+		ofEnableBlendMode( OF_BLENDMODE_ALPHA );
+		//buttonsPanel.draw();
+		redButton.draw();
+		greenButton.draw();
+		blueButton.draw();
+
+		// HACK TO COMPENSATE FOR DISSAPEARING MOUSE
+		ofEnableBlendMode( OF_BLENDMODE_SUBTRACT );
+		ofDrawCircle( ofGetMouseX(), ofGetMouseY(), ofGetWindowWidth() / 300.0 );
+		ofEnableBlendMode( OF_BLENDMODE_ADD );
+		ofDrawCircle( ofGetMouseX(), ofGetMouseY(), ofGetWindowWidth() / 600.0 );
+		ofPopStyle();
 
 		player->get<inkSpriteComponent>()->draw();
 
@@ -1320,7 +1400,8 @@ void inkApp::drawGui()
 
 	ofPushStyle();
 	ofEnableBlendMode( OF_BLENDMODE_ALPHA );
-	gui.draw();
+	settingsPanel.draw();
+	//buttonsPanel.draw();
 
 	// HACK TO COMPENSATE FOR DISSAPEARING MOUSE
 	ofEnableBlendMode( OF_BLENDMODE_SUBTRACT );

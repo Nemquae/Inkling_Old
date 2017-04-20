@@ -103,6 +103,13 @@ public:
 	ofImage							playerBulletImage;
 	ofImage							enemyBulletImage;
 	ofImage							lifeImage;
+	ofImage							butterflyImage;
+	ofImage							butterflyLineImage;
+	ofImage							splashHDImage;
+	ofImage							splashiPadImage;
+	ofImage							redButtonImage;
+	ofImage							greenButtonImage;
+	ofImage							blueButtonImage;
 
 	ofImage							startScreen;
 	ofImage							endScreen;
@@ -180,8 +187,16 @@ public:
 										velocityTemperatureField.setLineSmooth( _value );
 									}
 
+	void							redButtonPressed();
+	void							greenButtonPressed();
+	void							blueButtonPressed();
+
 	// GUI
-	ofxPanel						gui;
+	ofxPanel						settingsPanel;
+	ofxPanel						buttonsPanel;
+	ofxButton						redButton;
+	ofxButton						greenButton;
+	ofxButton						blueButton;
 	void							setupGui();
 	void							keyPressed( int key );
 	void							drawGui();
