@@ -39,6 +39,7 @@ enum PrefabType
 	, ENEMY
 	, BULLET
 	, BONUS
+	, INKWELL
 };
 
 template<class T, class...Args>
@@ -99,6 +100,10 @@ public:
 			gameObj->add<inkSpriteComponent>();
 			gameObj->setup();
 			break;
+		case INKWELL:
+			gameObj = createEmpty<inkGameObject>( forward<Args>( args )... );
+			gameObj->add<inkCharacterController>();
+			gameObj->add<inkFlowComponent>();
 		default:
 			break;
 		}

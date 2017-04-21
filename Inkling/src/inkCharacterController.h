@@ -32,6 +32,7 @@ public:
 
 	float width, height, speed;
 	int collisionLayer;
+	int lifeTime;
 
 	bool isLeftPressed, isRightPressed, isDownPressed, isUpPressed;
 

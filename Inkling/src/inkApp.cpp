@@ -25,6 +25,8 @@
 using namespace ink;
 using namespace flowTools;
 
+//InkwellColor inkApp::inkColor;
+
 //-------------------------------------------------------------------------------------------------
 void inkApp::setup()
 {
@@ -67,12 +69,13 @@ void inkApp::setup()
 	scoreFont.load( "Gota_Light.otf", 48 );
 
 	butterflyImage.resize( 541.f / 10.f, 348.f / 10.f );
+	butterflyLineImage.resize( 541.f / 10.f, 348.f / 10.f );
 	splashHDImage.resize( ofGetWidth(), ofGetHeight() );
 	splashiPadImage.resize( ofGetWidth(), ofGetHeight() );
 
 	player->get<inkSpriteComponent>()->img = make_shared<ofImage>( butterflyImage );
-	player->get<inkCharacterController>()->width = playerImage.getWidth();
-	player->get<inkCharacterController>()->height = playerImage.getHeight();
+	player->get<inkCharacterController>()->width = butterflyImage.getWidth();
+	player->get<inkCharacterController>()->height = butterflyImage.getHeight();
 	player->pos.x = ofGetWidth() / 2;
 	player->pos.y = ofGetHeight() / 2;
 	player->get<inkFlowComponent>()->setForce( ofFloatColor( 0, 1, 0, 1 ) );
@@ -212,17 +215,26 @@ void inkApp::touchDoubleTap( ofTouchEventArgs & touch )
 
 void inkApp::redButtonPressed()
 {
-
+	for( int i = 0; i < inputForces.getNumForces(); ++i )
+	{
+		inputForces.setColor( i, ofColor::red );
+	}
 }
 
 void inkApp::greenButtonPressed()
 {
-
+	for( int i = 0; i < inputForces.getNumForces(); ++i )
+	{
+		inputForces.setColor( i, ofColor::green );
+	}
 }
 
 void inkApp::blueButtonPressed()
 {
-
+	for( int i = 0; i < inputForces.getNumForces(); ++i )
+	{
+		inputForces.setColor( i, ofColor::blue );
+	}
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -490,9 +502,9 @@ void inkApp::update()
 			shared_ptr<inkGameObject> e = gameObjectFactory.create( ENEMY );
 			e->pos.x = ofRandom( ofGetWidth() );
 			e->pos.y = 0;
-			e->get<inkSpriteComponent>()->img = make_shared<ofImage>(enemyImage);
-			e->get<inkCharacterController>()->width = enemyImage.getWidth();
-			e->get<inkCharacterController>()->height = enemyImage.getHeight();
+			e->get<inkSpriteComponent>()->img = make_shared<ofImage>(butterflyLineImage);
+			e->get<inkCharacterController>()->width = butterflyLineImage.getWidth();
+			e->get<inkCharacterController>()->height = butterflyLineImage.getHeight();
 			e->get<inkCharacterController>()->speed = ofRandom( 2, 7 );
 			e->get<inkOffenseComponent>()->amplitude = ofRandom( maxEnemyAmplitude );
 			e->get<inkOffenseComponent>()->shootInterval = ofRandom( 0.5, maxEnemyAmplitude );
@@ -795,6 +807,8 @@ void inkApp::keyPressed( int key )
 		case 'F': doFullScreen.set( !doFullScreen.get() ); break;
 		case 'c':
 		case 'C': doDrawCamBackground.set( !doDrawCamBackground.get() ); break;
+		case 'e':
+		case 'E': levelController.spawnEnemy = !levelController.spawnEnemy; break;
 
 		case '1': drawMode.set( DRAW_COMPOSITE ); break;
 		case '2': drawMode.set( DRAW_FLUID_FIELDS ); break;
@@ -839,6 +853,8 @@ void inkApp::keyPressed( int key )
 		case 'F': doFullScreen.set( !doFullScreen.get() ); break;
 		case 'c':
 		case 'C': doDrawCamBackground.set( !doDrawCamBackground.get() ); break;
+		case 'e':
+		case 'E': levelController.spawnEnemy = !levelController.spawnEnemy; break;
 
 		case '1': drawMode.set( DRAW_COMPOSITE ); break;
 		case '2': drawMode.set( DRAW_FLUID_FIELDS ); break;
@@ -988,12 +1004,12 @@ void inkApp::draw()
 			l->get<inkSpriteComponent>()->draw();
 		}
 
-		for( int i = 0; i < lives; ++i )
-		{
-			player->get<inkSpriteComponent>()->img->draw( ofGetWidth() - ( i * player->get<inkCharacterController>()->width ) - 100, 30 );
-		}
+		//for( int i = 0; i < lives; ++i )
+		//{
+		//	player->get<inkSpriteComponent>()->img->draw( ofGetWidth() - ( i * player->get<inkCharacterController>()->width ) - 100, 30 );
+		//}
 
-		scoreFont.drawString( ofToString( score ), 30, 72 );
+		//scoreFont.drawString( ofToString( score ), 30, 72 );
 
 		break;
 	}
@@ -1488,7 +1504,6 @@ void inkApp::mouseDragged( int x, int y, int button )
 //-------------------------------------------------------------------------------------------------
 void inkApp::mousePressed( int x, int y, int button )
 {
-
 }
 
 //-------------------------------------------------------------------------------------------------

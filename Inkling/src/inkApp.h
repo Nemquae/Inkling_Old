@@ -64,6 +64,13 @@ enum GameState
 ,   NO_GAME_STATE
 };
 
+//enum InkwellColor
+//{
+//  RED
+//, GREEN
+//, BLUE
+//};
+
 #if (TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS)
 class inkApp : public ofxiOSApp
 #else
@@ -96,6 +103,10 @@ public:
 				 < inkGameObject> > enemies;
 	std::vector< shared_ptr
 				 < inkGameObject> > bonuses;
+	std::vector< shared_ptr
+				 < inkGameObject> > inkwells;
+
+	//static InkwellColor				inkColor;
 
 	inkGameObjectFactory			gameObjectFactory;
 	ofImage							playerImage;
