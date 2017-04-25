@@ -19,7 +19,6 @@
 #include "inkFlowComponent.h"
 #include "inkGameObject.h"
 #include "inkCharacterController.h"
-#include "inkSpriteComponent.h"
 
 using namespace ink;
 using namespace flowTools;
@@ -87,8 +86,8 @@ void inkFlowComponent::setup()
 void inkFlowComponent::update()
 {
 
-	float width = gameObject.get<inkSpriteComponent>()->img->getWidth();
-	float height = gameObject.get<inkSpriteComponent>()->img->getHeight();
+	float width = gameObject.get<inkCharacterController>()->width;
+	float height = gameObject.get<inkCharacterController>()->height;
 
 	ofVec4f velocity = ofVec4f(-(gameObject.pos.x - lastPos.x)/4.f, -(gameObject.pos.y - lastPos.y)/4.f, 0, 1);
 	ofVec2f normalizedPos = ofVec4f( (gameObject.pos.x + width/2.f) / ofGetWidth(), (gameObject.pos.y + height/2.f) / ofGetHeight(), 0, 1 );

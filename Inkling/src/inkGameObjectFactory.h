@@ -104,6 +104,8 @@ public:
 			gameObj = createEmpty<inkGameObject>( forward<Args>( args )... );
 			gameObj->add<inkCharacterController>();
 			gameObj->add<inkFlowComponent>();
+			gameObj->add<inkSpriteComponent>();
+			gameObj->setup();
 		default:
 			break;
 		}

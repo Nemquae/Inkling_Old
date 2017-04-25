@@ -81,6 +81,38 @@ void inkApp::setup()
 	player->get<inkFlowComponent>()->setForce( ofFloatColor( 0, 1, 0, 1 ) );
 	player->get<inkFlowComponent>()->setInitiatlPos( player->pos );
 
+	redInkwell		= gameObjectFactory.create( INKWELL );
+	greenInkwell	= gameObjectFactory.create( INKWELL );
+	blueInkwell		= gameObjectFactory.create( INKWELL );
+
+	redInkwell->pos.x = ofGetWidth() / 3;
+	redInkwell->pos.y = ofGetHeight() / 3;
+	redInkwell->get<inkSpriteComponent>()->img = make_shared<ofImage>( butterflyLineImage );
+	redInkwell->get<inkCharacterController>()->width = butterflyLineImage.getWidth();
+	redInkwell->get<inkCharacterController>()->height = butterflyLineImage.getHeight();
+	redInkwell->get<inkFlowComponent>()->setForce( ofFloatColor( 1, 0, 0, 1 ) );
+	redInkwell->get<inkFlowComponent>()->setInitiatlPos( redInkwell->pos );
+	//redInkwell->get<inkFlowComponent>()->setRadius( 10.f );
+
+	greenInkwell->pos.x = 2 * ofGetWidth() / 3;
+	greenInkwell->pos.y = ofGetHeight() / 3;
+	greenInkwell->get<inkSpriteComponent>()->img = make_shared<ofImage>( butterflyLineImage );
+	greenInkwell->get<inkCharacterController>()->width = butterflyLineImage.getWidth();
+	greenInkwell->get<inkCharacterController>()->height = butterflyLineImage.getHeight();
+	greenInkwell->get<inkFlowComponent>()->setForce( ofFloatColor( 0, 1, 0, 1 ) );
+	greenInkwell->get<inkFlowComponent>()->setInitiatlPos( greenInkwell->pos );
+	//greenInkwell->get<inkFlowComponent>()->setRadius( 10.f );
+
+	blueInkwell->pos.x = ofGetWidth() / 2;
+	blueInkwell->pos.y = 2 * ofGetHeight() / 3;
+	blueInkwell->get<inkSpriteComponent>()->img = make_shared<ofImage>( butterflyLineImage );
+	blueInkwell->get<inkCharacterController>()->width = butterflyLineImage.getWidth();
+	blueInkwell->get<inkCharacterController>()->height = butterflyLineImage.getHeight();
+	blueInkwell->get<inkFlowComponent>()->setForce( ofFloatColor( 0, 0, 1, 1 ) );
+	blueInkwell->get<inkFlowComponent>()->setInitiatlPos( blueInkwell->pos );
+	//blueInkwell->get<inkFlowComponent>()->setRadius( 10.f );
+
+
 	maxEnemyAmplitude = 3.0;
 	maxEnemyShootInterval = 1.5;
 
@@ -129,8 +161,8 @@ void inkApp::setup()
     ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
-	flowToolsLogoImage.load( "inkling.png" );
-	fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
+	//flowToolsLogoImage.load( "inkling.png" );
+	//fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
 	showLogo = false;
 
 	velocityDots.setup( flowWidth / 4, flowHeight / 4 );
@@ -187,7 +219,7 @@ void inkApp::setup()
     ofLogNotice(ss.str());
 #endif // DEBUG_GL_ERRORS
 
-    toggleGuiDraw = true;
+    toggleGuiDraw = false;
     
     drawMode.set(DRAW_COMPOSITE);
     
@@ -338,41 +370,41 @@ void inkApp::setupGui()
 	settingsPanel.minimizeAll();
 	toggleGuiDraw = false;
 
-	//buttonsPanel.setup( "buttons" );
-	//buttonsPanel.setPosition( 200, ofGetHeight() - 200 );
-	//buttonsPanel.setShape( 200, ofGetHeight() - 200, ofGetWidth() - 400, 150 );
+	////buttonsPanel.setup( "buttons" );
+	////buttonsPanel.setPosition( 200, ofGetHeight() - 200 );
+	////buttonsPanel.setShape( 200, ofGetHeight() - 200, ofGetWidth() - 400, 150 );
 
-	redButton.setup( "redButton", 200, 200 );
-	redButton.setBackgroundColor( ofColor::red );
-	redButton.setFillColor( ofColor::red );
-	redButton.setBorderColor( ofColor::red );
-	redButton.addListener( this, &inkApp::redButtonPressed );
-	redButton.setShape( 200, ofGetHeight() - 200, 200, 100 );
-	redButton.setTextColor( ofColor( 0, 0 ) );
-	//redButton.setSize( 200, 200 );
-	//buttonsPanel.add( &redButton );
+	//redButton.setup( "redButton", 200, 200 );
+	//redButton.setBackgroundColor( ofColor::red );
+	//redButton.setFillColor( ofColor::red );
+	//redButton.setBorderColor( ofColor::red );
+	//redButton.addListener( this, &inkApp::redButtonPressed );
+	//redButton.setShape( 200, ofGetHeight() - 200, 200, 100 );
+	//redButton.setTextColor( ofColor( 0, 0 ) );
+	////redButton.setSize( 200, 200 );
+	////buttonsPanel.add( &redButton );
 
-	greenButton.setup( "greenButton", 200, 200 );
-	greenButton.setBackgroundColor( ofColor::green );
-	greenButton.setFillColor( ofColor::green );
-	greenButton.setBorderColor( ofColor::green );
-	greenButton.addListener( this, &inkApp::greenButtonPressed );
-	greenButton.setShape( 450, ofGetHeight() - 200, 200, 100 );
-	greenButton.setTextColor( ofColor( 0, 0 ) );
-	//greenButton.setSize( 200, 200 );
-	//buttonsPanel.add( &greenButton );
+	//greenButton.setup( "greenButton", 200, 200 );
+	//greenButton.setBackgroundColor( ofColor::green );
+	//greenButton.setFillColor( ofColor::green );
+	//greenButton.setBorderColor( ofColor::green );
+	//greenButton.addListener( this, &inkApp::greenButtonPressed );
+	//greenButton.setShape( 450, ofGetHeight() - 200, 200, 100 );
+	//greenButton.setTextColor( ofColor( 0, 0 ) );
+	////greenButton.setSize( 200, 200 );
+	////buttonsPanel.add( &greenButton );
 
-	blueButton.setup( "blueButton", 200, 200 );
-	blueButton.setBackgroundColor( ofColor::blue );
-	blueButton.setFillColor( ofColor::blue );
-	blueButton.setBorderColor( ofColor::blue );
-	blueButton.addListener( this, &inkApp::blueButtonPressed );
-	blueButton.setShape( 700, ofGetHeight() - 200, 200, 100 );
-	blueButton.setTextColor( ofColor( 0, 0 ) );
-	//blueButton.setSize( 200, 200 );
-	//buttonsPanel.add( &blueButton );
+	//blueButton.setup( "blueButton", 200, 200 );
+	//blueButton.setBackgroundColor( ofColor::blue );
+	//blueButton.setFillColor( ofColor::blue );
+	//blueButton.setBorderColor( ofColor::blue );
+	//blueButton.addListener( this, &inkApp::blueButtonPressed );
+	//blueButton.setShape( 700, ofGetHeight() - 200, 200, 100 );
+	//blueButton.setTextColor( ofColor( 0, 0 ) );
+	////blueButton.setSize( 200, 200 );
+	////buttonsPanel.add( &blueButton );
 
-	//buttonsPanel.registerMouseEvents();
+	////buttonsPanel.registerMouseEvents();
 }
 
 //-------------------------------------------------------------------------------------------------
@@ -397,8 +429,12 @@ void inkApp::update()
 	}
 	case GAME:
 	{
-		player->update();
+		//player->update();
 		//liveTester.update();
+
+		redInkwell->update();
+		greenInkwell->update();
+		blueInkwell->update();
 
 		levelController.enemyIntervalTime = liveTester.enemyIntervalTime;
 		maxEnemyAmplitude = liveTester.maxEnemyAmplitude;
@@ -529,56 +565,74 @@ void inkApp::update()
 		fluidSimulation.addDensity( velocityMask.getColorMask() );
 		fluidSimulation.addTemperature( velocityMask.getLuminanceMask() );
 
-		inputForces.update( deltaTime );
+		//inputForces.update( deltaTime );
 
-		for( int i = 0; i < inputForces.getNumForces(); i++ )
-		{
-			if( inputForces.didChange( i ) )
-			{
-				switch( inputForces.getType( i ) )
-				{
-				case FT_DENSITY:
-					fluidSimulation.addDensity
-					( inputForces.getTextureReference( i )
-					  , inputForces.getStrength( i )
-					  , false );
-					break;
-				case FT_VELOCITY:
-					fluidSimulation.addVelocity
-					( inputForces.getTextureReference( i )
-					  , inputForces.getStrength( i )
-					  , false );
-					particleFlow.addFlowVelocity
-					( inputForces.getTextureReference( i )
-					  , inputForces.getStrength( i ) );
-					break;
-				case FT_TEMPERATURE:
-					fluidSimulation.addTemperature
-					( inputForces.getTextureReference( i )
-					  , inputForces.getStrength( i )
-					  , false );
-					break;
-				case FT_PRESSURE:
-					fluidSimulation.addPressure
-					( inputForces.getTextureReference( i )
-					  , inputForces.getStrength( i )
-					  , false );
-					break;
-				case FT_OBSTACLE:
-					fluidSimulation.addTempObstacle
-					( inputForces.getTextureReference( i ) );
-				default:
-					break;
-				}
-			}
-		}
+		//for( int i = 0; i < inputForces.getNumForces(); i++ )
+		//{
+		//	if( inputForces.didChange( i ) )
+		//	{
+		//		switch( inputForces.getType( i ) )
+		//		{
+		//		case FT_DENSITY:
+		//			fluidSimulation.addDensity
+		//			( inputForces.getTextureReference( i )
+		//			  , inputForces.getStrength( i )
+		//			  , false );
+		//			break;
+		//		case FT_VELOCITY:
+		//			fluidSimulation.addVelocity
+		//			( inputForces.getTextureReference( i )
+		//			  , inputForces.getStrength( i )
+		//			  , false );
+		//			particleFlow.addFlowVelocity
+		//			( inputForces.getTextureReference( i )
+		//			  , inputForces.getStrength( i ) );
+		//			break;
+		//		case FT_TEMPERATURE:
+		//			fluidSimulation.addTemperature
+		//			( inputForces.getTextureReference( i )
+		//			  , inputForces.getStrength( i )
+		//			  , false );
+		//			break;
+		//		case FT_PRESSURE:
+		//			fluidSimulation.addPressure
+		//			( inputForces.getTextureReference( i )
+		//			  , inputForces.getStrength( i )
+		//			  , false );
+		//			break;
+		//		case FT_OBSTACLE:
+		//			fluidSimulation.addTempObstacle
+		//			( inputForces.getTextureReference( i ) );
+		//		default:
+		//			break;
+		//		}
+		//	}
+		//}
 
 
-		shared_ptr<inkFlowComponent> f = player->get<inkFlowComponent>();
-		fluidSimulation.addDensity( f->getDensityTexture(), f->getStrength() );
-		fluidSimulation.addVelocity( f->getVelocityTexture(), 1.f );
-		particleFlow.addFlowVelocity( f->getVelocityTexture(), 1.f );
-		fluidSimulation.addTemperature( f->getTemperatureTexture(), 1.f );
+		//shared_ptr<inkFlowComponent> f = player->get<inkFlowComponent>();
+		//fluidSimulation.addDensity( f->getDensityTexture(), f->getStrength() );
+		//fluidSimulation.addVelocity( f->getVelocityTexture(), 1.f );
+		//particleFlow.addFlowVelocity( f->getVelocityTexture(), 1.f );
+		//fluidSimulation.addTemperature( f->getTemperatureTexture(), 1.f );
+
+		shared_ptr<inkFlowComponent> r = redInkwell->get<inkFlowComponent>();
+		fluidSimulation.addDensity( r->getDensityTexture(), r->getStrength() );
+		fluidSimulation.addVelocity( r->getVelocityTexture(), 1.f );
+		particleFlow.addFlowVelocity( r->getVelocityTexture(), 1.f );
+		fluidSimulation.addTemperature( r->getTemperatureTexture(), 1.f );
+
+		shared_ptr<inkFlowComponent> g = greenInkwell->get<inkFlowComponent>();
+		fluidSimulation.addDensity( g->getDensityTexture(), g->getStrength() );
+		fluidSimulation.addVelocity( g->getVelocityTexture(), 1.f );
+		particleFlow.addFlowVelocity( g->getVelocityTexture(), 1.f );
+		fluidSimulation.addTemperature( g->getTemperatureTexture(), 1.f );
+
+		shared_ptr<inkFlowComponent> b = blueInkwell->get<inkFlowComponent>();
+		fluidSimulation.addDensity( b->getDensityTexture(), b->getStrength() );
+		fluidSimulation.addVelocity( b->getVelocityTexture(), 1.f );
+		particleFlow.addFlowVelocity( b->getVelocityTexture(), 1.f );
+		fluidSimulation.addTemperature( b->getTemperatureTexture(), 1.f );
 		
 
 		inkFlowComponent::reset();
@@ -973,21 +1027,25 @@ void inkApp::draw()
 #endif
 		}
 
-		ofPushStyle();
-		ofEnableBlendMode( OF_BLENDMODE_ALPHA );
-		//buttonsPanel.draw();
-		redButton.draw();
-		greenButton.draw();
-		blueButton.draw();
+		//ofPushStyle();
+		//ofEnableBlendMode( OF_BLENDMODE_ALPHA );
+		////buttonsPanel.draw();
+		//redButton.draw();
+		//greenButton.draw();
+		//blueButton.draw();
 
-		// HACK TO COMPENSATE FOR DISSAPEARING MOUSE
-		ofEnableBlendMode( OF_BLENDMODE_SUBTRACT );
-		ofDrawCircle( ofGetMouseX(), ofGetMouseY(), ofGetWindowWidth() / 300.0 );
-		ofEnableBlendMode( OF_BLENDMODE_ADD );
-		ofDrawCircle( ofGetMouseX(), ofGetMouseY(), ofGetWindowWidth() / 600.0 );
-		ofPopStyle();
+		//// HACK TO COMPENSATE FOR DISSAPEARING MOUSE
+		//ofEnableBlendMode( OF_BLENDMODE_SUBTRACT );
+		//ofDrawCircle( ofGetMouseX(), ofGetMouseY(), ofGetWindowWidth() / 300.0 );
+		//ofEnableBlendMode( OF_BLENDMODE_ADD );
+		//ofDrawCircle( ofGetMouseX(), ofGetMouseY(), ofGetWindowWidth() / 600.0 );
+		//ofPopStyle();
 
-		player->get<inkSpriteComponent>()->draw();
+		//player->get<inkSpriteComponent>()->draw();
+
+		redInkwell->get<inkSpriteComponent>()->draw();
+		blueInkwell->get<inkSpriteComponent>()->draw();
+		greenInkwell->get<inkSpriteComponent>()->draw();
 
 		for(auto&& b : bullets)
 		{
@@ -1489,6 +1547,35 @@ void inkApp::keyReleased( int key )
 	}
 }
 
+void inkApp::touchMoved( int x, int y, int id)
+{
+	ofVec2f pos( x, y );
+	float maxDist = 100.f;
+	float redDist = pos.distance( redInkwell->pos );
+	float greenDist = pos.distance( greenInkwell->pos );
+	float blueDist = pos.distance( blueInkwell->pos );
+
+	if( ( inkColor == NO_COLOR || inkColor == RED ) && redDist < maxDist && redDist < greenDist && redDist < blueDist )
+	{
+		redInkwell->pos += ( pos - redInkwell->pos ) / 2.f;
+		inkColor = RED;
+	}
+	else if( ( inkColor == NO_COLOR || inkColor == GREEN ) && greenDist < maxDist && greenDist < redDist && greenDist < blueDist )
+	{
+		greenInkwell->pos += ( pos - greenInkwell->pos ) / 2.f;
+		inkColor = GREEN;
+	}
+	else if( ( inkColor == NO_COLOR || inkColor == BLUE ) && blueDist < maxDist && blueDist < greenDist && blueDist < redDist )
+	{
+		blueInkwell->pos += ( pos - blueInkwell->pos ) / 2.f;
+		inkColor = BLUE;
+	}
+	else
+	{
+		inkColor = NO_COLOR;
+	}
+}
+
 //-------------------------------------------------------------------------------------------------
 void inkApp::mouseMoved( int x, int y )
 {
@@ -1498,12 +1585,37 @@ void inkApp::mouseMoved( int x, int y )
 //-------------------------------------------------------------------------------------------------
 void inkApp::mouseDragged( int x, int y, int button )
 {
+	ofVec2f pos( x, y );
+	float maxDist = 100.f;
+	float redDist = pos.distance( redInkwell->pos );
+	float greenDist = pos.distance( greenInkwell->pos );
+	float blueDist = pos.distance( blueInkwell->pos );
 
+	if( (inkColor == NO_COLOR || inkColor == RED) && redDist < maxDist && redDist < greenDist && redDist < blueDist )
+	{
+		redInkwell->pos += ( pos - redInkwell->pos ) / 2.f;
+		inkColor = RED;
+	}
+	else if( ( inkColor == NO_COLOR || inkColor == GREEN ) && greenDist < maxDist && greenDist < redDist && greenDist < blueDist )
+	{
+		greenInkwell->pos += ( pos - greenInkwell->pos ) / 2.f;
+		inkColor = GREEN;
+	}
+	else if( ( inkColor == NO_COLOR || inkColor == BLUE ) && blueDist < maxDist && blueDist < greenDist && blueDist < redDist )
+	{
+		blueInkwell->pos += ( pos - blueInkwell->pos ) / 2.f;
+		inkColor = BLUE;
+	}
+	else
+	{
+		inkColor = NO_COLOR;
+	}
 }
 
 //-------------------------------------------------------------------------------------------------
 void inkApp::mousePressed( int x, int y, int button )
 {
+
 }
 
 //-------------------------------------------------------------------------------------------------

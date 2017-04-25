@@ -64,12 +64,13 @@ enum GameState
 ,   NO_GAME_STATE
 };
 
-//enum InkwellColor
-//{
-//  RED
-//, GREEN
-//, BLUE
-//};
+enum InkwellColor
+{
+  RED
+, GREEN
+, BLUE
+, NO_COLOR
+};
 
 #if (TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS)
 class inkApp : public ofxiOSApp
@@ -106,7 +107,11 @@ public:
 	std::vector< shared_ptr
 				 < inkGameObject> > inkwells;
 
-	//static InkwellColor				inkColor;
+	shared_ptr<inkGameObject>		redInkwell;
+	shared_ptr<inkGameObject>		greenInkwell;
+	shared_ptr<inkGameObject>		blueInkwell;
+
+	InkwellColor					inkColor;
 
 	inkGameObjectFactory			gameObjectFactory;
 	ofImage							playerImage;
@@ -419,6 +424,7 @@ public:
 
 	//void							keyPressed(int key);
 	void							keyReleased( int key );
+	void							touchMoved( int x, int y, int id );
 	void							mouseMoved( int x, int y );
 	void							mouseDragged( int x, int y, int button );
 	void							mousePressed( int x, int y, int button );
