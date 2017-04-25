@@ -44,9 +44,9 @@ int main()
 //#ifdef USE_PROGRAMMABLE_GL
 	windowSettings.setGLVersion( 4, 1 );
 //#endif
-	windowSettings.width = 1024;
-	windowSettings.height = 768;
-	windowSettings.windowMode = OF_WINDOW;
+	windowSettings.width = 2160 / 2;
+	windowSettings.height = 1440 / 2;
+	windowSettings.windowMode = OF_FULLSCREEN;
 
 	ofCreateWindow( windowSettings );
 

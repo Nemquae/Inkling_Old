@@ -156,7 +156,7 @@ public:
 	bool							showLogo;
 
 	// InputDraw
-	flowTools::ftDrawInputForces	inputForces;
+	//flowTools::ftDrawInputForces	inputForces;
 
 	void							touchDoubleTap( ofTouchEventArgs & touch );
 
