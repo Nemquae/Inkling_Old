@@ -156,7 +156,7 @@ public:
 	bool							showLogo;
 
 	// InputDraw
-	//flowTools::ftDrawInputForces	inputForces;
+	flowTools::ftDrawInputForces	inputForces;
 
 	void							touchDoubleTap( ofTouchEventArgs & touch );
 
@@ -206,6 +206,9 @@ public:
 	void							redButtonPressed();
 	void							greenButtonPressed();
 	void							blueButtonPressed();
+
+	float							inkStartTime;
+	float							inkIntervalTime;
 
 	// GUI
 	ofxPanel						settingsPanel;

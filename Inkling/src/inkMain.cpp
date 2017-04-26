@@ -46,7 +46,7 @@ int main()
 //#endif
 	windowSettings.width = 2160 / 2;
 	windowSettings.height = 1440 / 2;
-	windowSettings.windowMode = OF_FULLSCREEN;
+	windowSettings.windowMode = OF_WINDOW;
 
 	ofCreateWindow( windowSettings );
 

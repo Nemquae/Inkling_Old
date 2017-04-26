@@ -58,10 +58,10 @@ void inkFlowComponent::setup()
 		velocityDrawForceShader.setup();
 		temperatureDrawForceShader.setup();
 
-#if (TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS)
-		densityBuffer.allocate( width, height, GL_RGBA );
-		velocityBuffer.allocate( width, height, GL_RGBA );
-		temperatureBuffer.allocate( width, height, GL_RGBA );
+#if (TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS) || (TARGET_SURFACE)
+		densityBuffer.allocate( ofGetWidth() / 4, ofGetHeight() / 4, GL_RGBA );
+		velocityBuffer.allocate( ofGetWidth() / 4, ofGetHeight() / 4, GL_RGBA );
+		temperatureBuffer.allocate( ofGetWidth() / 4, ofGetHeight() / 4, GL_RGBA );
 #else
 		densityBuffer.allocate( ofGetWidth(), ofGetHeight(), GL_RGBA32F );
 		velocityBuffer.allocate( ofGetWidth(), ofGetHeight(), GL_RGBA32F );
@@ -94,11 +94,11 @@ void inkFlowComponent::update()
 
 	lastPos = gameObject.pos;
 
-	absolutePosition = normalizedPos * ofVec2f( ofGetWidth(), ofGetHeight() );
-	absoluteRadius = radius * ofGetWidth();
+	absolutePosition = normalizedPos * ofVec2f( ofGetWidth()/4, ofGetHeight()/4 );
+	absoluteRadius = radius * ofGetWidth() / 4;
 
 
-	ofVec4f velocityForce = force.get() * ofVec4f( ofGetWidth(), ofGetHeight(), 0, 1 );
+	ofVec4f velocityForce = force.get() * ofVec4f( ofGetWidth()/4, ofGetHeight()/4, 0, 1 );
 	ofVec4f pressureForce = force.get() * ofVec4f( 100, 0, 0, 1 );
 	ofVec4f temperatureForce = ofVec4f( force.get().x, force.get().x, force.get().x, 1 );
 	ofVec4f obstacleForce = ofVec4f( force.get().x, force.get().x, force.get().x, 1 );
