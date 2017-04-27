@@ -58,14 +58,14 @@ void inkFlowComponent::setup()
 		velocityDrawForceShader.setup();
 		temperatureDrawForceShader.setup();
 
-#if (TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS) || (TARGET_SURFACE)
+#if (TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS) //|| (TARGET_SURFACE)
 		densityBuffer.allocate( ofGetWidth() / 4, ofGetHeight() / 4, GL_RGBA );
 		velocityBuffer.allocate( ofGetWidth() / 4, ofGetHeight() / 4, GL_RGBA );
 		temperatureBuffer.allocate( ofGetWidth() / 4, ofGetHeight() / 4, GL_RGBA );
 #else
-		densityBuffer.allocate( ofGetWidth(), ofGetHeight(), GL_RGBA32F );
-		velocityBuffer.allocate( ofGetWidth(), ofGetHeight(), GL_RGBA32F );
-		temperatureBuffer.allocate( ofGetWidth(), ofGetHeight(), GL_RGBA32F );
+		densityBuffer.allocate( ofGetWidth() / 4, ofGetHeight() / 4, GL_RGBA32F );
+		velocityBuffer.allocate( ofGetWidth() / 4, ofGetHeight() / 4, GL_RGBA32F );
+		temperatureBuffer.allocate( ofGetWidth() / 4, ofGetHeight() / 4, GL_RGBA32F );
 #endif
 		densityBuffer.black();
 		velocityBuffer.black();

@@ -23,8 +23,6 @@
 using namespace ink;
 using namespace flowTools;
 
-//InkwellColor inkApp::inkColor;
-
 //-------------------------------------------------------------------------------------------------
 void inkApp::setup()
 {
@@ -39,52 +37,45 @@ void inkApp::setup()
 	ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
-
-	ofSetVerticalSync(false);
-	//ofSetFrameRate(60);
-	ofSetLogLevel(OF_LOG_NOTICE);
-	//ofSetFullscreen(true);
-	//ofSetBackgroundAuto(true);
-	//ofSetBackgroundColor(ofColor(255,255,255,127));
+   
     
 	player = gameObjectFactory.create( PLAYER );
 
 	gameState = GAME;
-	//score = 0;
-	//lives = 3;
+	score = 0;
+	lives = 3;
     ignoreDoubleTouch = false;
 
-
-	//playerImage.load( "player.png" );
-	//enemyImage.load( "enemy0.png" );
-	//playerBulletImage.load( "player_bullet.png" );
-	//enemyBulletImage.load( "enemy_bullet.png" );
-	//lifeImage.load( "life_image.png" );
+	playerImage.load( "player.png" );
+	enemyImage.load( "enemy0.png" );
+	playerBulletImage.load( "player_bullet.png" );
+	enemyBulletImage.load( "enemy_bullet.png" );
+	lifeImage.load( "life_image.png" );
 
 	butterflyImage.load( "butterfly.png" );
 	butterflyLineImage.load( "butterfly_line.png" );
 	splashHDImage.load( "splash_fhd.png" );
 	splashiPadImage.load( "splash_ipad.png" );
-	//redButtonImage.load( "redButton.png" );
-	//greenButtonImage.load( "greenButton.png" );
-	//blueButtonImage.load( "blueButton.png" );
+	redButtonImage.load( "redButton.png" );
+	greenButtonImage.load( "greenButton.png" );
+	blueButtonImage.load( "blueButton.png" );
 
 	startScreen.load( "start_screen.png" );
-	//endScreen.load( "end_screen.png" );
-	//scoreFont.load( "Gota_Light.otf", 48 );
+	endScreen.load( "end_screen.png" );
+	scoreFont.load( "Gota_Light.otf", 48 );
 
 	butterflyImage.resize( 541.f / 10.f, 348.f / 10.f );
 	butterflyLineImage.resize( 541.f / 10.f, 348.f / 10.f );
 	splashHDImage.resize( ofGetWidth(), ofGetHeight() );
 	splashiPadImage.resize( ofGetWidth(), ofGetHeight() );
 
-	//player->get<inkSpriteComponent>()->img = make_shared<ofImage>( butterflyImage );
-	//player->get<inkCharacterController>()->width = butterflyImage.getWidth();
-	//player->get<inkCharacterController>()->height = butterflyImage.getHeight();
-	//player->pos.x = ofGetWidth() / 2;
-	//player->pos.y = ofGetHeight() / 2;
-	//player->get<inkFlowComponent>()->setForce( ofFloatColor( 0, 1, 0, 1 ) );
-	//player->get<inkFlowComponent>()->setInitiatlPos( player->pos );
+	player->get<inkSpriteComponent>()->img = make_shared<ofImage>( butterflyImage );
+	player->get<inkCharacterController>()->width = butterflyImage.getWidth();
+	player->get<inkCharacterController>()->height = butterflyImage.getHeight();
+	player->pos.x = ofGetWidth() / 2;
+	player->pos.y = ofGetHeight() / 2;
+	player->get<inkFlowComponent>()->setForce( ofFloatColor( 0, 1, 0, 1 ) );
+	player->get<inkFlowComponent>()->setInitiatlPos( player->pos );
 
 	redInkwell		= gameObjectFactory.create( INKWELL );
 	greenInkwell	= gameObjectFactory.create( INKWELL );
@@ -118,19 +109,24 @@ void inkApp::setup()
 	//blueInkwell->get<inkFlowComponent>()->setRadius( 10.f );
 
 
-	//maxEnemyAmplitude = 3.0;
-	//maxEnemyShootInterval = 1.5;
+	maxEnemyAmplitude = 3.0;
+	maxEnemyShootInterval = 1.5;
 
 	//liveTester.setup();
 
-	//liveTester.enemyIntervalTime = 2500;
-	//liveTester.maxEnemyAmplitude = 3.0;
-	//liveTester.maxEnemyShootInterval = 1.5;
-	//liveTester.triggerBonus = false;
+	liveTester.enemyIntervalTime = 2500;
+	liveTester.maxEnemyAmplitude = 3.0;
+	liveTester.maxEnemyShootInterval = 1.5;
+	liveTester.triggerBonus = false;
 
+	ofSetVerticalSync( false );
+	//ofSetFrameRate( 60 );
+	ofSetLogLevel( OF_LOG_NOTICE );
+	//ofSetBackgroundAuto(true);
+	//ofSetBackgroundColor(ofColor(255,255,255,127));
 
-	drawWidth = ofGetWidth() / 4;
-	drawHeight = ofGetHeight() / 4;
+	drawWidth = ofGetWidth();
+	drawHeight = ofGetHeight();
 	// process all but the density on 16th resolution
 	flowWidth = drawWidth / 4;
 	flowHeight = drawHeight / 4;
@@ -163,7 +159,7 @@ void inkApp::setup()
 
 	//flowToolsLogoImage.load( "inkling.png" );
 	//fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
-	//showLogo = false;
+	showLogo = false;
 
 	velocityDots.setup( flowWidth / 4, flowHeight / 4 );
     
@@ -242,7 +238,6 @@ void inkApp::touchDoubleTap( ofTouchEventArgs & touch )
     }
     else
     {
-
 		gameState = GAME;
 
         ignoreDoubleTouch = true;
@@ -250,29 +245,29 @@ void inkApp::touchDoubleTap( ofTouchEventArgs & touch )
     
 }
 
-//void inkApp::redButtonPressed()
-//{
-//	for( int i = 0; i < inputForces.getNumForces(); ++i )
-//	{
-//		inputForces.setColor( i, ofColor::red );
-//	}
-//}
-//
-//void inkApp::greenButtonPressed()
-//{
-//	for( int i = 0; i < inputForces.getNumForces(); ++i )
-//	{
-//		inputForces.setColor( i, ofColor::green );
-//	}
-//}
-//
-//void inkApp::blueButtonPressed()
-//{
-//	for( int i = 0; i < inputForces.getNumForces(); ++i )
-//	{
-//		inputForces.setColor( i, ofColor::blue );
-//	}
-//}
+void inkApp::redButtonPressed()
+{
+	for( int i = 0; i < inputForces.getNumForces(); ++i )
+	{
+		inputForces.setColor( i, ofColor::red );
+	}
+}
+
+void inkApp::greenButtonPressed()
+{
+	for( int i = 0; i < inputForces.getNumForces(); ++i )
+	{
+		inputForces.setColor( i, ofColor::green );
+	}
+}
+
+void inkApp::blueButtonPressed()
+{
+	for( int i = 0; i < inputForces.getNumForces(); ++i )
+	{
+		inputForces.setColor( i, ofColor::blue );
+	}
+}
 
 //-------------------------------------------------------------------------------------------------
 void inkApp::setupGui()
@@ -437,10 +432,10 @@ void inkApp::update()
 		//player->update();
 		//liveTester.update();
 
-		//levelController.enemyIntervalTime = liveTester.enemyIntervalTime;
-		//maxEnemyAmplitude = liveTester.maxEnemyAmplitude;
-		//maxEnemyShootInterval = liveTester.maxEnemyShootInterval;
-		//levelController.triggerBonus = liveTester.triggerBonus;
+		levelController.enemyIntervalTime = liveTester.enemyIntervalTime;
+		maxEnemyAmplitude = liveTester.maxEnemyAmplitude;
+		maxEnemyShootInterval = liveTester.maxEnemyShootInterval;
+		levelController.triggerBonus = liveTester.triggerBonus;
 
 		//for(int i = 0; i < bullets.size(); ++i)
 		//{
@@ -508,47 +503,47 @@ void inkApp::update()
 
 
 
-		//for (int i = 0; i < enemies.size(); ++i)
-		//{
-		//	enemies[ i ]->update();
-		//	enemies[ i ]->pos.y += enemies[ i ]->get<inkCharacterController>()->speed;
-		//	enemies[ i ]->pos.x += enemies[ i ]->get<inkOffenseComponent>()->amplitude * sin( ofGetElapsedTimef() );
-		//	/*if( ofGetElapsedTimef() - enemies[ i ]->get<inkOffenseComponent>()->startShoot > enemies[ i ]->get<inkOffenseComponent>()->shootInterval )
-		//	{
-		//		enemies[ i ]->get<inkOffenseComponent>()->startShoot = ofGetElapsedTimef();
-		//		shared_ptr<inkGameObject> b = gameObjectFactory.create( BULLET );
-		//		
-		//		b->get<inkCharacterController>()->collisionLayer = 1;
-		//		b->get<inkCharacterController>()->width = enemyBulletImage.getWidth();
-		//		b->get<inkCharacterController>()->height = enemyBulletImage.getHeight();
-		//		b->get<inkCharacterController>()->speed = enemies[ i ]->get<inkCharacterController>()->speed + 3;
-		//		b->get<inkSpriteComponent>()->img = make_shared<ofImage>( enemyBulletImage );
-		//		b->pos.x = enemies[ i ]->pos.x + enemyImage.getWidth() / 2.f - enemyBulletImage.getWidth() / 2.f;
-		//		b->pos.y = enemies[ i ]->pos.y + enemyImage.getHeight() / 2.f - enemyBulletImage.getHeight() / 2.f;
-		//		bullets.push_back( b );
-		//	}*/
+		for (int i = 0; i < enemies.size(); ++i)
+		{
+			enemies[ i ]->update();
+			enemies[ i ]->pos.y += enemies[ i ]->get<inkCharacterController>()->speed;
+			enemies[ i ]->pos.x += enemies[ i ]->get<inkOffenseComponent>()->amplitude * sin( ofGetElapsedTimef() );
+			/*if( ofGetElapsedTimef() - enemies[ i ]->get<inkOffenseComponent>()->startShoot > enemies[ i ]->get<inkOffenseComponent>()->shootInterval )
+			{
+				enemies[ i ]->get<inkOffenseComponent>()->startShoot = ofGetElapsedTimef();
+				shared_ptr<inkGameObject> b = gameObjectFactory.create( BULLET );
+				
+				b->get<inkCharacterController>()->collisionLayer = 1;
+				b->get<inkCharacterController>()->width = enemyBulletImage.getWidth();
+				b->get<inkCharacterController>()->height = enemyBulletImage.getHeight();
+				b->get<inkCharacterController>()->speed = enemies[ i ]->get<inkCharacterController>()->speed + 3;
+				b->get<inkSpriteComponent>()->img = make_shared<ofImage>( enemyBulletImage );
+				b->pos.x = enemies[ i ]->pos.x + enemyImage.getWidth() / 2.f - enemyBulletImage.getWidth() / 2.f;
+				b->pos.y = enemies[ i ]->pos.y + enemyImage.getHeight() / 2.f - enemyBulletImage.getHeight() / 2.f;
+				bullets.push_back( b );
+			}*/
 
-		//	if( enemies[ i ]->pos.y + enemies[ i ]->get<inkCharacterController>()->height / 2 > ofGetHeight() )
-		//	{
-		//		enemies.erase( enemies.begin() + i );
-		//	}
-		//}
+			if( enemies[ i ]->pos.y + enemies[ i ]->get<inkCharacterController>()->height / 2 > ofGetHeight() )
+			{
+				enemies.erase( enemies.begin() + i );
+			}
+		}
 
-		//if(levelController.shouldSpawnEnemy())
-		//{
-		//	shared_ptr<inkGameObject> e = gameObjectFactory.create( ENEMY );
-		//	e->pos.x = ofRandom( ofGetWidth() );
-		//	e->pos.y = 0;
-		//	e->get<inkSpriteComponent>()->img = make_shared<ofImage>(butterflyLineImage);
-		//	e->get<inkCharacterController>()->width = butterflyLineImage.getWidth();
-		//	e->get<inkCharacterController>()->height = butterflyLineImage.getHeight();
-		//	e->get<inkCharacterController>()->speed = ofRandom( 2, 7 );
-		//	e->get<inkOffenseComponent>()->amplitude = ofRandom( maxEnemyAmplitude );
-		//	e->get<inkOffenseComponent>()->shootInterval = ofRandom( 0.5, maxEnemyAmplitude );
-		//	e->get<inkOffenseComponent>()->startShoot = ofGetElapsedTimef();
-		//	e->get<inkFlowComponent>()->setForce( ofFloatColor( 1.f, 0.f, 0.f, 1.f ) );
-		//	enemies.push_back( e );
-		//}
+		if(levelController.shouldSpawnEnemy())
+		{
+			shared_ptr<inkGameObject> e = gameObjectFactory.create( ENEMY );
+			e->pos.x = ofRandom( ofGetWidth() );
+			e->pos.y = 0;
+			e->get<inkSpriteComponent>()->img = make_shared<ofImage>(butterflyLineImage);
+			e->get<inkCharacterController>()->width = butterflyLineImage.getWidth();
+			e->get<inkCharacterController>()->height = butterflyLineImage.getHeight();
+			e->get<inkCharacterController>()->speed = ofRandom( 2, 7 );
+			e->get<inkOffenseComponent>()->amplitude = ofRandom( maxEnemyAmplitude );
+			e->get<inkOffenseComponent>()->shootInterval = ofRandom( 0.5, maxEnemyAmplitude );
+			e->get<inkOffenseComponent>()->startShoot = ofGetElapsedTimef();
+			e->get<inkFlowComponent>()->setForce( ofFloatColor( 1.f, 0.f, 0.f, 1.f ) );
+			enemies.push_back( e );
+		}
 
 		/*if( levelController.shouldSpawnBonus() )
 		{
@@ -562,9 +557,9 @@ void inkApp::update()
 			bonuses.push_back( b );
 		}*/
 
-		//fluidSimulation.addVelocity( opticalFlow.getOpticalFlowDecay() );
-		//fluidSimulation.addDensity( velocityMask.getColorMask() );
-		//fluidSimulation.addTemperature( velocityMask.getLuminanceMask() );
+		fluidSimulation.addVelocity( opticalFlow.getOpticalFlowDecay() );
+		fluidSimulation.addDensity( velocityMask.getColorMask() );
+		fluidSimulation.addTemperature( velocityMask.getLuminanceMask() );
 
 		//inputForces.update( deltaTime );
 
@@ -612,6 +607,7 @@ void inkApp::update()
 
 		if( ofGetElapsedTimeMillis() - inkStartTime > inkIntervalTime )
 		{
+
 			inkStartTime = ofGetElapsedTimeMillis();
 
 			redInkwell->update();
@@ -661,127 +657,127 @@ void inkApp::update()
 
 		break;
 	}
-//	case END:
-//	{
-//
-//		break;
-//	}
-//	case FLOW:
-//	{
-//		simpleCam.update();
-//
-//		if( simpleCam.isFrameNew() )
-//		{
-//			ofPushStyle();
-//			ofEnableBlendMode( OF_BLENDMODE_DISABLED );
-//			cameraFbo.begin();
-//
-//			if( doFlipCamera )
-//				simpleCam.draw( cameraFbo.getWidth()
-//								, 0
-//								, -cameraFbo.getWidth()
-//								, cameraFbo.getHeight()
-//				);  // Flip Horizontal
-//			else
-//				simpleCam.draw( 0, 0, cameraFbo.getWidth(), cameraFbo.getHeight() );
-//			cameraFbo.end();
-//			ofPopStyle();
-//
-//			opticalFlow.setSource( cameraFbo.getTexture() );
-//
-//			// opticalFlow.update(deltaTime);
-//			// use internal deltatime instead
-//			opticalFlow.update();
-//
-//			velocityMask.setDensity( cameraFbo.getTexture() );
-//			velocityMask.setVelocity( opticalFlow.getOpticalFlow() );
-//			velocityMask.update();
-//		}
-//        
-//#ifdef DEBUG_GL_ERRORS
-//        std::stringstream ss;
-//        ss << "GL Error 4 = " << glGetError() << std::endl;
-//        ofLogNotice(ss.str());
-//#endif // DEBUG_GL_ERRORS
-//
-//
-//
-//		fluidSimulation.addVelocity( opticalFlow.getOpticalFlowDecay() );
-//		fluidSimulation.addDensity( velocityMask.getColorMask() );
-//		fluidSimulation.addTemperature( velocityMask.getLuminanceMask() );
-//
-//		inputForces.update( deltaTime );
-//
-//#ifdef DEBUG_GL_ERRORS
-//        ss.clear();
-//        ss << "GL Error 5 = " << glGetError() << std::endl;
-//        ofLogNotice(ss.str());
-//#endif // DEBUG_GL_ERRORS
-//
-//
-//		for( int i = 0; i < inputForces.getNumForces(); i++ )
-//		{
-//			if( inputForces.didChange( i ) )
-//			{
-//				switch( inputForces.getType( i ) )
-//				{
-//				case FT_DENSITY:
-//					fluidSimulation.addDensity
-//					( inputForces.getTextureReference( i )
-//					  , inputForces.getStrength( i )
-//					  , false );
-//					break;
-//				case FT_VELOCITY:
-//					fluidSimulation.addVelocity
-//					( inputForces.getTextureReference( i )
-//					  , inputForces.getStrength( i )
-//					  , false );
-//					particleFlow.addFlowVelocity
-//					( inputForces.getTextureReference( i )
-//					  , inputForces.getStrength( i ) );
-//					break;
-//				case FT_TEMPERATURE:
-//					fluidSimulation.addTemperature
-//					( inputForces.getTextureReference( i )
-//					  , inputForces.getStrength( i )
-//					  , false );
-//					break;
-//				case FT_PRESSURE:
-//					fluidSimulation.addPressure
-//					( inputForces.getTextureReference( i )
-//					  , inputForces.getStrength( i )
-//					  , false );
-//					break;
-//				case FT_OBSTACLE:
-//					fluidSimulation.addTempObstacle
-//					( inputForces.getTextureReference( i ) );
-//				default:
-//					break;
-//				}
-//			}
-//		}
-//
-//		fluidSimulation.update();
-//        
-//#ifdef DEBUG_GL_ERRORS
-//        ss.clear();
-//        ss << "GL Error 6 = " << glGetError() << std::endl;
-//        ofLogNotice(ss.str());
-//#endif // DEBUG_GL_ERRORS
-//
-//
-//		if( particleFlow.isActive() )
-//		{
-//			particleFlow.setSpeed( fluidSimulation.getSpeed() );
-//			particleFlow.setCellSize( fluidSimulation.getCellSize() );
-//			particleFlow.addFlowVelocity( opticalFlow.getOpticalFlow() );
-//			particleFlow.addFluidVelocity( fluidSimulation.getVelocity() );
-//			//		particleFlow.addDensity(fluidSimulation.getDensity());
-//			particleFlow.setObstacle( fluidSimulation.getObstacle() );
-//		}
-//		particleFlow.update();
-//		break;
-//	}
+	case END:
+	{
+
+		break;
+	}
+	case FLOW:
+	{
+		simpleCam.update();
+
+		if( simpleCam.isFrameNew() )
+		{
+			ofPushStyle();
+			ofEnableBlendMode( OF_BLENDMODE_DISABLED );
+			cameraFbo.begin();
+
+			if( doFlipCamera )
+				simpleCam.draw( cameraFbo.getWidth()
+								, 0
+								, -cameraFbo.getWidth()
+								, cameraFbo.getHeight()
+				);  // Flip Horizontal
+			else
+				simpleCam.draw( 0, 0, cameraFbo.getWidth(), cameraFbo.getHeight() );
+			cameraFbo.end();
+			ofPopStyle();
+
+			opticalFlow.setSource( cameraFbo.getTexture() );
+
+			// opticalFlow.update(deltaTime);
+			// use internal deltatime instead
+			opticalFlow.update();
+
+			velocityMask.setDensity( cameraFbo.getTexture() );
+			velocityMask.setVelocity( opticalFlow.getOpticalFlow() );
+			velocityMask.update();
+		}
+        
+#ifdef DEBUG_GL_ERRORS
+        std::stringstream ss;
+        ss << "GL Error 4 = " << glGetError() << std::endl;
+        ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
+
+
+		fluidSimulation.addVelocity( opticalFlow.getOpticalFlowDecay() );
+		fluidSimulation.addDensity( velocityMask.getColorMask() );
+		fluidSimulation.addTemperature( velocityMask.getLuminanceMask() );
+
+		inputForces.update( deltaTime );
+
+#ifdef DEBUG_GL_ERRORS
+        ss.clear();
+        ss << "GL Error 5 = " << glGetError() << std::endl;
+        ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
+
+		for( int i = 0; i < inputForces.getNumForces(); i++ )
+		{
+			if( inputForces.didChange( i ) )
+			{
+				switch( inputForces.getType( i ) )
+				{
+				case FT_DENSITY:
+					fluidSimulation.addDensity
+					( inputForces.getTextureReference( i )
+					  , inputForces.getStrength( i )
+					  , false );
+					break;
+				case FT_VELOCITY:
+					fluidSimulation.addVelocity
+					( inputForces.getTextureReference( i )
+					  , inputForces.getStrength( i )
+					  , false );
+					particleFlow.addFlowVelocity
+					( inputForces.getTextureReference( i )
+					  , inputForces.getStrength( i ) );
+					break;
+				case FT_TEMPERATURE:
+					fluidSimulation.addTemperature
+					( inputForces.getTextureReference( i )
+					  , inputForces.getStrength( i )
+					  , false );
+					break;
+				case FT_PRESSURE:
+					fluidSimulation.addPressure
+					( inputForces.getTextureReference( i )
+					  , inputForces.getStrength( i )
+					  , false );
+					break;
+				case FT_OBSTACLE:
+					fluidSimulation.addTempObstacle
+					( inputForces.getTextureReference( i ) );
+				default:
+					break;
+				}
+			}
+		}
+
+		fluidSimulation.update();
+        
+#ifdef DEBUG_GL_ERRORS
+        ss.clear();
+        ss << "GL Error 6 = " << glGetError() << std::endl;
+        ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
+
+		if( particleFlow.isActive() )
+		{
+			particleFlow.setSpeed( fluidSimulation.getSpeed() );
+			particleFlow.setCellSize( fluidSimulation.getCellSize() );
+			particleFlow.addFlowVelocity( opticalFlow.getOpticalFlow() );
+			particleFlow.addFluidVelocity( fluidSimulation.getVelocity() );
+			//		particleFlow.addDensity(fluidSimulation.getDensity());
+			particleFlow.setObstacle( fluidSimulation.getObstacle() );
+		}
+		particleFlow.update();
+		break;
+	}
 	default:
 		break;
 	}
@@ -885,10 +881,13 @@ void inkApp::keyPressed( int key )
 		case 'r':
 		case 'R':
 			fluidSimulation.reset();
-			//fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
+			fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
 			inputForces.reset();
-			//for( int i = 0; i < enemies.size(); ++i )
-			//	enemies[ i ]->get<inkFlowComponent>()->reset();
+			for( int i = 0; i < enemies.size(); ++i )
+				enemies[ i ]->get<inkFlowComponent>()->reset();
+			redInkwell->get<inkFlowComponent>()->reset();
+			greenInkwell->get<inkFlowComponent>()->reset();
+			blueInkwell->get<inkFlowComponent>()->reset();
 			break;
 
 		case 'i':
@@ -931,8 +930,11 @@ void inkApp::keyPressed( int key )
 		case 'r':
 		case 'R':
 			fluidSimulation.reset();
-			//fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
+			fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
 			inputForces.reset();
+			redInkwell->get<inkFlowComponent>()->reset();
+			greenInkwell->get<inkFlowComponent>()->reset();
+			blueInkwell->get<inkFlowComponent>()->reset();
 			break;
 
 		case 'i':
@@ -1006,7 +1008,7 @@ void inkApp::draw()
 
 		if( !toggleGuiDraw )
 		{
-			ofHideCursor();
+			//ofHideCursor();
 			drawComposite();
 		}
 		else
@@ -1056,20 +1058,20 @@ void inkApp::draw()
 		blueInkwell->get<inkSpriteComponent>()->draw();
 		greenInkwell->get<inkSpriteComponent>()->draw();
 
-		//for(auto&& b : bullets)
-		//{
-		//	b->get<inkSpriteComponent>()->draw();
-		//}
+		for(auto&& b : bullets)
+		{
+			b->get<inkSpriteComponent>()->draw();
+		}
 
-		//for(auto&& e : enemies)
-		//{
-		//	e->get<inkSpriteComponent>()->draw();
-		//}
+		for(auto&& e : enemies)
+		{
+			e->get<inkSpriteComponent>()->draw();
+		}
 
-		//for( auto&& l : bonuses )
-		//{
-		//	l->get<inkSpriteComponent>()->draw();
-		//}
+		for( auto&& l : bonuses )
+		{
+			l->get<inkSpriteComponent>()->draw();
+		}
 
 		//for( int i = 0; i < lives; ++i )
 		//{
@@ -1078,70 +1080,70 @@ void inkApp::draw()
 
 		//scoreFont.drawString( ofToString( score ), 30, 72 );
 
-//		break;
-//	}
-//	case END:
-//	{
-//		endScreen.draw(0, 0);
-//
-//		float w = scoreFont.stringWidth( ofToString( score ) );
-//		scoreFont.drawString( ofToString( score ), ofGetWidth() / 2 - w / 2, ofGetHeight() / 2 + 100 );
-//
-//		break;
-//	}
-//	case FLOW:
-//	{
-//		//glClearColor(0.3f, 0.4f, 0.1f, 1.0f);
-//		//ofColor::white
-//		//ofClear(ofColor(128,128,128,255));
-//		if( fluidSimulation.isInverted() )
-//			ofClear( 255, 255 );
-//		else
-//			ofClear( 0, 0 );
-//		//ofBackground(ofColor::white);
-//		//ofBackground(ofColor(255, 255, 255, 255));
-//		if( doDrawCamBackground.get() )
-//			drawSource();
-//
-//#ifdef DEBUG_GL_ERRORS
-//        ss.clear();
-//        ss << "GL Error 9 = " << glGetError() << std::endl;
-//        ofLogNotice(ss.str());
-//#endif // DEBUG_GL_ERRORS
-//
-//
-//		if( !toggleGuiDraw )
-//		{
-//			//ofHideCursor();
-//			drawComposite();
-//		}
-//		else
-//		{
-//			ofShowCursor();
-//			switch( drawMode.get() )
-//			{
-//			case DRAW_COMPOSITE: drawComposite(); break;
-//			case DRAW_PARTICLES: drawParticles(); break;
-//			case DRAW_FLUID_FIELDS: drawFluidFields(); break;
-//			case DRAW_FLUID_DENSITY: drawFluidDensity(); break;
-//			case DRAW_FLUID_VELOCITY: drawFluidVelocity(); break;
-//			case DRAW_FLUID_PRESSURE: drawFluidPressure(); break;
-//			case DRAW_FLUID_TEMPERATURE: drawFluidTemperature(); break;
-//			case DRAW_FLUID_DIVERGENCE: drawFluidDivergence(); break;
-//			case DRAW_FLUID_VORTICITY: drawFluidVorticity(); break;
-//			case DRAW_FLUID_BUOYANCY: drawFluidBuoyance(); break;
-//			case DRAW_FLUID_OBSTACLE: drawFluidObstacle(); break;
-//			case DRAW_FLOW_MASK: drawMask(); break;
-//			case DRAW_OPTICAL_FLOW: drawOpticalFlow(); break;
-//			case DRAW_SOURCE: drawSource(); break;
-//			case DRAW_MOUSE: drawMouseForces(); break;
-//			case DRAW_VELDOTS: drawVelocityDots(); break;
-//			}
-//#if !((TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS))
-//			drawGui();
-//#endif
-//		}
-//		break;
+		break;
+	}
+	case END:
+	{
+		endScreen.draw(0, 0);
+
+		float w = scoreFont.stringWidth( ofToString( score ) );
+		scoreFont.drawString( ofToString( score ), ofGetWidth() / 2 - w / 2, ofGetHeight() / 2 + 100 );
+
+		break;
+	}
+	case FLOW:
+	{
+		//glClearColor(0.3f, 0.4f, 0.1f, 1.0f);
+		//ofColor::white
+		//ofClear(ofColor(128,128,128,255));
+		if( fluidSimulation.isInverted() )
+			ofClear( 255, 255 );
+		else
+			ofClear( 0, 0 );
+		//ofBackground(ofColor::white);
+		//ofBackground(ofColor(255, 255, 255, 255));
+		if( doDrawCamBackground.get() )
+			drawSource();
+
+#ifdef DEBUG_GL_ERRORS
+        ss.clear();
+        ss << "GL Error 9 = " << glGetError() << std::endl;
+        ofLogNotice(ss.str());
+#endif // DEBUG_GL_ERRORS
+
+
+		if( !toggleGuiDraw )
+		{
+			//ofHideCursor();
+			drawComposite();
+		}
+		else
+		{
+			ofShowCursor();
+			switch( drawMode.get() )
+			{
+			case DRAW_COMPOSITE: drawComposite(); break;
+			case DRAW_PARTICLES: drawParticles(); break;
+			case DRAW_FLUID_FIELDS: drawFluidFields(); break;
+			case DRAW_FLUID_DENSITY: drawFluidDensity(); break;
+			case DRAW_FLUID_VELOCITY: drawFluidVelocity(); break;
+			case DRAW_FLUID_PRESSURE: drawFluidPressure(); break;
+			case DRAW_FLUID_TEMPERATURE: drawFluidTemperature(); break;
+			case DRAW_FLUID_DIVERGENCE: drawFluidDivergence(); break;
+			case DRAW_FLUID_VORTICITY: drawFluidVorticity(); break;
+			case DRAW_FLUID_BUOYANCY: drawFluidBuoyance(); break;
+			case DRAW_FLUID_OBSTACLE: drawFluidObstacle(); break;
+			case DRAW_FLOW_MASK: drawMask(); break;
+			case DRAW_OPTICAL_FLOW: drawOpticalFlow(); break;
+			case DRAW_SOURCE: drawSource(); break;
+			case DRAW_MOUSE: drawMouseForces(); break;
+			case DRAW_VELDOTS: drawVelocityDots(); break;
+			}
+#if !((TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS))
+			drawGui();
+#endif
+		}
+		break;
 	}
 	default:
 		break;
@@ -1188,10 +1190,10 @@ void inkApp::drawComposite( int _x, int _y, int _width, int _height )
 #endif // DEBUG_GL_ERRORS
 
 
-	//if( showLogo )
-	//{
-	//	flowToolsLogoImage.draw( _x, _y, _width, _height );
-	//}
+	if( showLogo )
+	{
+		flowToolsLogoImage.draw( _x, _y, _width, _height );
+	}
 
 	ofPopStyle();
     
@@ -1497,63 +1499,63 @@ void inkApp::drawGui()
 //-------------------------------------------------------------------------------------------------
 void inkApp::keyReleased( int key )
 {
-	//switch( gameState )
-	//{
-	//case START:
-	//{
-	//	break;
-	//}
-	//case GAME:
-	//{
-	//	switch( key )
-	//	{
-	//	case 'w':
-	//	case 'W':
-	//	case OF_KEY_UP:
-	//	{
-	//		player->get<inkCharacterController>()->isUpPressed = false;
-	//		break;
-	//	}
+	switch( gameState )
+	{
+	case START:
+	{
+		break;
+	}
+	case GAME:
+	{
+		switch( key )
+		{
+		case 'w':
+		case 'W':
+		case OF_KEY_UP:
+		{
+			player->get<inkCharacterController>()->isUpPressed = false;
+			break;
+		}
 
-	//	case 'a':
-	//	case 'A':
-	//	case OF_KEY_LEFT:
-	//	{
-	//		player->get<inkCharacterController>()->isLeftPressed = false;
-	//		break;
-	//	}
+		case 'a':
+		case 'A':
+		case OF_KEY_LEFT:
+		{
+			player->get<inkCharacterController>()->isLeftPressed = false;
+			break;
+		}
 
-	//	case 's':
-	//	case 'S':
-	//	case OF_KEY_DOWN:
-	//	{
-	//		player->get<inkCharacterController>()->isDownPressed = false;
-	//		break;
-	//	}
+		case 's':
+		case 'S':
+		case OF_KEY_DOWN:
+		{
+			player->get<inkCharacterController>()->isDownPressed = false;
+			break;
+		}
 
-	//	case 'd':
-	//	case 'D':
-	//	case OF_KEY_RIGHT:
-	//	{
-	//		player->get<inkCharacterController>()->isRightPressed = false;
-	//		break;
-	//	}
+		case 'd':
+		case 'D':
+		case OF_KEY_RIGHT:
+		{
+			player->get<inkCharacterController>()->isRightPressed = false;
+			break;
+		}
 
-	//	default: break;
-	//	}
+		default: break;
+		}
 
-	//	break;
-	//}
-	//case END:
-	//{
-	//	break;
-	//}
-	//case FLOW:
-	//{
-	//	break;
-	//}
-	//default: break;
-	//}
+		break;
+	}
+	case END:
+	{
+		break;
+	}
+	case FLOW:
+	{
+		break;
+	}
+	default: break;
+	}
 }
 
 void inkApp::touchMoved( int x, int y, int id)
@@ -1606,19 +1608,19 @@ void inkApp::mouseDragged( int x, int y, int button )
 	float greenDist = pos.distance( greenInkwell->pos );
 	float blueDist = pos.distance( blueInkwell->pos );
 
-	if( (inkColor == NO_COLOR || inkColor == RED) && redDist < maxDist && redDist < greenDist && redDist < blueDist )
+	if( ( inkColor == NO_COLOR || inkColor == RED ) && redDist < maxDist && redDist < greenDist && redDist < blueDist )
 	{
-		redInkwell->pos += ( pos - redInkwell->pos - redMid) / 2.f;
+		redInkwell->pos += ( pos - redInkwell->pos - redMid ) / 2.f;
 		inkColor = RED;
 	}
 	else if( ( inkColor == NO_COLOR || inkColor == GREEN ) && greenDist < maxDist && greenDist < redDist && greenDist < blueDist )
 	{
-		greenInkwell->pos += ( pos - greenInkwell->pos - greenMid) / 2.f;
+		greenInkwell->pos += ( pos - greenInkwell->pos - greenMid ) / 2.f;
 		inkColor = GREEN;
 	}
 	else if( ( inkColor == NO_COLOR || inkColor == BLUE ) && blueDist < maxDist && blueDist < greenDist && blueDist < redDist )
 	{
-		blueInkwell->pos += ( pos - blueInkwell->pos - blueMid) / 2.f;
+		blueInkwell->pos += ( pos - blueInkwell->pos - blueMid ) / 2.f;
 		inkColor = BLUE;
 	}
 	else
