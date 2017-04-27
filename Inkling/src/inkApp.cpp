@@ -1559,6 +1559,9 @@ void inkApp::keyReleased( int key )
 void inkApp::touchMoved( int x, int y, int id)
 {
 	ofVec2f pos( x, y );
+	ofVec2f redMid = ofVec2f( redInkwell->get<inkCharacterController>()->width / 2.f, redInkwell->get<inkCharacterController>()->height / 2.f );
+	ofVec2f greenMid = ofVec2f( greenInkwell->get<inkCharacterController>()->width / 2.f, greenInkwell->get<inkCharacterController>()->height / 2.f );
+	ofVec2f blueMid = ofVec2f( blueInkwell->get<inkCharacterController>()->width / 2.f, blueInkwell->get<inkCharacterController>()->height / 2.f );
 	float maxDist = 100.f;
 	float redDist = pos.distance( redInkwell->pos );
 	float greenDist = pos.distance( greenInkwell->pos );
@@ -1566,17 +1569,17 @@ void inkApp::touchMoved( int x, int y, int id)
 
 	if( ( inkColor == NO_COLOR || inkColor == RED ) && redDist < maxDist && redDist < greenDist && redDist < blueDist )
 	{
-		redInkwell->pos += ( pos - redInkwell->pos ) / 2.f;
+		redInkwell->pos += ( pos - redInkwell->pos - redMid ) / 2.f;
 		inkColor = RED;
 	}
 	else if( ( inkColor == NO_COLOR || inkColor == GREEN ) && greenDist < maxDist && greenDist < redDist && greenDist < blueDist )
 	{
-		greenInkwell->pos += ( pos - greenInkwell->pos ) / 2.f;
+		greenInkwell->pos += ( pos - greenInkwell->pos - greenMid ) / 2.f;
 		inkColor = GREEN;
 	}
 	else if( ( inkColor == NO_COLOR || inkColor == BLUE ) && blueDist < maxDist && blueDist < greenDist && blueDist < redDist )
 	{
-		blueInkwell->pos += ( pos - blueInkwell->pos ) / 2.f;
+		blueInkwell->pos += ( pos - blueInkwell->pos - blueMid ) / 2.f;
 		inkColor = BLUE;
 	}
 	else
@@ -1595,6 +1598,9 @@ void inkApp::mouseMoved( int x, int y )
 void inkApp::mouseDragged( int x, int y, int button )
 {
 	ofVec2f pos( x, y );
+	ofVec2f redMid = ofVec2f( redInkwell->get<inkCharacterController>()->width / 2.f, redInkwell->get<inkCharacterController>()->height / 2.f );
+	ofVec2f greenMid = ofVec2f( greenInkwell->get<inkCharacterController>()->width / 2.f, greenInkwell->get<inkCharacterController>()->height / 2.f );
+	ofVec2f blueMid = ofVec2f( blueInkwell->get<inkCharacterController>()->width / 2.f, blueInkwell->get<inkCharacterController>()->height / 2.f );
 	float maxDist = 100.f;
 	float redDist = pos.distance( redInkwell->pos );
 	float greenDist = pos.distance( greenInkwell->pos );
@@ -1602,17 +1608,17 @@ void inkApp::mouseDragged( int x, int y, int button )
 
 	if( (inkColor == NO_COLOR || inkColor == RED) && redDist < maxDist && redDist < greenDist && redDist < blueDist )
 	{
-		redInkwell->pos += ( pos - redInkwell->pos ) / 2.f;
+		redInkwell->pos += ( pos - redInkwell->pos - redMid) / 2.f;
 		inkColor = RED;
 	}
 	else if( ( inkColor == NO_COLOR || inkColor == GREEN ) && greenDist < maxDist && greenDist < redDist && greenDist < blueDist )
 	{
-		greenInkwell->pos += ( pos - greenInkwell->pos ) / 2.f;
+		greenInkwell->pos += ( pos - greenInkwell->pos - greenMid) / 2.f;
 		inkColor = GREEN;
 	}
 	else if( ( inkColor == NO_COLOR || inkColor == BLUE ) && blueDist < maxDist && blueDist < greenDist && blueDist < redDist )
 	{
-		blueInkwell->pos += ( pos - blueInkwell->pos ) / 2.f;
+		blueInkwell->pos += ( pos - blueInkwell->pos - blueMid) / 2.f;
 		inkColor = BLUE;
 	}
 	else
