@@ -27,17 +27,17 @@ using namespace flowTools;
 void inkApp::setup()
 {
 #ifdef DEBUG_GL_ERRORS
-	std::stringstream ss;
-	ss << "GL Error 1 = " << glGetError() << std::endl;
-    GLint result;
-	ss << "GL Error 1a = " << glGetError() << std::endl;
+	std::stringstream ss; GLint result = glGetError();
+	ss << "GL Error 1 = " << result << std::endl;
+
+	ss << "GL Error 1a = " << result << std::endl;
     ss << glCheckFramebufferStatus(GL_FRAMEBUFFER) << std::endl;
-    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &result);
+    ////glGetIntegerv(GL_FRAMEBUFFER_BINDING, &result);
     ss << result << std::endl;
-	ofLogNotice( ss.str() );
+	if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
-   
+	bool isTexFloat = ofGLCheckExtension("GL_ARB_TEXTURE_FLOAT");
     
 	player = gameObjectFactory.create( PLAYER );
 
@@ -125,8 +125,8 @@ void inkApp::setup()
 	//ofSetBackgroundAuto(true);
 	//ofSetBackgroundColor(ofColor(255,255,255,127));
 
-	drawWidth = ofGetWidth();
-	drawHeight = ofGetHeight();
+	drawWidth = ofGetWidth() / 4;
+	drawHeight = ofGetHeight() / 4;
 	// process all but the density on 16th resolution
 	flowWidth = drawWidth / 4;
 	flowHeight = drawHeight / 4;
@@ -138,12 +138,12 @@ void inkApp::setup()
 	velocityMask.setup( drawWidth, drawHeight );
     
 #ifdef DEBUG_GL_ERRORS
-	ss.clear();
-    ss << "GL Error 1b = " << glGetError() << std::endl;
+	ss.clear(); result = glGetError();
+    ss << "GL Error 1b = " << result << std::endl;
     ss << glCheckFramebufferStatus(GL_FRAMEBUFFER) << std::endl;
-    glGetIntegerv(GL_FRAMEBUFFER_BINDING, &result);
+    ////glGetIntegerv(GL_FRAMEBUFFER_BINDING, &result);
     ss << result << std::endl;
-    ofLogNotice( ss.str() );
+    if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
 	// FLUID & PARTICLES
@@ -151,10 +151,11 @@ void inkApp::setup()
 	particleFlow.setup( flowWidth, flowHeight, drawWidth, drawHeight );
     
 #ifdef DEBUG_GL_ERRORS
-	ss.clear();
-    ss << "GL Error 1c = " << glGetError() << std::endl;
+	ss.clear(); result = glGetError();
+	result = glGetError();
+    ss << "GL Error 1c = " << result << std::endl;
     ss << glCheckFramebufferStatus(GL_FRAMEBUFFER) << std::endl;
-    ofLogNotice( ss.str() );
+    if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
 	//flowToolsLogoImage.load( "inkling.png" );
@@ -164,10 +165,10 @@ void inkApp::setup()
 	velocityDots.setup( flowWidth / 4, flowHeight / 4 );
     
 #ifdef DEBUG_GL_ERRORS
-    ss.clear();
-    ss << "GL Error 1d = " << glGetError() << std::endl;
+    ss.clear(); result = glGetError();
+    ss << "GL Error 1d = " << result << std::endl;
     ss << glCheckFramebufferStatus(GL_FRAMEBUFFER) << std::endl;
-    ofLogNotice( ss.str() );
+    if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
 	// VISUALIZATION
@@ -178,10 +179,10 @@ void inkApp::setup()
 	velocityTemperatureField.setup( flowWidth / 4, flowHeight / 4 );
     
 #ifdef DEBUG_GL_ERRORS
-    ss.clear();
-    ss << "GL Error 1e = " << glGetError() << std::endl;
+    ss.clear(); result = glGetError();
+    ss << "GL Error 1e = " << result << std::endl;
     ss << glCheckFramebufferStatus(GL_FRAMEBUFFER) << std::endl;
-    ofLogNotice( ss.str() );
+    if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
 	// MOUSE & TOUCH DRAW
@@ -194,9 +195,9 @@ void inkApp::setup()
 //	cameraFbo.black();
     
 #ifdef DEBUG_GL_ERRORS
-    ss.clear();
-    ss << "GL Error 1f = " << glGetError() << std::endl;
-    ofLogNotice( ss.str() );
+    ss.clear(); result = glGetError();
+    ss << "GL Error 1f = " << result << std::endl;
+    if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
 	ofAddListener( ofEvents().touchDoubleTap, this, &inkApp::touchDoubleTap );
@@ -209,17 +210,19 @@ void inkApp::setup()
 
 	lastTime = ofGetElapsedTimef();
 	inkStartTime = lastTime;
-	inkIntervalTime = 33;
+	inkIntervalTime = 0;
     
 #ifdef DEBUG_GL_ERRORS
-	ss.clear();
-    ss << "GL Error 2 = " << glGetError() << std::endl;
-    ofLogNotice(ss.str());
+	ss.clear(); result = glGetError();
+    ss << "GL Error 2 = " << result << std::endl;
+    if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
     toggleGuiDraw = false;
     
     drawMode.set(DRAW_COMPOSITE);
+
+	resetTimerHack = 0;
     
 }
 
@@ -412,11 +415,12 @@ void inkApp::update()
 {
 	deltaTime = ofGetElapsedTimef() - lastTime;
 	lastTime = ofGetElapsedTimef();
+	
     
 #ifdef DEBUG_GL_ERRORS
-	std::stringstream ss;
-    ss << "GL Error 3 = " << glGetError() << std::endl;
-    ofLogNotice(ss.str());
+	std::stringstream ss; GLint result = glGetError();
+    ss << "GL Error 3 = " << result << std::endl;
+    if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
     
 
@@ -431,6 +435,20 @@ void inkApp::update()
 	{
 		//player->update();
 		//liveTester.update();
+
+		resetTimerHack++;
+
+		if (resetTimerHack == 3)
+		{
+			fluidSimulation.reset();
+			//fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
+			inputForces.reset();
+			for (int i = 0; i < enemies.size(); ++i)
+				enemies[i]->get<inkFlowComponent>()->reset();
+			redInkwell->get<inkFlowComponent>()->reset();
+			greenInkwell->get<inkFlowComponent>()->reset();
+			blueInkwell->get<inkFlowComponent>()->reset();
+		}
 
 		levelController.enemyIntervalTime = liveTester.enemyIntervalTime;
 		maxEnemyAmplitude = liveTester.maxEnemyAmplitude;
@@ -695,9 +713,9 @@ void inkApp::update()
 		}
         
 #ifdef DEBUG_GL_ERRORS
-        std::stringstream ss;
-        ss << "GL Error 4 = " << glGetError() << std::endl;
-        ofLogNotice(ss.str());
+        std::stringstream ss; GLint result = glGetError();
+        ss << "GL Error 4 = " << result << std::endl;
+        if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
 
@@ -709,9 +727,9 @@ void inkApp::update()
 		inputForces.update( deltaTime );
 
 #ifdef DEBUG_GL_ERRORS
-        ss.clear();
-        ss << "GL Error 5 = " << glGetError() << std::endl;
-        ofLogNotice(ss.str());
+        ss.clear(); result = glGetError();
+        ss << "GL Error 5 = " << result << std::endl;
+        if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
 
@@ -760,9 +778,9 @@ void inkApp::update()
 		fluidSimulation.update();
         
 #ifdef DEBUG_GL_ERRORS
-        ss.clear();
-        ss << "GL Error 6 = " << glGetError() << std::endl;
-        ofLogNotice(ss.str());
+        ss.clear(); result = glGetError();
+        ss << "GL Error 6 = " << result << std::endl;
+        if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
 
@@ -783,9 +801,9 @@ void inkApp::update()
 	}
     
 #ifdef DEBUG_GL_ERRORS
-    ss.clear();
-    ss << "GL Error 7 = " << glGetError() << std::endl;
-    ofLogNotice(ss.str());
+    ss.clear(); result = glGetError();
+    ss << "GL Error 7 = " << result << std::endl;
+    if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
 }
@@ -881,7 +899,7 @@ void inkApp::keyPressed( int key )
 		case 'r':
 		case 'R':
 			fluidSimulation.reset();
-			fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
+			//fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
 			inputForces.reset();
 			for( int i = 0; i < enemies.size(); ++i )
 				enemies[ i ]->get<inkFlowComponent>()->reset();
@@ -930,7 +948,7 @@ void inkApp::keyPressed( int key )
 		case 'r':
 		case 'R':
 			fluidSimulation.reset();
-			fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
+			//fluidSimulation.addObstacle( flowToolsLogoImage.getTexture() );
 			inputForces.reset();
 			redInkwell->get<inkFlowComponent>()->reset();
 			greenInkwell->get<inkFlowComponent>()->reset();
@@ -980,9 +998,9 @@ void inkApp::drawModeSetName( int &_value )
 void inkApp::draw()
 {
 #ifdef DEBUG_GL_ERRORS
-    std::stringstream ss;
-    ss << "GL Error 8 = " << glGetError() << std::endl;
-    ofLogNotice(ss.str());
+    std::stringstream ss; GLint result = glGetError();
+    ss << "GL Error 8 = " << result << std::endl;
+    if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
     
@@ -1106,9 +1124,9 @@ void inkApp::draw()
 			drawSource();
 
 #ifdef DEBUG_GL_ERRORS
-        ss.clear();
-        ss << "GL Error 9 = " << glGetError() << std::endl;
-        ofLogNotice(ss.str());
+        ss.clear(); result = glGetError();
+        ss << "GL Error 9 = " << result << std::endl;
+        if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
 
@@ -1150,9 +1168,9 @@ void inkApp::draw()
 	}
     
 #ifdef DEBUG_GL_ERRORS
-    ss.clear();
-    ss << "GL Error 19 = " << glGetError() << std::endl;
-    ofLogNotice(ss.str());
+    ss.clear(); result = glGetError();
+    ss << "GL Error 19 = " << result << std::endl;
+    if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
 }
@@ -1161,9 +1179,9 @@ void inkApp::draw()
 void inkApp::drawComposite( int _x, int _y, int _width, int _height )
 {
 #ifdef DEBUG_GL_ERRORS
-    std::stringstream ss;
-    ss << "GL Error 10 = " << glGetError() << std::endl;
-    ofLogNotice(ss.str());
+    std::stringstream ss; GLint result = glGetError();
+    ss << "GL Error 10 = " << result << std::endl;
+    if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
     
@@ -1173,9 +1191,9 @@ void inkApp::drawComposite( int _x, int _y, int _width, int _height )
 	fluidSimulation.draw( _x, _y, _width, _height );
     
 #ifdef DEBUG_GL_ERRORS
-    ss.clear();
-    ss << "GL Error 11 = " << glGetError() << std::endl;
-    ofLogNotice(ss.str());
+    ss.clear(); result = glGetError();
+    ss << "GL Error 11 = " << result << std::endl;
+    if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
 
@@ -1184,9 +1202,9 @@ void inkApp::drawComposite( int _x, int _y, int _width, int _height )
 		particleFlow.draw( _x, _y, _width, _height );
     
 #ifdef DEBUG_GL_ERRORS
-    ss.clear();
-    ss << "GL Error 17 = " << glGetError() << std::endl;
-    ofLogNotice(ss.str());
+    ss.clear(); result = glGetError();
+    ss << "GL Error 17 = " << result << std::endl;
+    if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
 
@@ -1198,9 +1216,9 @@ void inkApp::drawComposite( int _x, int _y, int _width, int _height )
 	ofPopStyle();
     
 #ifdef DEBUG_GL_ERRORS
-    ss.clear();
-    ss << "GL Error 18 = " << glGetError() << std::endl;
-    ofLogNotice(ss.str());
+    ss.clear(); result = glGetError();
+    ss << "GL Error 18 = " << result << std::endl;
+    if(result != 0) ofLogNotice( ss.str() );
 #endif // DEBUG_GL_ERRORS
 
 }
@@ -1564,22 +1582,22 @@ void inkApp::touchMoved( int x, int y, int id)
 	ofVec2f redMid = ofVec2f( redInkwell->get<inkCharacterController>()->width / 2.f, redInkwell->get<inkCharacterController>()->height / 2.f );
 	ofVec2f greenMid = ofVec2f( greenInkwell->get<inkCharacterController>()->width / 2.f, greenInkwell->get<inkCharacterController>()->height / 2.f );
 	ofVec2f blueMid = ofVec2f( blueInkwell->get<inkCharacterController>()->width / 2.f, blueInkwell->get<inkCharacterController>()->height / 2.f );
-	float maxDist = 100.f;
+	float maxDist = 1000.f;
 	float redDist = pos.distance( redInkwell->pos );
 	float greenDist = pos.distance( greenInkwell->pos );
 	float blueDist = pos.distance( blueInkwell->pos );
 
-	if( ( inkColor == NO_COLOR || inkColor == RED ) && redDist < maxDist && redDist < greenDist && redDist < blueDist )
+	if(/* ( inkColor == NO_COLOR || inkColor == RED ) && */redDist < maxDist && redDist < greenDist && redDist < blueDist )
 	{
 		redInkwell->pos += ( pos - redInkwell->pos - redMid ) / 2.f;
 		inkColor = RED;
 	}
-	else if( ( inkColor == NO_COLOR || inkColor == GREEN ) && greenDist < maxDist && greenDist < redDist && greenDist < blueDist )
+	else if(/* ( inkColor == NO_COLOR || inkColor == GREEN ) && */greenDist < maxDist && greenDist < redDist && greenDist < blueDist )
 	{
 		greenInkwell->pos += ( pos - greenInkwell->pos - greenMid ) / 2.f;
 		inkColor = GREEN;
 	}
-	else if( ( inkColor == NO_COLOR || inkColor == BLUE ) && blueDist < maxDist && blueDist < greenDist && blueDist < redDist )
+	else if(/* ( inkColor == NO_COLOR || inkColor == BLUE ) && */blueDist < maxDist && blueDist < greenDist && blueDist < redDist )
 	{
 		blueInkwell->pos += ( pos - blueInkwell->pos - blueMid ) / 2.f;
 		inkColor = BLUE;

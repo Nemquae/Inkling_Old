@@ -154,6 +154,7 @@ public:
 
 	ofImage							flowToolsLogoImage;
 	bool							showLogo;
+	int								resetTimerHack;
 
 	// InputDraw
 	flowTools::ftDrawInputForces	inputForces;
