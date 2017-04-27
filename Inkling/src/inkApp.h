@@ -207,6 +207,9 @@ public:
 	void							greenButtonPressed();
 	void							blueButtonPressed();
 
+	float							inkStartTime;
+	float							inkIntervalTime;
+
 	// GUI
 	ofxPanel						settingsPanel;
 	ofxPanel						buttonsPanel;
