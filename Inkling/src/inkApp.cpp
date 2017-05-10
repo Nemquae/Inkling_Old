@@ -1576,6 +1576,52 @@ void inkApp::keyReleased( int key )
 	}
 }
 
+//void inkApp::touchDown(ofTouchEventArgs &touch)
+//{
+//	if (touches.size() < 5) touches.push_back(inkFinger(touch));
+//	if (ofDist(redInkwell->pos.x, redInkwell->pos.y, touch.x, touch.y) < 1000.f)
+//		redInkwell->get<inkCharacterController>()->fingerIndex = touches.size() - 1;
+//	else if (ofDist(greenInkwell->pos.x, greenInkwell->pos.y, touch.x, touch.y) < 1000.f)
+//		greenInkwell->get<inkCharacterController>()->fingerIndex = touches.size() - 1;
+//	else if (ofDist(blueInkwell->pos.x, blueInkwell->pos.y, touch.x, touch.y) < 1000.f)
+//		blueInkwell->get<inkCharacterController>()->fingerIndex = touches.size() - 1;
+//}
+//
+//void inkApp::touchMoved(ofTouchEventArgs & touch)
+//{
+//	ofVec2f pos( touch.x, touch.y );
+//	ofVec2f redMid = ofVec2f( redInkwell->get<inkCharacterController>()->width / 2.f, redInkwell->get<inkCharacterController>()->height / 2.f );
+//	ofVec2f greenMid = ofVec2f( greenInkwell->get<inkCharacterController>()->width / 2.f, greenInkwell->get<inkCharacterController>()->height / 2.f );
+//	ofVec2f blueMid = ofVec2f( blueInkwell->get<inkCharacterController>()->width / 2.f, blueInkwell->get<inkCharacterController>()->height / 2.f );
+//
+//	int indexOfMovedTouch = -1;
+//	for (int i = 0; i < touches.size(); ++i)
+//	{
+//		if (touches[i].id == touch.id) indexOfMovedTouch = i;
+//	}
+//	if (indexOfMovedTouch != -1)
+//		touches[indexOfMovedTouch].update(touch);
+//
+//	if (redInkwell->get<inkCharacterController>()->fingerIndex == indexOfMovedTouch)
+//	{
+//		float tempXVel = cos(touches[indexOfMovedTouch].angle) * touches[indexOfMovedTouch].accel;
+//		float tempYVel = sin(touches[indexOfMovedTouch].angle) * touches[indexOfMovedTouch].accel;
+//		redInkwell->pos += (pos - redInkwell->pos - redMid) / 2.f;
+//	}
+//	else if (greenInkwell->get<inkCharacterController>()->fingerIndex == indexOfMovedTouch)
+//	{
+//		float tempXVel = cos(touches[indexOfMovedTouch].angle) * touches[indexOfMovedTouch].accel;
+//		float tempYVel = sin(touches[indexOfMovedTouch].angle) * touches[indexOfMovedTouch].accel;
+//		greenInkwell->pos += (pos - greenInkwell->pos - greenMid) / 2.f;
+//	}
+//	else if (redInkwell->get<inkCharacterController>()->fingerIndex == indexOfMovedTouch)
+//	{
+//		float tempXVel = cos(touches[indexOfMovedTouch].angle) * touches[indexOfMovedTouch].accel;
+//		float tempYVel = sin(touches[indexOfMovedTouch].angle) * touches[indexOfMovedTouch].accel;
+//		redInkwell->pos += (pos - redInkwell->pos - redMid) / 2.f;
+//	}
+//}
+
 void inkApp::touchMoved( int x, int y, int id)
 {
 	ofVec2f pos( x, y );

@@ -136,6 +136,9 @@
     <ClCompile Include="src\inkLiveTester.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\inkFinger.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="src">
@@ -597,6 +600,9 @@
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="src\inkLiveTester.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="src\inkFinger.h">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>

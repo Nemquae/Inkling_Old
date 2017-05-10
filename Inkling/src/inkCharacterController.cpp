@@ -40,6 +40,7 @@ void inkCharacterController::setup()
 	isRightPressed = false;
 	isUpPressed = false;
 	isDownPressed = false;
+	fingerIndex = 0;
 }
 
 void inkCharacterController::update()

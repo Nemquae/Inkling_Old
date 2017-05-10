@@ -25,6 +25,7 @@
 #include "inkGameObjectFactory.h"
 #include "inkLevelController.h"
 #include "inkLiveTester.h"
+#include "inkFinger.h"
 
 #if (TARGET_OS_IPHONE_SIMULATOR) || (TARGET_OS_IPHONE) || (TARGET_IPHONE) || (TARGET_IOS)
 #include "ofxiOS.h"
@@ -155,6 +156,8 @@ public:
 	ofImage							flowToolsLogoImage;
 	bool							showLogo;
 	int								resetTimerHack;
+
+	vector<inkFinger>				touches;
 
 	// InputDraw
 	flowTools::ftDrawInputForces	inputForces;
@@ -428,6 +431,9 @@ public:
 
 	//void							keyPressed(int key);
 	void							keyReleased( int key );
+	//void							touchDown(ofTouchEventArgs & touch);
+	//void							touchMoved(ofTouchEventArgs & touch);
+	//void							touchUp(ofTouchEventArgs & touch);
 	void							touchMoved( int x, int y, int id );
 	void							mouseMoved( int x, int y );
 	void							mouseDragged( int x, int y, int button );
